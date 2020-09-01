@@ -1,429 +1,376 @@
 <!DOCTYPE html>
-<html>
-	<title>ME</title>
-	<meta charset="UTF-8" />
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css" />
-	<link
-		rel="stylesheet"
-		href="https://fonts.googleapis.com/css?family=Lato"
-	/>
-	<link
-		rel="stylesheet"
-		href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-	/>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>Freelancer - Start Bootstrap Theme</title>
 
-	<link rel="stylesheet" href="./assets/styles/w3.css" />
-	<link rel="stylesheet" href="./assets/styles/styles.css" />
-	<body>
-		<!-- Navbar (sit on top) -->
-		<div class="w3-top">
-			<div class="w3-bar" id="myNavbar">
-				<a
-					class="w3-bar-item w3-button w3-hover-black w3-hide-medium w3-hide-large w3-right"
-					href="javascript:void(0);"
-					onclick="toggleFunction()"
-					title="Toggle Navigation Menu"
-				>
-					<i class="fa fa-bars"></i>
-				</a>
-				<a href="#home" class="w3-bar-item w3-button">INICIO</a>
-				<a href="#about" class="w3-bar-item w3-button w3-hide-small"
-					><i class="fa fa-user"></i> SOBRE MÍ</a
-				>
-				<a href="#portfolio" class="w3-bar-item w3-button w3-hide-small"
-					><i class="fa fa-th"></i> PORTAFOLIO</a
-				>
-				<a href="#contact" class="w3-bar-item w3-button w3-hide-small"
-					><i class="fa fa-envelope"></i> CONTACTO</a
-				>
-				<a
-					href="#"
-					class="w3-bar-item w3-button w3-hide-small w3-right w3-hover-red"
-				>
-					<i class="fa fa-search"></i>
-				</a>
-			</div>
+        <!-- Core theme CSS (includes Bootstrap)-->
+        <link href="css/bootstrap.css" rel="stylesheet">
 
-			<!-- Navbar on small screens -->
-			<div
-				id="navDemo"
-				class="w3-bar-block w3-white w3-hide w3-hide-large w3-hide-medium"
-			>
-				<a
-					href="#about"
-					class="w3-bar-item w3-button"
-					onclick="toggleFunction()"
-					>SOBRE MÍ</a
-				>
-				<a
-					href="#portfolio"
-					class="w3-bar-item w3-button"
-					onclick="toggleFunction()"
-					>PORTAFOLIO</a
-				>
-				<a
-					href="#contact"
-					class="w3-bar-item w3-button"
-					onclick="toggleFunction()"
-					>CONTACTO</a
-				>
-				<a href="#" class="w3-bar-item w3-button">SEARCH</a>
-			</div>
-		</div>
+        <!-- Lato font & Font Awesome CSS -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 
-		<!-- First Parallax Image with Logo Text -->
-		<div class="bgimg-1 w3-display-container" id="home">
-			<div class="w3-display-middle" style="white-space: nowrap;">
-				<span
-					class="w3-center w3-padding-large w3-black w3-xlarge w3-wide w3-animate-opacity"
-				>
-					SANTIAGO LÓPEZ
-				</span>
-			</div>
-		</div>
+        <!-- Fonts CSS-->
+        <!-- <link rel="stylesheet" href="css/heading.css">
+        <link rel="stylesheet" href="css/body.css"> -->
 
-		<!-- Container (About Section) -->
-		<div class="w3-content w3-container w3-padding-64" id="about">
-			<h3 class="w3-center">SOBRE MÍ</h3>
-			<p class="w3-center"><em>I love coding</em></p>
-			<p>
-				We have created a fictional "personal" website/blog, and our
-				fictional character is a hobby photographer. Lorem ipsum dolor
-				sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-				incididunt ut labore et dolore magna aliqua. Ut enim ad minim
-				veniam, quis nostrud exercitation ullamco laboris nisi ut
-				aliquip ex ea commodo consequat. Duis aute irure dolor in
-				reprehenderit in voluptate velit esse cillum dolore eu fugiat
-				nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-				sunt in culpa qui officia deserunt mollit anim id est laborum
-				consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
-				labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-				nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-				commodo consequat.
-			</p>
-			<div class="w3-row">
-				<div class="w3-col m6 w3-center w3-padding-large">
-					<p>
-						<b><i class="fa fa-user w3-margin-right"></i>My Name</b>
-					</p>
-					<br />
-					<img
-						src="/w3images/avatar_hat.jpg"
-						class="w3-round w3-image w3-opacity w3-hover-opacity-off"
-						alt="Photo of Me"
-						width="500"
-						height="333"
-					/>
-				</div>
+        <link rel="stylesheet" href="./css/styles.css">
+    </head>
+    <body id="page-top">
+        <nav class="navbar navbar-expand-lg fixed-top text-primary" id="mainNav">
+            <div class="container"><a class="navbar-brand js-scroll-trigger text-secondary" href="#page-top">SL</a>
+                <button class="navbar-toggler navbar-toggler-right font-weight-bold bg-primary rounded" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">Menu <i class="fas fa-bars"></i></button>
+                <div class="collapse navbar-collapse" id="navbarResponsive">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-3 rounded js-scroll-trigger text-secondary" href="#about">SOBRE MÍ</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-3 rounded js-scroll-trigger text-secondary" href="#portfolio">PORTAFOLIO</a>
+                        </li>
+                        <li class="nav-item mx-0 mx-lg-1"><a class="nav-link py-2 px-0 px-lg-3 rounded js-scroll-trigger text-secondary" href="#contact">CONTACTO</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <header class="masthead text-secondary text-center">
+            <div class="container d-flex align-items-center flex-column">
+                <h1 class="masthead-heading mb-0">SANTIAGO LÓPEZ</h1>
+                <!-- Masthead Subheading-->
+                <p class="pre-wrap masthead-subheading font-weight-light mb-0 mt-2">Desarrollador Web</p>
+            </div>
+        </header>
+        <section class="page-section bg-secondary text-primary mb-2" id="about">
+            <div class="container">
+                <!-- About Section Heading-->
+                <div class="text-center mb-4">
+                    <h2 class="page-section-heading d-inline-block">SOBRE MÍ</h2>
+                </div>
+                <!-- About Section Content-->
+                <div class="row mt-4">
+                    <div class="col-lg-4 ml-auto">
+                        <p class="text-justify lead mb-4">
+                            Hola, soy <strong>Santiago L&oacute;pez</strong>, Frontend Developer especializado en 
+                            Javascript y librerias como <strong>ReactJS</strong>. Soy Colombiano y actualmente vivo en Bucaramanga,
+                            Santander.
+                        </p>
+                        <p class="text-justify lead mt-4">
+                            Este portafolio esta pensado para dar a conocer los proyectos en los cuales he trabajado e igualmente 
+                            mostrarte las tecnologias con la que trabajo.
+                        </p>
+                    </div>
+                    <div class="col-lg-4 d-flex justify-content-center mr-auto mt-2">
+                        <img src="./assets/img/profile/profile.jpg" alt="profile" class="aboutSection-profileImage img-fluid">
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="page-section portfolio bg-primary" id="portfolio">
+            <div class="container">
+                <!-- Portfolio Section Heading-->
+                <div class="text-center mb-2">
+                    <h2 class="page-section-heading text-primary d-inline-block text-secondary">PORTAFOLIO</h2>
+                </div>
+                <hr class="bg-secondary"/>
+                <!-- Portfolio Grid Items-->
+                <div class="row justify-content-center">
+                    <!-- Portfolio Items-->
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal0">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/Portfolio.PNG" alt="Log Cabin"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/CSM_HuaweiiScreen.PNG" alt="Tasty Cake"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal2">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/circus.png" alt="Circus Tent"/>
+                        </div>
+                    </div>
+                    <!-- <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal3">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/game.png" alt="Controller"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal4">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/safe.png" alt="Locked Safe"/>
+                        </div>
+                    </div>
+                    <div class="col-md-6 col-lg-4 mb-5">
+                        <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal5">
+                            <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
+                                <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
+                            </div><img class="img-fluid" src="assets/img/portfolio/submarine.png" alt="Submarine"/>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+            <div class="container">
+                <div class="text-center mb-2">
+                    <h2 class="page-section-heading text-primary d-inline-block text-secondary">Conocimientos</h2>
+                </div>
+                <hr class="bg-secondary"/>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <div class="progress-knowledge-bar">Html, Css & Javascript</div>
+                <div class="progress-knowledge-bar">React Js</div>
+                <div class="progress-knowledge-bar">.Net Core</div>
+                <div class="progress-knowledge-bar">Sass</div>
+                <div class="progress-knowledge-bar">SQL</div>
+            </div>
+        </section>
+        <!-- Portfolio Modal-->
+        <div class="portfolio-modal modal fade" id="portfolioModal0" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal0Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-primary mb-0">Portafolio</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/Portfolio.PNG" alt="Log Cabin"/>
+                                    <!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="portfolioModal1" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal1Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-primary mb-0">Registrador de Datos</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/CSM_HuaweiiScreen.PNG" alt="Tasty Cake"/>
+                                    <!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="portfolioModal2" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal2Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-primary mb-0">Circus Tent</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/circus.png" alt="Circus Tent"/>
+                                    <!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="portfolioModal3" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal3Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-primary mb-0">Controller</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/game.png" alt="Controller"/>
+                                    <!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="portfolioModal4" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal4Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-primary mb-0">Locked Safe</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/safe.png" alt="Locked Safe"/>
+                                    <!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="portfolio-modal modal fade" id="portfolioModal5" tabindex="-1" role="dialog" aria-labelledby="#portfolioModal5Label" aria-hidden="true">
+            <div class="modal-dialog modal-xl" role="document">
+                <div class="modal-content">
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times"></i></span></button>
+                    <div class="modal-body text-center">
+                        <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-lg-8">
+                                    <!-- Portfolio Modal - Title-->
+                                    <h2 class="portfolio-modal-title text-primary mb-0">Submarine</h2>
+                                    <!-- Icon Divider-->
+                                    <div class="divider-custom">
+                                        <div class="divider-custom-line"></div>
+                                        <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                                        <div class="divider-custom-line"></div>
+                                    </div>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/submarine.png" alt="Submarine"/>
+                                    <!-- Portfolio Modal - Text-->
+                                    <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
+                                    <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <section class="page-section bg-secondary" id="contact">
+            <div class="container">
+                <!-- Contact Section Heading-->
+                <div class="text-center">
+                    <h2 class="page-section-heading text-primary d-inline-block mb-0">CONTACT</h2>
+                </div>
+                <!-- Icon Divider-->
+                <div class="divider-custom">
+                    <div class="divider-custom-line"></div>
+                    <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
+                    <div class="divider-custom-line"></div>
+                </div>
+                <!-- Contact Section Content-->
+                <div class="row justify-content-center">
+                    <div class="col-lg-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="icon-contact mb-3"><i class="fas fa-mobile-alt"></i></div>
+                            <div class="text-muted">Phone</div>
+                            <div class="lead font-weight-bold">(555) 555-5555</div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4">
+                        <div class="d-flex flex-column align-items-center">
+                            <div class="icon-contact mb-3"><i class="far fa-envelope"></i></div>
+                            <div class="text-muted">Email</div><a class="lead font-weight-bold" href="mailto:name@example.com">name@example.com</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="footer text-center">
+            <div class="container">
+                <div class="row">
+                    <!-- Footer Location-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="mb-4">LOCATION</h4>
+                        <p class="pre-wrap lead mb-0">2215 John Daniel Drive
+Clark, MO 65243</p>
+                    </div>
+                    <!-- Footer Social Icons-->
+                    <div class="col-lg-4 mb-5 mb-lg-0">
+                        <h4 class="mb-4">AROUND THE WEB</h4><a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/StartBootstrap"><i class="fab fa-fw fa-facebook-f"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.twitter.com/sbootstrap"><i class="fab fa-fw fa-twitter"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/in/startbootstrap"><i class="fab fa-fw fa-linkedin-in"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.dribble.com/startbootstrap"><i class="fab fa-fw fa-dribbble"></i></a>
+                    </div>
+                    <!-- Footer About Text-->
+                    <div class="col-lg-4">
+                        <h4 class="mb-4">ABOUT FREELANCER</h4>
+                        <p class="text-justify lead mb-0">Freelance is a free to use, MIT licensed Bootstrap theme created by Start Bootstrap</p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- Copyright Section-->
+        <section class="copyright py-4 text-center text-white">
+            <div class="container"><small class="pre-wrap">Copyright © Your Website 2020</small></div>
+        </section>
+        <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
+        <div class="scroll-to-top d-lg-none position-fixed"><a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a></div>
 
-				<!-- Hide this text on small devices -->
-				<div class="w3-col m6 w3-hide-small w3-padding-large">
-					<p>
-						Welcome to my website. I am lorem ipsum consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut
-						labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut
-						aliquip ex ea commodo consequat. Duis aute irure dolor
-						in reprehenderit in voluptate velit esse cillum dolore
-						eu fugiat nulla pariatur. Excepteur sint occaecat
-						cupidatat non proident, sunt in culpa qui officia
-						deserunt mollit anim id est laborum consectetur
-						adipiscing elit, sed do eiusmod tempor incididunt ut
-						labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut
-						aliquip ex ea commodo consequat.
-					</p>
-				</div>
-			</div>
-			<p class="w3-large w3-center w3-padding-16">Im really good at:</p>
-			<p class="w3-wide">
-				<i class="fa fa-camera"></i>Html, Css & Javascript
-			</p>
-			<div class="w3-light-grey">
-				<div
-					class="w3-container w3-padding-small w3-dark-grey w3-center"
-					style="width: 90%;"
-				>
-					90%
-				</div>
-			</div>
-			<p class="w3-wide"><i class="fa fa-laptop"></i>C# .NET CORE</p>
-			<div class="w3-light-grey">
-				<div
-					class="w3-container w3-padding-small w3-dark-grey w3-center"
-					style="width: 85%;"
-				>
-					85%
-				</div>
-			</div>
-			<p class="w3-wide"><i class="fa fa-photo"></i>UI DESIGN</p>
-			<div class="w3-light-grey">
-				<div
-					class="w3-container w3-padding-small w3-dark-grey w3-center"
-					style="width: 75%;"
-				>
-					75%
-				</div>
-			</div>
-		</div>
+        <!-- Font Awesome icons (free version)-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/js/all.min.js" crossorigin="anonymous"></script>
+        <!-- Bootstrap core JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
+        <!-- Third party plugin JS-->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+        <!-- Contact form JS-->
+        <script src="assets/mail/jqBootstrapValidation.js"></script>
+        <script src="assets/mail/contact_me.js"></script>
+        <!-- Core theme JS-->
+        <script src="js/scripts.js"></script>
 
-		<div class="w3-row w3-center w3-dark-grey w3-padding-16">
-			<div class="w3-quarter w3-section">
-				<span class="w3-xlarge">14+</span><br />
-				Partners
-			</div>
-			<div class="w3-quarter w3-section">
-				<span class="w3-xlarge">55+</span><br />
-				Projects Done
-			</div>
-			<div class="w3-quarter w3-section">
-				<span class="w3-xlarge">89+</span><br />
-				Happy Clients
-			</div>
-			<div class="w3-quarter w3-section">
-				<span class="w3-xlarge">150+</span><br />
-				Meetings
-			</div>
-		</div>
-
-		<!-- Second Parallax Image with Portfolio Text -->
-		<div class="bgimg-2 w3-display-container w3-opacity-min">
-			<div class="w3-display-middle">
-				<span class="w3-xxlarge w3-text-white w3-wide">PORTFOLIO</span>
-			</div>
-		</div>
-
-		<!-- Container (Portfolio Section) -->
-		<div class="w3-content w3-container w3-padding-64" id="portfolio">
-			<h3 class="w3-center">MY WORK</h3>
-			<p class="w3-center">
-				<em
-					>Here are some of my latest lorem work ipsum tipsum.<br />
-					Click on the images to make them bigger</em
-				>
-			</p>
-			<br />
-
-			<!-- Responsive Grid. Four columns on tablets, laptops and desktops. Will stack on mobile devices/small screens (100% width) -->
-			<div class="w3-row-padding w3-center">
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p1.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="The mist over the mountains"
-					/>
-				</div>
-
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p2.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="Coffee beans"
-					/>
-				</div>
-
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p3.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="Bear closeup"
-					/>
-				</div>
-
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p4.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="Quiet ocean"
-					/>
-				</div>
-			</div>
-
-			<div class="w3-row-padding w3-center w3-section">
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p5.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="The mist"
-					/>
-				</div>
-
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p6.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="My beloved typewriter"
-					/>
-				</div>
-
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p7.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="Empty ghost train"
-					/>
-				</div>
-
-				<div class="w3-col m3">
-					<img
-						src="/w3images/p8.jpg"
-						style="width: 100%;"
-						onclick="onClick(this)"
-						class="w3-hover-opacity"
-						alt="Sailing"
-					/>
-				</div>
-				<button
-					class="w3-button w3-padding-large w3-light-grey"
-					style="margin-top: 64px;"
-				>
-					LOAD MORE
-				</button>
-			</div>
-		</div>
-
-		<!-- Modal for full size images on click-->
-		<div
-			id="modal01"
-			class="w3-modal w3-black"
-			onclick="this.style.display='none'"
-		>
-			<span
-				class="w3-button w3-large w3-black w3-display-topright"
-				title="Close Modal Image"
-				><i class="fa fa-remove"></i
-			></span>
-			<div
-				class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64"
-			>
-				<img id="img01" class="w3-image" />
-				<p id="caption" class="w3-opacity w3-large"></p>
-			</div>
-		</div>
-
-		<!-- Third Parallax Image with Portfolio Text -->
-		<div class="bgimg-3 w3-display-container w3-opacity-min">
-			<div class="w3-display-middle">
-				<span class="w3-xxlarge w3-text-white w3-wide">CONTACT</span>
-			</div>
-		</div>
-
-		<!-- Container (Contact Section) -->
-		<div class="w3-content w3-container w3-padding-64" id="contact">
-			<h3 class="w3-center">WHERE I WORK</h3>
-			<p class="w3-center"><em>I'd love your feedback!</em></p>
-
-			<div class="w3-row w3-padding-32 w3-section">
-				<div class="w3-col m4 w3-container">
-					<img
-						src="/w3images/map.jpg"
-						class="w3-image w3-round"
-						style="width: 100%;"
-					/>
-				</div>
-				<div class="w3-col m8 w3-panel">
-					<div class="w3-large w3-margin-bottom">
-						<i
-							class="fa fa-map-marker fa-fw w3-hover-text-black w3-xlarge w3-margin-right"
-						></i>
-						Chicago, US<br />
-						<i
-							class="fa fa-phone fa-fw w3-hover-text-black w3-xlarge w3-margin-right"
-						></i>
-						Phone: +00 151515<br />
-						<i
-							class="fa fa-envelope fa-fw w3-hover-text-black w3-xlarge w3-margin-right"
-						></i>
-						Email: mail@mail.com<br />
-					</div>
-					<p>
-						Swing by for a cup of <i class="fa fa-coffee"></i>, or
-						leave me a note:
-					</p>
-					<form action="/action_page.php" target="_blank">
-						<div
-							class="w3-row-padding"
-							style="margin: 0 -16px 8px -16px;"
-						>
-							<div class="w3-half">
-								<input
-									class="w3-input w3-border"
-									type="text"
-									placeholder="Name"
-									required
-									name="Name"
-								/>
-							</div>
-							<div class="w3-half">
-								<input
-									class="w3-input w3-border"
-									type="text"
-									placeholder="Email"
-									required
-									name="Email"
-								/>
-							</div>
-						</div>
-						<input
-							class="w3-input w3-border"
-							type="text"
-							placeholder="Message"
-							required
-							name="Message"
-						/>
-						<button
-							class="w3-button w3-black w3-right w3-section"
-							type="submit"
-						>
-							<i class="fa fa-paper-plane"></i> SEND MESSAGE
-						</button>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		<!-- Footer -->
-		<footer
-			class="w3-center w3-black w3-padding-64 w3-opacity w3-hover-opacity-off"
-		>
-			<a href="#home" class="w3-button w3-light-grey"
-				><i class="fa fa-arrow-up w3-margin-right"></i>To the top</a
-			>
-			<div class="w3-xlarge w3-section">
-				<i class="fa fa-facebook-official w3-hover-opacity"></i>
-				<i class="fa fa-instagram w3-hover-opacity"></i>
-				<i class="fa fa-snapchat w3-hover-opacity"></i>
-				<i class="fa fa-pinterest-p w3-hover-opacity"></i>
-				<i class="fa fa-twitter w3-hover-opacity"></i>
-				<i class="fa fa-linkedin w3-hover-opacity"></i>
-			</div>
-			<p>
-				Powered by
-				<a
-					href="https://www.w3schools.com/w3css/default.asp"
-					title="W3.CSS"
-					target="_blank"
-					class="w3-hover-text-green"
-					>w3.css</a
-				>
-			</p>
-		</footer>
-
-		<script src="./assets/js/w3.js"></script>
-	</body>
+        <!-- <script src="js/index.js"></script> -->
+    </body>
 </html>
