@@ -43,7 +43,7 @@
                 <p class="pre-wrap masthead-subheading font-weight-light mb-0 mt-2">Desarrollador Web</p>
             </div>
         </header>
-        <section class="page-section bg-secondary text-primary mb-2" id="about">
+        <section class="page-section bg-secondary text-primary" id="about">
             <div class="container">
                 <!-- About Section Heading-->
                 <div class="text-center mb-4">
@@ -66,15 +66,32 @@
                         <img src="./assets/img/profile/profile.jpg" alt="profile" class="aboutSection-profileImage img-fluid">
                     </div>
                 </div>
+                <hr class="bg-secondary"/>
+                <div class="container">
+                    <div class="text-center mb-2">
+                        <h2 class="page-section-heading text-primary d-inline-block text-primary mb-4">Conocimientos</h2>
+                    </div>
+                    HTML, CSS, JS
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"><strong>90%</strong></div>
+                    </div>
+                    ReactJS 
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 50%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">50%</div>
+                    </div>
+                    .NET CORE
+                    <div class="progress mb-4" style="height: 20px;">
+                        <div class="progress-bar" role="progressbar" style="width: 90%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">40%</div>
+                    </div>
+                </div>
             </div>
         </section>
-        <section class="page-section portfolio bg-primary" id="portfolio">
+        <!-- Portfolio Section Heading-->            
+        <div class="portfolioSection-heading text-center" id="portfolio">
+            <h2 class="page-section-heading text-primary d-inline-block text-secondary">PORTAFOLIO</h2>
+        </div>
+        <section class="page-section portfolio bg-secondary">            
             <div class="container">
-                <!-- Portfolio Section Heading-->
-                <div class="text-center mb-2">
-                    <h2 class="page-section-heading text-primary d-inline-block text-secondary">PORTAFOLIO</h2>
-                </div>
-                <hr class="bg-secondary"/>
                 <!-- Portfolio Grid Items-->
                 <div class="row justify-content-center">
                     <!-- Portfolio Items-->
@@ -89,7 +106,7 @@
                         <div class="portfolio-item mx-auto" data-toggle="modal" data-target="#portfolioModal1">
                             <div class="portfolio-item-caption d-flex align-items-center justify-content-center h-100 w-100">
                                 <div class="portfolio-item-caption-content text-center text-white"><i class="fas fa-plus fa-3x"></i></div>
-                            </div><img class="img-fluid" src="assets/img/portfolio/CSM_HuaweiiScreen.PNG" alt="Tasty Cake"/>
+                            </div><img class="img-fluid" src="assets/img/portfolio/data-register.PNG" alt="Tasty Cake"/>
                         </div>
                     </div>
                     <div class="col-md-6 col-lg-4 mb-5">
@@ -121,20 +138,6 @@
                         </div>
                     </div> -->
                 </div>
-            </div>
-            <div class="container">
-                <div class="text-center mb-2">
-                    <h2 class="page-section-heading text-primary d-inline-block text-secondary">Conocimientos</h2>
-                </div>
-                <hr class="bg-secondary"/>
-                <div class="progress">
-                    <div class="progress-bar" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                </div>
-                <div class="progress-knowledge-bar">Html, Css & Javascript</div>
-                <div class="progress-knowledge-bar">React Js</div>
-                <div class="progress-knowledge-bar">.Net Core</div>
-                <div class="progress-knowledge-bar">Sass</div>
-                <div class="progress-knowledge-bar">SQL</div>
             </div>
         </section>
         <!-- Portfolio Modal-->
@@ -181,7 +184,7 @@
                                         <div class="divider-custom-icon"><i class="fas fa-star"></i></div>
                                         <div class="divider-custom-line"></div>
                                     </div>
-                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/CSM_HuaweiiScreen.PNG" alt="Tasty Cake"/>
+                                    <!-- Portfolio Modal - Image--><img class="img-fluid rounded mb-5" src="assets/img/portfolio/data-register.PNG" alt="Tasty Cake"/>
                                     <!-- Portfolio Modal - Text-->
                                     <p class="mb-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit.Mollitia neque assumenda ipsam nihil, molestias magnam, recusandae quos quis inventore quisquam velit asperiores, vitae? Reprehenderit soluta, eos quod consequuntur itaque. Nam.</p>
                                     <button class="btn btn-primary" href="#" data-dismiss="modal"><i class="fas fa-times fa-fw"></i>Close Window</button>
@@ -300,12 +303,12 @@
                 </div>
             </div>
         </div>
+        <!-- Contact Section Heading-->
+        <div class="contactSection-heading">
+            <h2 class="page-section-heading text-secondary d-inline-block mb-0">CONTACTO</h2>
+        </div>        
         <section class="page-section bg-secondary" id="contact">
             <div class="container">
-                <!-- Contact Section Heading-->
-                <div class="text-center">
-                    <h2 class="page-section-heading text-primary d-inline-block mb-0">CONTACT</h2>
-                </div>
                 <!-- Icon Divider-->
                 <div class="divider-custom">
                     <div class="divider-custom-line"></div>
@@ -317,31 +320,37 @@
                     <div class="col-lg-4">
                         <div class="d-flex flex-column align-items-center">
                             <div class="icon-contact mb-3"><i class="fas fa-mobile-alt"></i></div>
-                            <div class="text-muted">Phone</div>
-                            <div class="lead font-weight-bold">(555) 555-5555</div>
+                            <div class="text-muted">Teléfono</div>
+                            <div class="lead font-weight-bold">(+57) 310 5658210</div>
                         </div>
                     </div>
                     <div class="col-lg-4">
                         <div class="d-flex flex-column align-items-center">
                             <div class="icon-contact mb-3"><i class="far fa-envelope"></i></div>
-                            <div class="text-muted">Email</div><a class="lead font-weight-bold" href="mailto:name@example.com">name@example.com</a>
+                            <div class="text-muted">Email</div><a class="lead font-weight-bold" href="mailto:name@example.com">asantiago0034@gmail.com</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <footer class="footer text-center">
+        <footer class="footer text-center text-primary">
             <div class="container">
                 <div class="row">
                     <!-- Footer Location-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
                         <h4 class="mb-4">LOCATION</h4>
-                        <p class="pre-wrap lead mb-0">2215 John Daniel Drive
-Clark, MO 65243</p>
+                        <p class="pre-wrap lead mb-0">
+                            2215 John Daniel Drive
+                            Clark, MO 65243
+                        </p>
                     </div>
                     <!-- Footer Social Icons-->
                     <div class="col-lg-4 mb-5 mb-lg-0">
-                        <h4 class="mb-4">AROUND THE WEB</h4><a class="btn btn-outline-light btn-social mx-1" href="https://www.facebook.com/StartBootstrap"><i class="fab fa-fw fa-facebook-f"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.twitter.com/sbootstrap"><i class="fab fa-fw fa-twitter"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.linkedin.com/in/startbootstrap"><i class="fab fa-fw fa-linkedin-in"></i></a><a class="btn btn-outline-light btn-social mx-1" href="https://www.dribble.com/startbootstrap"><i class="fab fa-fw fa-dribbble"></i></a>
+                        <h4 class="mb-4">Social</h4>
+                        <a class="btn btn-outline-light btn-social mx-1 bg-primary" href="https://www.facebook.com/StartBootstrap"><i class="fab fa-fw fa-facebook-f"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1 bg-primary" href="https://www.twitter.com/sbootstrap"><i class="fab fa-fw fa-twitter"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1 bg-primary" href="https://www.linkedin.com/in/startbootstrap"><i class="fab fa-fw fa-linkedin-in"></i></a>
+                        <a class="btn btn-outline-light btn-social mx-1 bg-primary" href="https://www.dribble.com/startbootstrap"><i class="fab fa-fw fa-dribbble"></i></a>
                     </div>
                     <!-- Footer About Text-->
                     <div class="col-lg-4">
@@ -353,7 +362,7 @@ Clark, MO 65243</p>
         </footer>
         <!-- Copyright Section-->
         <section class="copyright py-4 text-center text-white">
-            <div class="container"><small class="pre-wrap">Copyright © Your Website 2020</small></div>
+            <div class="container"><small class="pre-wrap">Copyright © Santiago L&oacute;pez 2020</small></div>
         </section>
         <!-- Scroll to Top Button (Only visible on small and extra-small screen sizes)-->
         <div class="scroll-to-top d-lg-none position-fixed"><a class="js-scroll-trigger d-block text-center text-white rounded" href="#page-top"><i class="fa fa-chevron-up"></i></a></div>
