@@ -25,20 +25,122 @@ html {
 	filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.7));
 }
 
-.portfolioSection-heading, .contactSection-heading{
+.portfolioSection-heading,
+.contactSection-heading {
 	background-image: url("https://images.unsplash.com/photo-1503252947848-7338d3f92f31?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1189&q=80");
 	min-height: 400px;
 	display: flex;
 	justify-content: center;
 	align-items: center;
 }
+.resumeSection {
+	width: 100%;
+	max-height: 1000px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
 
-.masthead, .portfolioSection-heading, .contactSection-heading{
+.resumeSectionTitle h1 {
+	font-size: 49px;
+}
+
+#resumeImgContainer {
+	height: 404px;
+	background-image: url("../assets/img/resume/resume.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+
+	animation: DecreaseSize .5s ease-in-out;
+}
+
+#resumeImgContainer:hover {
+	animation: IncreaseSize .5s ease-in-out;
+	animation-fill-mode: forwards;
+	cursor: pointer;
+}
+
+.masthead,
+.portfolioSection-heading,
+.contactSection-heading {
 	background-attachment: fixed;
 	background-position: center;
 	background-repeat: no-repeat;
 	background-size: cover;
+}
 
+.vl {
+	border-left: 3px solid rgba(0, 0, 0, 0.7);
+	height: 505px;
+}
+
+.resumeModalImg{
+	width: 90%;
+	height: 100%;
+}
+
+@media (max-width: 640px) {
+	.vl{
+		display: none;
+	}
+
+	.resumeSection{
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.resumeSectionTitle{
+		margin-bottom: 20px;
+	}
+
+	.resumeSectionTitle, .resumeSectionTitle h1 {
+		width: 90%;
+		text-align: center;
+	}
+
+	#resumeImgContainer{
+		width: 83%;
+	}
+
+	.navbar-nav{
+		align-items: flex-end;
+	}
+}
+
+/* @media (max-width: 1007px) {
+
+} */
+
+@media (min-width: 1008px) {
+	.resumeSection{
+		justify-content: center;
+		align-items: center;
+	}
+
+	.resumeSectionTitle {
+		width: 40%;
+	}
+
+	.resumeSectionTitle h1 {
+		text-align: justify;
+	}
+
+	#resumeImgContainer{
+		width: 22%;
+	}
+}
+
+/* @media (max-width: 600px) {
+
+} */
+
+@media only screen and (max-device-width: 769px) {
+	.masthead,
+	.portfolioSection-heading {
+		background-attachment: scroll;
+		min-height: 400px;
+	}
 }
 
 @-webkit-keyframes OpacityDown {
@@ -74,11 +176,25 @@ html {
 	}
 }
 
-@media only screen and (max-device-width: 769px) {
-	.masthead, .portfolioSection-heading {
-	  background-attachment: scroll;
-	  min-height: 400px;
+@keyframes IncreaseSize {
+	0% {
+		opacity: 1;
+		transform: scale(1.0);
 	}
+	100% {
+		opacity: .5;
+		transform: scale(1.1);
+		animation-play-state: paused;
+	}
+}
 
-	
+@keyframes DecreaseSize {
+	0% {
+		opacity: .5;
+		transform: scale(1.1);
+	}
+	100% {
+		opacity: 1;
+		transform: scale(1.0);
+	}
 }
