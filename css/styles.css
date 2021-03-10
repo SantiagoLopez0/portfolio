@@ -46,6 +46,7 @@ html {
 }
 
 #resumeImgContainer {
+	width: 1005px;
 	height: 404px;
 	background-image: url("../assets/img/resume/resume.png");
 	background-size: cover;
@@ -100,7 +101,7 @@ html {
 	}
 
 	#resumeImgContainer{
-		width: 83%;
+		width: 295px;
 	}
 
 	.navbar-nav{
@@ -108,9 +109,11 @@ html {
 	}
 }
 
-/* @media (max-width: 1007px) {
-
-} */
+@media (max-width: 1007px) {
+	.vl{
+		display: none;
+	}
+}
 
 @media (min-width: 1008px) {
 	.resumeSection{
@@ -127,7 +130,7 @@ html {
 	}
 
 	#resumeImgContainer{
-		width: 22%;
+		width: 312px;
 	}
 }
 
