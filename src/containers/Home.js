@@ -1,9 +1,11 @@
-import logo from './logo.svg';
-import './App.css';
+import logo from '../logo.svg';
+import '../assets/styles/home.css';
+import Header from '../components/Header'
 
-function App() {
+function Home() {
   return (
     <div className="App">
+      <Header></Header>
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
@@ -22,4 +24,4 @@ function App() {
   );
 }
 
-export default App;
+export default Home;
