@@ -16,16 +16,16 @@ const Header = () =>
                 <div class="collapse navbar-collapse justify-content-xl-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="/">About</a>
+                            <button class="nav-link active" aria-current="page">About</button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Work</a>
+                            <button class="nav-link">Work</button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Resume</a>
+                            <button class="nav-link">Resume</button>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="/">Let's talk</a>
+                            <button class="nav-link">Let's talk</button>
                         </li>
                     </ul>
                 </div>
