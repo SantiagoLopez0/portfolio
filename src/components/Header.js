@@ -6,10 +6,10 @@ const Header = () =>
     <>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <button class="navbar-brand">
                     <img src="" alt="Profile" width="30" height="24"></img>
                     asantiago0034@gmail.com
-                </a>
+                </button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
