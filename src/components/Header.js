@@ -7,7 +7,7 @@ const Header = () =>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container">
                 <a class="navbar-brand" href="#">
-                    <img src="" alt="Profile Image" width="30" height="24"></img>
+                    <img src="" alt="Profile" width="30" height="24"></img>
                     asantiago0034@gmail.com
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -16,16 +16,16 @@ const Header = () =>
                 <div class="collapse navbar-collapse justify-content-xl-end" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">About</a>
+                            <a class="nav-link active" aria-current="page" href="/">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Work</a>
+                            <a class="nav-link" href="/">Work</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Resume</a>
+                            <a class="nav-link" href="/">Resume</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Let's talk</a>
+                            <a class="nav-link" href="/">Let's talk</a>
                         </li>
                     </ul>
                 </div>
