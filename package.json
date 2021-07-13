@@ -20,7 +20,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build"
+    "deploy": "gh-pages -d build -r https://$GP_TOKEN@github.com/SantiagoLopez0/SantiagoLopez0.github.io.git"
   },
   "eslintConfig": {
     "extends": [
