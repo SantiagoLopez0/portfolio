@@ -1,0 +1,39 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9d3ac70a.chunk.css",
+    "main.js": "/static/js/main.82feac3f.chunk.js",
+    "main.js.map": "/static/js/main.82feac3f.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.45772658.js",
+    "runtime-main.js.map": "/static/js/runtime-main.45772658.js.map",
+    "static/css/2.4be38407.chunk.css": "/static/css/2.4be38407.chunk.css",
+    "static/js/2.3cfc0532.chunk.js": "/static/js/2.3cfc0532.chunk.js",
+    "static/js/2.3cfc0532.chunk.js.map": "/static/js/2.3cfc0532.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/2.4be38407.chunk.css.map": "/static/css/2.4be38407.chunk.css.map",
+    "static/css/main.9d3ac70a.chunk.css.map": "/static/css/main.9d3ac70a.chunk.css.map",
+    "static/js/2.3cfc0532.chunk.js.LICENSE.txt": "/static/js/2.3cfc0532.chunk.js.LICENSE.txt",
+    "static/media/css3-logo.e7a9de36.svg": "/static/media/css3-logo.e7a9de36.svg",
+    "static/media/email.83792d31.svg": "/static/media/email.83792d31.svg",
+    "static/media/git-logo.50214827.svg": "/static/media/git-logo.50214827.svg",
+    "static/media/github-logo.04ed74f3.svg": "/static/media/github-logo.04ed74f3.svg",
+    "static/media/html5-logo.02c11ebc.svg": "/static/media/html5-logo.02c11ebc.svg",
+    "static/media/javascript-logo.ba40d6a9.svg": "/static/media/javascript-logo.ba40d6a9.svg",
+    "static/media/linkedin-logo.9bd7e645.svg": "/static/media/linkedin-logo.9bd7e645.svg",
+    "static/media/node-logo.dd47e26e.svg": "/static/media/node-logo.dd47e26e.svg",
+    "static/media/npm-logo.8849d5ba.svg": "/static/media/npm-logo.8849d5ba.svg",
+    "static/media/pin.72e55ebe.svg": "/static/media/pin.72e55ebe.svg",
+    "static/media/profile.df181bc4.jpg": "/static/media/profile.df181bc4.jpg",
+    "static/media/react-logo.ae626225.svg": "/static/media/react-logo.ae626225.svg",
+    "static/media/smartphone.d92706ab.svg": "/static/media/smartphone.d92706ab.svg",
+    "static/media/work1-1.5a988adb.PNG": "/static/media/work1-1.5a988adb.PNG",
+    "static/media/work1-2.3fbf428e.PNG": "/static/media/work1-2.3fbf428e.PNG",
+    "static/media/work1-3.1946d41f.PNG": "/static/media/work1-3.1946d41f.PNG"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.45772658.js",
+    "static/css/2.4be38407.chunk.css",
+    "static/js/2.3cfc0532.chunk.js",
+    "static/css/main.9d3ac70a.chunk.css",
+    "static/js/main.82feac3f.chunk.js"
+  ]
+}
