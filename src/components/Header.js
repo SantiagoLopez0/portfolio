@@ -4,6 +4,8 @@ import Nav from 'react-bootstrap/Nav';
 
 import "../assets/styles/components/header.css";
 
+import Resume from '../assets/static/files/Resume.pdf'
+
 const Header = (props) => {
 	const location = useLocation();
 	console.log(location.pathname);
@@ -18,7 +20,7 @@ const Header = (props) => {
 						? <Nav.Link href="#work" className='nav-option'>Work</Nav.Link>
 						: <Link to="/" className='nav-option'>Home</Link>
 					}
-					<Nav.Link href="#link" className='nav-option'>Resume</Nav.Link>
+					<Nav.Link href={Resume} className='nav-option' download='Resume.pdf'>Resume</Nav.Link>
 					<Link to="/contact" className='nav-cta'>Let's talk</Link>
 				</Nav>
 				</Navbar.Collapse>
