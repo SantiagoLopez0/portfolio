@@ -1,39 +1,30 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from "react-router-dom";
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
 
-import 'bootstrap/dist/css/bootstrap.min.css';
-import '../assets/styles/components/header.css';
-
-import profileImg from '../assets/static/img/profile.jpeg';
+import "../assets/styles/components/header.css";
 
 const Header = (props) => {
-    let workSection = props.work; 
-    ( 
-    <>
-        <nav className = "d-flex justify-content-center" >
-            <div className = "header-container d-flex" >
-                <button className = "navbar-title" >
-                    <img src = '' width = "48px" height = "48px" ></img> 
-                    <span className = 'navbar-title-text' > asantiago0034 @gmail.com </span> 
-                </button> 
-                <div className = "navbar-options-container" id = "navbarNav" >
-                    <ul className = "navbar-options d-flex" >
-                        {/* <li className = "nav-option" >
-                            <button className = ""> About </button> 
-                        </li>  */}
-                        <li className = "nav-option" >
-                            <a href = {workSection} > Work </a> 
-                        </li> 
-                        <li className = "nav-option" >
-                            <a href = 'http://localhost:3000/src/static/files/Resume.pdf'> Resume </a> 
-                        </li> 
-                        <li className = "nav-cta" >
-                            <Link to = "contact" > Let 's talk</Link> 
-                        </li> 
-                    </ul> 
-                </div> 
-            </div> 
-        </nav> 
-    </>
-)};
+	const location = useLocation();
+	console.log(location.pathname);
+	return <>
+		<Navbar className='d-flex justify-content-center' expand='lg'>
+			<div className='d-flex header-container'>
+				<Navbar.Brand href="mailto:asantiago0034@gmail.com" className='navbar-title'>asantiago0034@gmail.com</Navbar.Brand>
+				<Navbar.Toggle aria-controls="basic-navbar-nav" className='header-responsive-menu'/>
+				<Navbar.Collapse id="basic-navbar-nav">
+				<Nav className="navbar-options">
+					{location.pathname === '/'
+						? <Nav.Link href="#work" className='nav-option'>Work</Nav.Link>
+						: <Link to="/" className='nav-option'>Home</Link>
+					}
+					<Nav.Link href="#link" className='nav-option'>Resume</Nav.Link>
+					<Link to="/contact" className='nav-cta'>Let's talk</Link>
+				</Nav>
+				</Navbar.Collapse>
+			</div>
+		</Navbar>
+	</>
+};
 
 export default Header;
