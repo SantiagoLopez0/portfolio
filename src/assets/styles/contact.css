@@ -1,0 +1,49 @@
+.contact-section{
+    margin-top: 15% !important;
+}
+
+.contact-ghBtn, .contact-ldBtn {
+    text-decoration: none;
+    padding: 2.6% 9%;
+    color: #FFF;
+    border-radius: 12px;
+	transform: rotate(-3.21deg);
+    display: inline;
+}
+
+.contact-ghBtn:hover, .contact-ldBtn:hover {
+    color: #686868;
+}
+
+.contact-ghBtn img, .contact-ldBtn img {
+    filter: brightness(50);
+    margin-right: 7px;
+}
+
+.contact-ghBtn {
+    background-color: #FE7575;
+}
+
+.contact-ldBtn {
+    background-color: #82C5A1;
+}
+
+.contact-icon {
+    opacity: .6;
+    margin-right: 5px;
+}
+
+.contact-mail {
+    color: #000;
+}
+
+.contact-mail:hover {
+    color: #686868;
+}
+
+/* Large devices (desktops, 992px and up) */
+@media (min-width: 992px) {
+    .contact-ghBtn, .contact-ldBtn {
+        padding: 1.5% 6%;
+    }
+}
