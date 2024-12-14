@@ -20,7 +20,7 @@ export default function Home() {
         {/* Left Section */}
         <div>
           <Image
-            src="/profile2.jpeg"
+            src="/profile.jpg"
             alt="Profile"
             className="main-image"
             width={400}
