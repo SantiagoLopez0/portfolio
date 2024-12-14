@@ -15,8 +15,8 @@ export default function Home() {
   return (
     <>
     <main>
-    <div className="container mx-auto px-4 h-[100vh] flex justify-center items-center">
-      <div className="flex gap-[64px] justify-center items-center">
+    <div className="container mx-auto px-4 h-[100vh] flex justify-center items-center mt-[100px] md:mt-[30px]">
+      <div className="flex flex-col md:flex-row gap-[64px] justify-center items-center ">
         {/* Left Section */}
         <div>
           <Image
@@ -27,7 +27,6 @@ export default function Home() {
             height={900}
           />
         </div>
-        
 
         {/* Right Section */}
         <div className="max-w-[45%]">
@@ -45,7 +44,7 @@ export default function Home() {
               <Image
                 src="/nextjs.svg"
                 alt="Next.js"
-                title="NExt.js"
+                title="Next.js"
                 className="main-logo"
                 width={64}
                 height={64}
