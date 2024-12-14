@@ -1,9 +1,8 @@
 # File: .github/workflows/publish.yml
-name: publish-to-github-pages
+name: Deploy Next.js Portfolio
 on:
   push:
-    branches:
-      - main
+    branches: [main]
 
 permissions:
   contents: read
