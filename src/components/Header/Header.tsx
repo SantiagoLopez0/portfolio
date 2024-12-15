@@ -17,9 +17,9 @@ export const Header = () => {
     return(
         <>
         <header
-            className={`${poppins.className} fixed w-full top-0 z-20 transition-colors px-4 duration-300 mt-[15px]`}
+            className={`${poppins.className} ${styles.headerContainer} fixed w-full top-0 z-20 mt-[15px]`}
         >
-            <div className="container flex flex-col items-start justify-between px-4 py-6 mx-auto md:flex-row md:items-center bg-[#f4f4f4] rounded-2xl text-dark">
+            <div className="max-w-[1000px] flex flex-col items-start justify-between px-[15px] py-24 mx-auto md:flex-row md:items-center bg-[#f4f4f4] rounded-2xl text-dark">
                 {/* <Link className={`${styles.headerMain}`} href="mailto:asantiago0034@gmail.com">
                     asantiago0034@gmail.com
                 </Link> */}

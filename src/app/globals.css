@@ -27,10 +27,33 @@ h4{
   font-size: 22px;
   font-weight: 200;
 }
+.container{
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.globalButton {
+	max-width: 220px;
+	height: 40px;
+    padding: 8px 16px;
+	list-style: none;
+	border-radius: 12px;
+	transform: rotate(-3.21deg);
+	text-decoration: none;
+	color: #fff !important;
+	text-align: center;
+    transition: all .2s;
+}
+
+.globalButton:hover{
+  transform: rotate(3.21deg);
+}
+
 /*HOME*/
 .main-text {
   font-style: normal;
-  font-weight: normal;
+  font-weight: 800;
   font-size: 36px;
 }
 
@@ -82,15 +105,15 @@ h4{
   .main-text {
       text-align: center;
   }
-
-  .main-image {
-      display: none;
-  }
 }
 
-
+.skillLogo{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
 /* small & tablet devices */
-@media (max-width: 1024px) {
+@media (max-width: 768px) {
   .main-image {
       width: 200px;
       height: 200px;
@@ -99,5 +122,17 @@ h4{
 
   .main-text {
       font-size: 28px;
+  }
+  h1{
+    font-size: 40px;
+  }
+  h2{
+    font-size: 30px;
+  }
+  h3{
+    font-size: 24px;
+  }
+  h4{
+    font-size: 18px;
   }
 }
