@@ -108,7 +108,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-16">
               <h3>27zero</h3>
-              <p>Developed and launched a high-performing website for a marketing agency using Webflow. Responsible for end-to-end website development, including CMS configuration, creating pages based on provided designs, animations, and complete pages. Integrated visual assets and optimized graphics across static and CMS-driven pages, ensuring seamless functionality and a visually compelling user experience. Delivered a polished product aligned with the company's branding and marketing goals.</p>
+              <p>Developed and launched a high-performing website for a marketing agency using Webflow. Responsible for end-to-end website development, including CMS configuration, creating pages based on provided designs, animations, and complete pages. Integrated visual assets and optimized graphics across static and CMS-driven pages, ensuring seamless functionality and a visually compelling user experience. Delivered a polished product aligned with the company&lsquo;s branding and marketing goals.</p>
               <Button href="https://www.27zero.agency/en" color="bg-purple" text="Visit Site"/>
             </div>
           </div>
@@ -125,7 +125,7 @@ export default function Home() {
             </div>
             <div className="flex flex-col gap-16">
               <h3>Doctums</h3>
-              <p>Developed and launched a website for an educational consulting company using Webflow. Responsible for end-to-end website development, including CMS configuration, creating pages based on provided designs, animations, and complete pages. Integrated visual assets and optimized graphics across static and CMS-driven pages, ensuring seamless functionality and a visually compelling user experience. Delivered a polished product aligned with the company's branding and marketing goals.</p>
+              <p>Developed and launched a website for an educational consulting company using Webflow. Responsible for end-to-end website development, including CMS configuration, creating pages based on provided designs, animations, and complete pages. Integrated visual assets and optimized graphics across static and CMS-driven pages, ensuring seamless functionality and a visually compelling user experience. Delivered a polished product aligned with the company&lsquo;s branding and marketing goals.</p>
               <Button href="https://www.doctums.com/" color="bg-[#F5C43F]" text="Visit Site"/>
             </div>
           </div>
