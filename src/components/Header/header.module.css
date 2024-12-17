@@ -7,7 +7,7 @@
 	text-decoration: none;
 	font-style: normal;
 	font-weight: normal;
-	font-size: 17px;
+	font-size: 18px;
 	color: rgba(0,0,0,.75);
 	text-align: end;
     display: flex;
@@ -15,10 +15,11 @@
 }
 .headerCTA {
 	max-width: 220px;
-	height: 40px;
+	height: 45px;
     padding: 8px 16px;
+    font-size: 18px;
 	list-style: none;
-	background: #46b0dd;
+	background: #000;
 	border-radius: 12px;
 	transform: rotate(-3.21deg);
 	text-decoration: none;
@@ -32,12 +33,12 @@
 }
 
 .logo{
-    font-size: 22px;
+    font-size: 17px;
     font-weight: 800;
+    letter-spacing: 2px;
 }
 
 .headerContainer{
-    padding: 0 15px;
 }
 
 

@@ -1,8 +1,8 @@
 import "./globals.css";
 import { Header }  from 'app/components/Header';
 
-import { Poppins } from "next/font/google";
-const poppins = Poppins({ subsets: ['latin'], weight: ["400","800", "200"], });
+import { Outfit } from "next/font/google";
+const outfit = Outfit({ subsets: ['latin'], weight: ["400", "600","800", "200", "100"], });
 
 export default function RootLayout({
   children,
@@ -12,8 +12,10 @@ export default function RootLayout({
   return (
     <>
     <html lang="en">
-      <Header />
-      <body className={`${poppins.className} antialiased`}>{children}</body>
+      <body className={`${outfit.className} antialiased`}>
+        <Header />
+        {children}
+      </body>
     </html>
     </>
   );
