@@ -34,7 +34,7 @@ export const Project = ({
             <div className="px-32 py-32 md:pr-64 md:py-64 flex flex-col justify-between">
                 <div className="flex flex-col gap-[8px]">
                     <h2 className="text-[18px]">{name}</h2>
-                    <div className="flex flex-wrap">
+                    <div key="Technologies" className="flex flex-wrap">
                         {technologiesArray.map(tech =>{
                             return(
                                 <>
