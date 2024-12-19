@@ -106,8 +106,9 @@
     } */
     .mainImage {
         width: 100%;
-        height: 270px;
+        height: 480px;
         object-fit: cover;
         border-radius: 30px;
+        object-position: center;
     }
 }

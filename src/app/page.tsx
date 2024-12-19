@@ -48,7 +48,7 @@ export default function Home() {
           {/* Right Section */}
           <div className={`${styles.mainImageContainer} w-full md:w-[35%]`}>
             <Image
-              src="/profile.jpg"
+              src="/profile2-bw.jpg"
               alt="Profile"
               className={`${styles.mainImage}`}
               width={400}
