@@ -1,6 +1,6 @@
 'use client'
 import Image from "next/image";
-import styles from 'app/app/ui/home.module.css';
+import styles from './skills.module.css';
 
 export const SkillProgressBar = ({
     technology,

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 // import Image from 'next/image';
-import styles from 'app/components/Header/header.module.css';
+import styles from 'app/components/Shared/Header/header.module.css';
 
 import { Outfit } from "next/font/google";
 const outfit = Outfit({ subsets: ['latin'], weight: ["400", "600","800", "200"], });

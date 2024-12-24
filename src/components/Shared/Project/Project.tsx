@@ -1,8 +1,8 @@
 'use client';
 
 import Image from "next/image";
-import styles from 'app/components/Project/project.module.css';
 import Link from 'next/link';
+import styles from 'app/components/Shared/Project/project.module.css';
 
 export const Project = ({
     name,

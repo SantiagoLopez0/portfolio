@@ -1,0 +1,60 @@
+.mainImage {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 30px;
+
+    transition: all .2s;
+}
+
+.mainTitle {
+    font-size: 87px;
+    letter-spacing: 8px;
+    cursor: initial;
+}
+
+.subtitleBold {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 16px;
+}
+
+.hoverImage {}
+
+.animatedKeyword {
+    display: inline-block;
+    /* animation: fadeInOut 3s infinite; */
+}
+
+@keyframes fadeInOut {
+
+    0%,
+    100% {
+        opacity: 0;
+    }
+
+    10%,
+    90% {
+        opacity: 1;
+    }
+}
+
+/* small & tablet devices */
+@media (max-width: 768px) {
+    .mainTitle {
+        font-size: 45px;
+        letter-spacing: 4px;
+    }
+
+    /* .mainImageContainer{
+        max-height: 270px;
+    } */
+    .mainImage {
+        width: 100%;
+        height: 480px;
+        object-fit: cover;
+        border-radius: 30px;
+        object-position: center;
+    }
+}

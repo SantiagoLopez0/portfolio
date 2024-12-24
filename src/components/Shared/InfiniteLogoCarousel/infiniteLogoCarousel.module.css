@@ -1,0 +1,33 @@
+.mainLogo {
+    margin-right: 20px;
+    width: 60px;
+    height: 35px;
+    filter: grayscale(100%);
+    transition: filter .5s;
+}
+
+
+.mainLogo:hover {
+    filter: grayscale(0);
+}
+
+/* Small devices (landscape phones, 576px and up) */
+@media (max-width: 576px) {
+    .logosContainer {
+        display: flex;
+    }
+
+    .mainLogoCol {
+        margin-bottom: 50px;
+        height: 30px;
+        display: flex;
+        justify-content: center;
+    }
+
+    .mainLogo {
+        width: 100%;
+        margin-right: 0 !important;
+    }
+}
+
+/* small & tablet devices */

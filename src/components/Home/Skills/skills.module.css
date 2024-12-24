@@ -1,0 +1,47 @@
+.skillsSection{
+    background-size: cover;
+    background-position: bottom;
+    background-attachment: fixed;
+}
+
+.skillWrapper{
+    transition: .2s all;
+}
+
+.skillLogo img{
+    opacity: .6;
+    filter: invert(1);
+    transition: .2s all;
+}
+
+.skillWrapper:hover .skillLogo img{
+    opacity: 1;
+}
+
+.skillLogo{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.skillBarPopup{
+    bottom: 20px;
+    right: 25px;
+    width: 100px;
+	height: 40px;
+    padding: 8px 16px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(30px);
+    opacity: 0;
+    cursor: none;
+
+    transition: all .3s;
+}
+
+.skillWrapper:hover .skillBarPopup{
+    transform: translateY(0);
+    opacity: 1;
+}

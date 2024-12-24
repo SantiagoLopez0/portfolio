@@ -1,6 +1,7 @@
 "use client"
 
 import Image from 'next/image'
+import styles from './infiniteLogoCarousel.module.css'
 
 export const InfiniteLogoCarousel = () => {
   const logos = [
@@ -19,17 +20,17 @@ export const InfiniteLogoCarousel = () => {
         before:absolute before:left-0 before:top-0 before:w-1/6 before:h-full  
         after:absolute after:right-0 after:top-0 after:w-1/6 after:h-full "
       />
-      <div className="inline-flex w-full animate-infinite-scroll main-logos-container">
+      <div className={`inline-flex w-full animate-infinite-scroll ${styles.logosContainer}`}>
         {[...logos, ...logos].map((logo, index) => (
           <div
             key={index}
-            className="flex-shrink-0 w-[45px] h-[45px] mx-4 relative main-logo-col"
+            className={`flex-shrink-0 w-[45px] h-[45px] mx-4 relative ${styles.mainLogoCol}`}
           >
             <Image  
               src={`${logo}`}
               alt={`Logo ${index + 1}`}
               fill
-              className="object-contain main-logo"
+              className={`object-contain ${styles.mainLogo}`}
             />
           </div>
         ))}

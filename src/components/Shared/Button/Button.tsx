@@ -1,6 +1,7 @@
 'use client'
 
 import Link from 'next/link';
+import styles from './button.module.css';
 
 export const Button = ({
     href,
@@ -13,7 +14,7 @@ export const Button = ({
         <>
         <Link
             href={href}
-            className={`bg-black globalButton`}
+            className={`bg-black ${styles.button}`}
             target="_blank"
         >
             {text}
