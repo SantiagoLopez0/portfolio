@@ -1,8 +1,9 @@
 "use client"
 
 import Image from "next/image";
+import Modal from 'react-modal'; // Importing react-modal
 import { Button } from "app/components/Shared/Button";
-// import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import styles from "./hero.module.css";
 
 
@@ -18,13 +19,16 @@ export const Hero = () => {
 
     //     return () => clearInterval(interval);
     // }, []);
+    const [modalIsOpen, setModalIsOpen] = useState(false);
 
+    const openModal = () => setModalIsOpen(true);
+    const closeModal = () => setModalIsOpen(false);
     return (
         <section className="md:h-[100vh] flex items-center md:pt-[128px] pb-64 md:pb-0">
             <div className="container flex justify-center items-center">
                 <div className="flex flex-col md:flex-row gap-32 md:gap-[128px] md:justify-center w-full items-center">
                     {/* Left Section */}
-                    <div className="pt-[115px] md:pt-0 w-full h-[100vh] md:h-auto md:max-w-[60%] flex flex-col justify-center items-start gap-[10px]">
+                    <div className="pt-[48px] md:pt-0 w-full h-[100vh] md:h-auto md:max-w-[60%] flex flex-col justify-center items-start gap-[10px]">
                         <h1 className={`${styles.mainTitle}`}>
                             {/* <span className={styles.animatedKeyword}>{keywords[currentKeyword]}</span><br /> Developer */}
                             {keywords[0]} Developer
@@ -40,10 +44,31 @@ export const Hero = () => {
                             </p>
                         </div>
 
-                        {/* Logos Section */}
-                        {/* <InfiniteLogoCarousel /> */}
                         <div className="md:h-[90px] flex flex-col md:flex-row mt-16 md:mt-32 gap-32">
-                            <Button href='https://drive.google.com/file/d/1R-oRjCwTx6o-EJEBMV4kHcQoJya7OMyP/view?usp=sharing' text='View my resume' />
+                            {/* <Button href='https://drive.google.com/file/d/1R-oRjCwTx6o-EJEBMV4kHcQoJya7OMyP/view?usp=sharing' text='View my resume' /> */}
+                            <button onClick={openModal} className={styles.modal__openButton}>Resume</button>
+                            <Modal
+                                isOpen={modalIsOpen}
+                                onRequestClose={closeModal}
+                                contentLabel="Resume Modal"
+                                className={`${styles.resumeModal}`}
+                                ariaHideApp={false}
+                                overlayClassName={`${styles.resumeModal__overlay}`}
+                            >
+                                <button onClick={closeModal} className={`${styles.resumeModal__closeButton}`}>X</button>
+                                {/* <iframe
+                                    src="/Resume.pdf"
+                                    width="100%"
+                                    height="100%"
+                                ></iframe> */}
+                                <Image
+                                    src="/resume.jpg"
+                                    alt="Santiago"
+                                    className={`${styles.modal__mainImage}`}
+                                    width={400}
+                                    height={900}
+                                />
+                            </Modal>
                             <Button href='https://www.linkedin.com/in/santiago-lopez-b18594193/' text='LinkedIn' />
                         </div>
 

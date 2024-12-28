@@ -1,5 +1,7 @@
 import { Header }  from 'app/components/Shared/Header';
 import { Footer } from "app/components/Shared/Footer";
+import { Analytics } from "@vercel/analytics/react"
+
 import "./globals.css";
 
 import { Outfit } from "next/font/google";
@@ -14,6 +16,7 @@ export default function RootLayout({
     <>
     <html lang="en">
       <body className={`${outfit.className} antialiased`}>
+        <Analytics/>
         <Header />
         {children}
         <Footer />
