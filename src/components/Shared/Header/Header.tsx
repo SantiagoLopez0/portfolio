@@ -34,7 +34,7 @@ export const Header = () => {
                             className={link.class}
                             target="_blank"
                         >
-                            <p className="">{link.name}</p>
+                            {link.name}
                         </Link>
                         );
                     })}
