@@ -43,7 +43,7 @@ export const Hero = () => {
                         <div className="md:h-[90px] flex flex-col md:flex-row mt-16 md:mt-32 gap-32">
                             {/* <Button href='https://drive.google.com/file/d/1R-oRjCwTx6o-EJEBMV4kHcQoJya7OMyP/view?usp=sharing' text='View my resume' /> */}
                             <ResumeModal isButton={true} />
-                            <Button href='https://www.linkedin.com/in/santiago-lopez-b18594193/' text='LinkedIn' />
+                            <Button href='https://www.linkedin.com/in/santiago-lopez-b18594193/' text='LinkedIn' theme="dark"/>
                         </div>
 
                     </div>

@@ -5,16 +5,20 @@ import styles from './button.module.css';
 
 export const Button = ({
     href,
-    text
+    text,
+    theme,
   }: {
     href: string,
-    text: string
+    text: string,
+    theme: string,
   }) => {
     return(
         <>
         <Link
             href={href}
-            className={`bg-black ${styles.button}`}
+            className={
+              `${styles.button} ${theme === 'dark' ? styles.button__dark : styles.button__light}`
+            }
             target="_blank"
         >
             {text}
