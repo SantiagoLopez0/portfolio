@@ -5,6 +5,7 @@
     font-size: 22px;
     position: relative;
     font-weight: 300;
+    cursor: pointer;
 }
 .footerLink:after{
     content: '';

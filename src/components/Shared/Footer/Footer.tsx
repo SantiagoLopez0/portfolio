@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link"
+import { ResumeModal } from "../ResumeModal";
 import { FaArrowUp } from 'react-icons/fa';
 
 import styles from './footer.module.css'
@@ -28,13 +29,7 @@ export const Footer = () => {
                     >
                         LinkedIn
                     </Link>
-                    <Link
-                        href="https://drive.google.com/file/d/1R-oRjCwTx6o-EJEBMV4kHcQoJya7OMyP/view?usp=sharing"
-                        className={`${styles.footerLink}`}
-                        target="_blank"
-                    >
-                        Resume
-                    </Link>
+                    <ResumeModal isButton={false} customClassName={styles.footerLink}/>
                     <Link
                         href="mailto:asantiago0034@gmail.com"
                         className={`${styles.footerLink}`}

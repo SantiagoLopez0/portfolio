@@ -25,7 +25,7 @@ export const Header = () => {
                 </Link> */}
                 <p className={`text-dark ${styles.logo}`}>Santiago<br />Web Developer</p>
                 <div className={`flex justify-end gap-10 ${styles.headerNavigation}`}>                
-                    <ResumeModal isButton={false} />
+                    <ResumeModal isButton={false} customClassName=''/>
                     {links.map((link) => {
                         return (
                         <Link

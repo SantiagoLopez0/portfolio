@@ -7,8 +7,10 @@ import styles from './resumeModal.module.css';
 export const ResumeModal = (
     { 
         isButton,
+        customClassName
     }:{ 
-        isButton: boolean 
+        isButton: boolean
+        customClassName: string
     }) => {
     const [modalIsOpen, setModalIsOpen] = useState(false);
 
@@ -18,7 +20,7 @@ export const ResumeModal = (
         <>
             {isButton == true ?
                 <button onClick={openModal} className={styles.modal__button}>View my resume</button> :
-                <a onClick={openModal} className={styles.modal__openLink}>My resume</a>
+                <a onClick={openModal} className={customClassName !== '' ? customClassName : styles.modal__openLink}>My resume</a>
             }
             <Modal
                 isOpen={modalIsOpen}
