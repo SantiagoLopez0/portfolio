@@ -1,0 +1,99 @@
+.resumeModal {
+    position: fixed;
+    z-index: 1000;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    background: #232121;
+    padding: 2px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal__mainImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: top;
+    border-radius: 6px;
+    transition: all .2s;
+}
+
+.modal__button {
+    max-width: 220px;
+    height: 40px;
+    padding: 8px 16px;
+    list-style: none;
+    border-radius: 12px;
+    transform: rotate(-3.21deg);
+    text-decoration: none;
+    color: #fff !important;
+    text-align: center;
+    transition: all .2s;
+    background-color: black;
+}
+
+.modal__openLink{
+    width: auto;
+	text-decoration: none;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 18px;
+	color: rgba(0,0,0,.75);
+	text-align: end;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.modal__button:hover{
+    transform: rotate(3.21deg);
+}
+
+.resumeModal__overlay {
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.resumeModal__closeButton {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    max-width: 220px;
+    height: 40px;
+    padding: 15px;
+    list-style: none;
+    border-radius: 100%;
+    border: 1px solid #232121;
+    text-decoration: none;
+    color: #232121 !important;
+    text-align: center;
+    transition: all .2s;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.resumeModal__closeButton:hover{
+    background-color: #232121;
+    color: #fff !important;
+}
+
+/*MOBILE*/
+@media (max-width: 768px){
+    .modal__mainImage {
+        width: 100%;
+        max-width: 100vw;
+        height: auto;
+        object-position: center;
+    }
+}

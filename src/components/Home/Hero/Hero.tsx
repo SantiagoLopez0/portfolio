@@ -1,10 +1,9 @@
 "use client"
 
 import Image from "next/image";
-import Modal from 'react-modal'; // Importing react-modal
-import { Button } from "app/components/Shared/Button";
-import { useState } from 'react';
 import styles from "./hero.module.css";
+import { Button } from "app/components/Shared/Button";
+import { ResumeModal } from "app/components/Shared/ResumeModal";
 
 
 const keywords = ["Web", "Webflow", "Frontend"];
@@ -19,10 +18,7 @@ export const Hero = () => {
 
     //     return () => clearInterval(interval);
     // }, []);
-    const [modalIsOpen, setModalIsOpen] = useState(false);
 
-    const openModal = () => setModalIsOpen(true);
-    const closeModal = () => setModalIsOpen(false);
     return (
         <section className="md:h-[100vh] flex items-center md:pt-[128px] pb-64 md:pb-0">
             <div className="container flex justify-center items-center">
@@ -46,29 +42,7 @@ export const Hero = () => {
 
                         <div className="md:h-[90px] flex flex-col md:flex-row mt-16 md:mt-32 gap-32">
                             {/* <Button href='https://drive.google.com/file/d/1R-oRjCwTx6o-EJEBMV4kHcQoJya7OMyP/view?usp=sharing' text='View my resume' /> */}
-                            <button onClick={openModal} className={styles.modal__openButton}>Resume</button>
-                            <Modal
-                                isOpen={modalIsOpen}
-                                onRequestClose={closeModal}
-                                contentLabel="Resume Modal"
-                                className={`${styles.resumeModal}`}
-                                ariaHideApp={false}
-                                overlayClassName={`${styles.resumeModal__overlay}`}
-                            >
-                                <button onClick={closeModal} className={`${styles.resumeModal__closeButton}`}>X</button>
-                                {/* <iframe
-                                    src="/Resume.pdf"
-                                    width="100%"
-                                    height="100%"
-                                ></iframe> */}
-                                <Image
-                                    src="/resume.jpg"
-                                    alt="Santiago"
-                                    className={`${styles.modal__mainImage}`}
-                                    width={400}
-                                    height={900}
-                                />
-                            </Modal>
+                            <ResumeModal isButton={true} />
                             <Button href='https://www.linkedin.com/in/santiago-lopez-b18594193/' text='LinkedIn' />
                         </div>
 

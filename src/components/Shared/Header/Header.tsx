@@ -2,13 +2,13 @@
 
 import Link from 'next/link';
 // import Image from 'next/image';
-import styles from 'app/components/Shared/Header/header.module.css';
+import styles from './header.module.css';
+import { ResumeModal } from "app/components/Shared/ResumeModal";
 
 import { Outfit } from "next/font/google";
 const outfit = Outfit({ subsets: ['latin'], weight: ["400", "600","800", "200"], });
 
 const links = [
-    { name: 'My resume', href: 'https://drive.google.com/file/d/1R-oRjCwTx6o-EJEBMV4kHcQoJya7OMyP/view?usp=sharing', class: styles.headerOption},
     { name: "Let's connect", href: 'mailto:asantiago0034@gmail.com', class: styles.headerCTA},
 ];
 
@@ -24,7 +24,8 @@ export const Header = () => {
                     asantiago0034@gmail.com
                 </Link> */}
                 <p className={`text-dark ${styles.logo}`}>Santiago<br />Web Developer</p>
-                <div className={`flex justify-end gap-10 ${styles.headerNavigation}`}>
+                <div className={`flex justify-end gap-10 ${styles.headerNavigation}`}>                
+                    <ResumeModal isButton={false} />
                     {links.map((link) => {
                         return (
                         <Link
