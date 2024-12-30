@@ -24,7 +24,7 @@
 
 .animatedKeyword {
     display: inline-block;
-    /* animation: fadeInOut 3s infinite; */
+    animation: fadeInOut 3s infinite;
 }
 
 @keyframes fadeInOut {
