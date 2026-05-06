@@ -1,71 +1,86 @@
-.headerMain{
-    font-weight: 800;
-    font-size: 18px;
+.headerContainer{
+    position: fixed;
+    top: 0;
+    z-index: 50;
+    width: 100%;
+    height: 72px;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
 }
 
-.headerOption{
-    width: auto;
-	text-decoration: none;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 18px;
-	color: rgba(0,0,0,.75);
-	text-align: end;
+.headerInner{
+    height: 72px;
     display: flex;
+    justify-content: space-between;
     align-items: center;
 }
 
-.headerOption:after{
+.headerName{
+    font-size: 16px;
+    font-weight: 600;
+    color: #000;
+    line-height: 1;
+    white-space: nowrap;
+    justify-self: start;
+}
+
+.navLinks{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    justify-self: center;
+}
+
+.navLink{
+    position: relative;
+    font-size: 14px;
+    font-weight: 500;
+    color: #000;
+    text-decoration: none;
+    padding: 2px 0;
+}
+
+.navLink::after{
     content: '';
     position: absolute;
-    width: 0;
-    height: 1px;
-    bottom: 0;
     left: 0;
-    background-color: #232121;
-    z-index: 1;
-    transition: all .5s;
-}
-
-.headerOption:hover:after{
+    bottom: 1px;
     width: 100%;
+    height: 1px;
+    background-color: #000;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 220ms ease;
 }
 
-.headerCTA {
-    max-width: 220px;
-    height: 40px;
-    padding: 8px 16px;
-    list-style: none;
-    border-radius: 12px;
-    transform: rotate(-3.21deg);
+.navLink:hover::after,
+.navLink:focus-visible::after{
+    transform: scaleX(1);
+}
+
+.resumeButton{
+    background: #000;
+    color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 10px 24px;
+    border-radius: 8px;
     text-decoration: none;
-    color: #fff !important;
-    text-align: center;
-    transition: all .2s;
-    background-color: black;
-    font-size: 15px;
-    text-transform: uppercase;
-    font-weight: 300;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    justify-self: end;
 }
 
-.headerCTA:hover{
-    transform: rotate(3.21deg);
-}
-
-.logo{
-    font-size: 17px;
-    font-weight: 800;
-    letter-spacing: 2px;
-}
-
-.headerContainer{
-}
-
-
-
-
-@media (max-width: 768px){
-    .headerNavigation{
+@media (max-width: 768px) {
+    .navLinks{
         display: none;
     }
+}
+
+.scrolled{
+    border-bottom: 1px solid #e5e5e5;
 }

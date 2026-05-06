@@ -20,20 +20,19 @@
 }
 
 .modal__button {
-    max-width: 220px;
-    height: 40px;
-    padding: 8px 16px;
-    list-style: none;
-    border-radius: 12px;
-    transform: rotate(-3.21deg);
-    text-decoration: none;
     color: #fff !important;
     text-align: center;
-    transition: all .2s;
     background-color: black;
-    font-size: 15px;
-    text-transform: uppercase;
-    font-weight: 300;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    padding: 18px 24px;
+    border-radius: 4px;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    transition: opacity 0.2s ease;
+    line-height: 1;
 }
 
 .modal__openLink {
@@ -70,7 +69,7 @@
 }
 
 .modal__button:hover {
-    transform: rotate(3.21deg);
+    opacity: 0.8;
 }
 
 .resumeModal__overlay {

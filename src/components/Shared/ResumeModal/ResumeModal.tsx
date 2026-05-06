@@ -19,8 +19,8 @@ export const ResumeModal = (
     return (
         <>
             {isButton == true ?
-                <button onClick={openModal} className={styles.modal__button}>View my resume</button> :
-                <a onClick={openModal} className={customClassName !== '' ? customClassName : styles.modal__openLink}>My resume</a>
+                <button onClick={openModal} className={styles.modal__button}>Resume</button> :
+                <a onClick={openModal} className={customClassName !== '' ? customClassName : styles.modal__openLink}>Resume</a>
             }
             <Modal
                 isOpen={modalIsOpen}

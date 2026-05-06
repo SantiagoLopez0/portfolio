@@ -1,0 +1,126 @@
+.section {
+  padding: 0 0 120px;
+}
+
+.inner {
+  width: 100%;
+}
+
+.sectionTitle {
+  font-weight: 600;
+  color: #000000;
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}
+
+.card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.image {
+  object-fit: cover;
+  object-position: top;
+  filter: grayscale(100%);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.tagsRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.cardTitle {
+  font-weight: 600;
+  color: #000000;
+}
+
+.description {
+  font-size: 16px;
+  font-weight: 400;
+  color: #6b6b6b;
+}
+
+.viewSite {
+  position: relative;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  padding: 2px 0;
+  display: inline-block;
+  margin-top: 4px;
+}
+
+.viewSite::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1px;
+  background-color: #000000;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms ease;
+}
+
+.card:hover .viewSite::after {
+  transform: scaleX(1);
+}
+
+.card:hover .image {
+  filter: grayscale(0%);
+}
+
+.image {
+  transition: filter 0.3s ease;
+}
+
+.buttonWrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 48px;
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 0 0 80px;
+  }
+  .grid {
+    grid-template-columns: 1fr;
+  }
+  .description {
+    font-size: 14px;
+  }
+}

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from 'next/link';
 import styles from 'app/components/Shared/Project/project.module.css';
+import React from "react";
 
 export const Project = ({
     name,
@@ -35,12 +36,12 @@ export const Project = ({
                 <div className="flex flex-col gap-[8px]">
                     <h2 className="text-[18px]">{name}</h2>
                     <div className="flex flex-wrap">
-                        {technologiesArray.map(tech =>{
+                        {technologiesArray.map((tech, index) =>{
                             return(
-                                <>
-                                <h3 className="text-[12px] leading-[27px] opacity-80" key={tech}>{tech}</h3>
+                                <React.Fragment key={index}>
+                                <h3 className="text-[12px] leading-[27px] opacity-80" >{tech}</h3>
                                 {technologiesArray[technologiesArray.length - 1] === tech ? <span> </span>:<span>&nbsp; - &nbsp;</span>}
-                                </>
+                                </React.Fragment>
                             )
                         })}
                     </div>

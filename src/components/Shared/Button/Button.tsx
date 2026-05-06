@@ -7,10 +7,12 @@ export const Button = ({
     href,
     text,
     theme,
+    external,
   }: {
     href: string,
     text: string,
     theme: string,
+    external?: boolean,
   }) => {
     return(
         <>
@@ -19,7 +21,7 @@ export const Button = ({
             className={
               `${styles.button} ${theme === 'dark' ? styles.button__dark : styles.button__light}`
             }
-            target="_blank"
+            {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
         >
             {text}
         </Link>

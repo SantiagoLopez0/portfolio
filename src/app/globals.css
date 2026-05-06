@@ -3,60 +3,47 @@
 @tailwind utilities;
 
 :root {
-  --background: #F5F3F0;
-  --foreground: #000;
+  --background: #ffffff;
+  --foreground: #000000;
+  --muted: #6b6b6b;
+}
+
+html{
+  scroll-behavior: smooth;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
+  font-family: 'Poppins', sans-serif;
   color: var(--foreground);
   background: var(--background);
+  -webkit-font-smoothing: antialiased;
 }
-p{
-  font-size: 16px;
-  font-weight: 400;
+
+h1 { font-size: 64px; font-weight: 600; line-height: 1.1; }
+h2 { font-size: 48px; font-weight: 600; line-height: 1.2; }
+h3 { font-size: 32px; font-weight: 600; line-height: 1.3; }
+h4 { font-size: 24px; font-weight: 600; line-height: 1.4; }
+
+@media (max-width: 768px) {
+  h1 { font-size: 40px; }
+  h2 { font-size: 32px; }
+  h3 { font-size: 24px; }
+  h4 { font-size: 20px; }
 }
-/*START - Titles*/
-h1{
-  font-size: 70px;
-  letter-spacing: 3px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-h2{
-  font-size: 22px;
-  letter-spacing: 2px;
-  font-weight: 200;
-  text-transform: uppercase;
-}
-h3{
-  font-size: 18px;
-  letter-spacing: 2px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-h4{
-  font-size: 16px;
-  letter-spacing: 2px;
-  font-weight: 400;
-  text-transform: uppercase;
-}
-@media (max-width: 992px) {
-  h1{
-    font-size: 40px;
-  }
-  h2{
-    font-size: 22px;
-  }
-  h3{
-    font-size: 18px;
-  }
-  h4{
-    font-size: 16px;
-  }
-}
-/*END - Titles*/
-.container{
+
+.container {
   max-width: 1440px;
   margin: 0 auto;
-  padding: 0 25px;
+  padding: 0 48px;
+}
+@media (max-width: 768px) {
+  .container {
+    padding: 0 16px;
+  }
 }

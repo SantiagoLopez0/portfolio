@@ -1,28 +1,33 @@
 .button {
-  max-width: 220px;
-  height: 40px;
-  padding: 8px 16px;
-  list-style: none;
-  border-radius: 12px;
-  transform: rotate(-3.21deg);
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  padding: 18px 24px;
+  border-radius: 4px;
   text-decoration: none;
-  text-align: center;
-  transition: all .2s;
-  font-size: 15px;
-  text-transform: uppercase;
-  font-weight: 300;
+  display: inline-flex;
+  align-items: center;
+  transition: background 0.2s ease, color 0.2s ease;
+  line-height: 1;
+  border: 1.5px solid #000000;
 }
 
-.button:hover {
-  transform: rotate(3.21deg);
+.button__dark {
+  background: #000000;
+  color: #ffffff;
 }
 
-.button__dark{
-  background-color: #000;
-  color: #fff !important;
+.button__dark:hover {
+  background: transparent;
+  color: #000000;
 }
 
-.button__light{
-  background-color: #F5F3F0;
-  color: #000 !important;
+.button__light {
+  background: transparent;
+  color: #000000;
+}
+
+.button__light:hover {
+  background: #000000;
+  color: #ffffff;
 }

@@ -1,4 +1,11 @@
 /*START FOOTER*/
+.footer{
+    padding: 42px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #000;
+}
 .footerLink{
     color: #232121;
     text-transform: uppercase;
@@ -21,5 +28,12 @@
 
 .footerLink:hover:after{
     width: 100%;
+}
+.scrollToTop{
+    display: none;
+}
+.footerText{
+    font-size: 20px;
+    color: #fff;
 }
 /*END FOOTER*/

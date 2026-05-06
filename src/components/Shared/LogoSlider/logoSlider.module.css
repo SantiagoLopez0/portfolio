@@ -1,0 +1,75 @@
+.wrapper {
+  position: relative;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+}
+
+.title {
+  font-weight: 200;
+  font-size: 96px;
+  letter-spacing: -3px;
+  line-height: 120%;
+  color: #000;
+  white-space: nowrap;
+  z-index: 1;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.loopContainer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100vw;
+  overflow: hidden;
+  display: flex;
+  background: #000;
+  height: 0;
+  align-items: center;
+  transition: height cubic-bezier(0.1, 0.5, 0.5, 1) 0.4s;
+  z-index: 2;
+}
+
+.wrapper:hover .loopContainer {
+  height: 100%;
+}
+
+.track {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  animation: scroll var(--duration, 30s) linear infinite;
+}
+
+.logos {
+  display: flex;
+  flex-direction: row;
+  gap: 72px;
+  flex-shrink: 0;
+  align-items: center;
+  padding-right: 72px;
+}
+
+.logo {
+  max-height: 50px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 26px;
+    letter-spacing: -1px;
+  }
+}
