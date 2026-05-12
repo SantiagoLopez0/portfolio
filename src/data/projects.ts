@@ -44,7 +44,7 @@ export const projects: Project[] = [
     id: 4,
     title: "Portfolio",
     description: "Personal portfolio rebuilt with Next.js 15, TypeScript and Tailwind CSS. Version 2 features GSAP animations, a fully refactored component architecture, and code developed with Claude Code alongside hands-on programming.",
-    tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Claude Code"],
+    tags: ["Next.js", "TypeScript", "Tailwind CSS", "GSAP", "Claude Code", "Figma"],
     image: "/projects/porfolio.png",
     url: "https://portfolio-santiagolopez.vercel.app/",
     featured: true,
@@ -53,8 +53,8 @@ export const projects: Project[] = [
   {
     id: 5,
     title: "Garaje de Ideas",
-    description: "Full Webflow development for a Spanish digital product agency working with brands like IKEA, Iberdrola and Banco Santander. Built advanced interactions with GSAP, integrated external libraries like Swiper.js and Lenis, handled CMS collections, custom JavaScript features, and HubSpot integration.",
-    tags: ["Webflow", "JavaScript", "GSAP", "Finsweet", "Swiper.js", "Lenis", "Lottiefiles", "Figma"],
+    description: "Full Webflow development for a Spanish digital product agency. Built advanced interactions with GSAP, integrated external libraries like Swiper.js and Lenis, handled CMS collections, custom JavaScript features, and HubSpot integration.",
+    tags: ["Webflow", "JavaScript", "GSAP", "Finsweet", "Swiper.js", "Lenis"],
     image: "/projects/garaje.png",
     url: "https://www.garajedeideas.com/es",
     featured: true,
@@ -63,7 +63,7 @@ export const projects: Project[] = [
   {
     id: 6,
     title: "Unit21",
-    description: "Webflow development for an AI-powered fraud and AML platform trusted by leading fintechs. Led new branding implementation, built new pages, and managed large-scale CMS collections to handle complex product data and content requirements.",
+    description: "Webflow development for an AI-powered fraud and AML platform. Led new branding implementation, built new pages, and managed large-scale CMS collections to handle complex product data and content requirements.",
     tags: ["Webflow", "JavaScript", "Finsweet", "Claude"],
     image: "/projects/unit21.png",
     url: "https://www.unit21.ai/",
@@ -74,7 +74,7 @@ export const projects: Project[] = [
     id: 7,
     title: "TrewUp",
     description: "Full Webflow build from scratch for a CPG trade spend analytics platform. Developed custom interactions with JS and CSS, and handled full CMS migration and content automation for a data-heavy product.",
-    tags: ["Webflow", "JavaScript", "CSS"],
+    tags: ["Webflow", "JavaScript", "CSS", "Claude"],
     image: "/projects/trewup.png",
     url: "https://www.trewup.com/",
     featured: true,
@@ -93,7 +93,7 @@ export const projects: Project[] = [
   {
     id: 9,
     title: "Energy Domain",
-    description: "Full content migration to Webflow for an oil & gas data and marketplace platform. Managed large volumes of structured data across CMS collections, including scraping and library integrations to display complex information according to client specs.",
+    description: "Full content migration to Webflow. Managed large volumes of structured data across CMS collections, including scraping and library integrations to display complex information according to client specs.",
     tags: ["Webflow", "Finsweet", "Swiper.js", "Google Sheets"],
     image: "/projects/energydomain.png",
     url: "https://www.energydomain.com/",
@@ -103,7 +103,7 @@ export const projects: Project[] = [
   {
     id: 10,
     title: "Founders Makers",
-    description: "Webflow development for a UK-based creative agency working with brands like Diageo, L'Oréal and Penguin Random House. Built clean, polished animations with GSAP and Lenis, with a strong focus on performance and scalability for future growth.",
+    description: "Webflow development for a UK-based creative agency. Built clean, polished animations with GSAP and Lenis, with a strong focus on performance and scalability for future growth.",
     tags: ["Webflow", "JavaScript", "GSAP", "Lenis"],
     image: "/projects/foundersmakers.png",
     url: "https://www.founders-makers.com/",
@@ -123,7 +123,7 @@ export const projects: Project[] = [
   {
     id: 12,
     title: "Mashgin",
-    description: "Full site rebrand and redevelopment for the world's fastest AI checkout system, trusted by 8,000+ locations including the Kansas City Chiefs and Palisades Tahoe. Implemented advanced Webflow interactions and custom JS, managed large CMS collections, and iterated across multiple product updates.",
+    description: "Full site rebrand and redevelopment implementation for an AI checkout system. Developed advanced Webflow interactions and custom JS, managed large CMS collections, and iterated across multiple product updates.",
     tags: ["Webflow", "JavaScript", "Finsweet", "Webflow Interactions", "Claude"],
     image: "/projects/mashgin.png",
     url: "https://www.mashgin.com/",
@@ -133,11 +133,11 @@ export const projects: Project[] = [
   {
     id: 13,
     title: "Orchestra",
-    description: "Full Webflow build from scratch for a data and AI orchestration platform used by companies like Experian and Skyscanner. Focused on scalability, performance, and mobile UX recommendations throughout the development process.",
+    description: "Full Webflow build from scratch for a data and AI orchestration platform. Focused on scalability, performance, and mobile UX recommendations throughout the development process.",
     tags: ["Webflow", "JavaScript", "CSS"],
     image: "/projects/orchestra.png",
     url: "https://www.getorchestra.io/",
-    featured: false,
+    featured: true,
     category: ""
   },
   {
@@ -157,7 +157,7 @@ export const projects: Project[] = [
     tags: ["Webflow", "JavaScript", "Figma", "CSS"],
     image: "/projects/talkpush.png",
     url: "https://www.talkpush.com/",
-    featured: false,
+    featured: true,
     category: ""
   },
   {
