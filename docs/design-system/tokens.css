@@ -1,0 +1,155 @@
+/* Design System — Portafolio Santiago López — generated from tokens.json */
+:root, [data-theme="dark"] {
+  --surface-base: #02070a; /* Fondo principal de página. Base oscura (#02070A, negro con un toque azul) en el tema dark; blanco en light. */
+  --surface-raised: #0d1317; /* Superficies elevadas o secciones de relevo: Process, FAQ. Contraste de texto verificado con ink e ink-muted. */
+  --ink: #ffffff; /* Texto principal y títulos sobre surface-base y surface-raised (18:1 o más). */
+  --ink-muted: #a9b1b7; /* Texto secundario, labels e índices. Mínimo 6:1 sobre surface-base y surface-raised. */
+  --line: #2a3238; /* Hairlines decorativas: separadores de filas, FAQ, footer. No usar como borde de un control. */
+  --line-strong: #6b747b; /* Borde de controles y placeholders (mínimo 3:1 contra el fondo). */
+  --accent: #0297de; /* Acento principal (azul). 90/10: solo en pocos puntos. Sobre oscuro sirve para texto (6.2:1); sobre blanco solo para relleno o texto de 24px o más (3.2:1). El texto sobre accent va en on-accent. */
+  --on-accent: #02070a; /* Texto sobre accent (6.2:1). El blanco sobre este azul da 3.2:1 y no cumple para texto pequeño. */
+  --accent-alt: #ff4b0f; /* Acento alterno (naranja) para probar el sistema o para puntos de énfasis. Sobre oscuro sirve para texto (6:1); sobre blanco solo para relleno o texto de 24px o más (3.35:1). */
+  --on-accent-alt: #02070a; /* Texto sobre accent-alt (6:1). */
+  --white: #ffffff; /* Blanco fijo, igual en los dos temas: texto sobre el fondo fijo de los tags. */
+  --tag-bg: #333333; /* Fondo fijo de los tags, igual en los dos temas. Con white da 12.6:1. */
+  --overlay: #02070a73; /* Velo sobre el video o la imagen de fondo del hero (45%). */
+  --overlay-strong: #02070aa6; /* Velo más fuerte (65%) cuando el texto necesita más contraste sobre media. */
+}
+[data-theme="light"] {
+  --surface-base: #ffffff;
+  --surface-raised: #f4f5f6;
+  --ink: #02070a;
+  --ink-muted: #565d64;
+  --line: #d8dcdf;
+  --line-strong: #767d84;
+}
+:root {
+  --space-1: 0.25rem; /* Ajuste fino interno. */
+  --space-2: 0.5rem; /* Gap entre tags. */
+  --space-3: 0.75rem; /* Gap entre elementos pequeños. */
+  --space-4: 1rem; /* Gap entre botones. */
+  --space-6: 1.5rem; /* Padding horizontal de botón y vertical de header. */
+  --space-8: 2rem; /* Gap entre bloques de una sección. */
+  --space-12: 3rem; /* Gutter horizontal de página. */
+  --space-16: 4rem; /* Gap entre columnas. */
+  --space-24: 6rem; /* Padding vertical compacto de sección. */
+  --space-30: 7.5rem; /* Padding vertical estándar de sección. */
+  --radius-sm: 0.25rem; /* Foto del About, detalles pequeños. */
+  --radius-md: 0.5rem; /* Campos y bloques utilitarios. */
+  --radius-lg: 0.75rem; /* Bloques de media y tarjetas de proceso. */
+  --radius-pill: 6.25rem; /* Forma pill genérica. Botones y tags usan em (8.33em y 1.55em) para escalar con su texto. */
+  --font-display: "Jokker", "Bricolage Grotesque", "Inter", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-accent: "The Night Watch", "Bricolage Grotesque", serif;
+  --text-display-hero: 600 15rem/0.86 var(--font-display); /* H1 del hero: dos líneas casi a todo el ancho, la primera a la izquierda y la segunda a la derecha. Solo una vez por página. 15rem: ocupa siempre la misma proporción de pantalla porque la base del html es fluida. */
+  --text-display-xl: 600 5rem/1.02 var(--font-display); /* Heading del CTA de Contact. */
+  --text-h2: 600 3.5rem/1.07 var(--font-display); /* Título de sección. */
+  --text-h3: 600 2rem/1.2 var(--font-display); /* Título de card y de fila de servicio. */
+  --text-h4: 600 1.5rem/1.25 var(--font-display); /* Título de tarjeta de proceso y de pregunta del FAQ. */
+  --text-button: 700 1.1875rem/1.15 var(--font-display); /* Texto del botón relleno y del outline en negrita (este a 18px). Todo botón va en mayúsculas. En 19px y peso 700 cuenta como texto grande: por eso el blanco sobre el azul (3.2:1) cumple; no reducir. */
+  --text-button-light: 400 1.125rem/1.15 var(--font-display); /* Texto del botón outline fino. En mayúsculas como todo botón. */
+  --text-tag: 400 1.2em/1.15 var(--font-display); /* Texto de tags. En em: con base 0.875rem da 1.05rem (16.8px a 1440). */
+  --text-menu: 500 1.75rem/1 var(--font-display); /* Texto del botón Menu del header, junto a la hamburguesa. */
+  --text-body-lg: 400 1.25rem/1.875rem var(--font-body); /* Línea de apoyo del hero y textos destacados. */
+  --text-body: 400 1rem/1.5rem var(--font-body); /* Texto base. */
+  --text-body-sm: 500 0.875rem/1.25rem var(--font-body); /* Navegación y metadata. 0.875rem (14px a 1440) es también la base del em del sistema. */
+  --text-accent-display: 400 3.5rem/1 var(--font-accent); /* Un solo momento decorativo (el INFO del About). Nunca en títulos corrientes, tags, botones ni menos de 40px. */
+}
+.display-hero {
+  font-family: var(--font-display);
+  font-size: 15rem;
+  line-height: 0.86;
+  font-weight: 600;
+  letter-spacing: -0.06em;
+}
+.display-xl {
+  font-family: var(--font-display);
+  font-size: 5rem;
+  line-height: 1.02;
+  font-weight: 600;
+  letter-spacing: -0.035em;
+}
+.h2 {
+  font-family: var(--font-display);
+  font-size: 3.5rem;
+  line-height: 1.07;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+}
+.h3 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.2;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.h4 {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  line-height: 1.25;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+.button {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  line-height: 1.15;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+.button-light {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.tag {
+  font-family: var(--font-display);
+  font-size: 1.2em;
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+}
+.menu {
+  font-family: var(--font-display);
+  font-size: 1.75rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+}
+.body-lg {
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+  line-height: 1.875rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5rem;
+  font-weight: 400;
+  letter-spacing: 0;
+}
+.body-sm {
+  font-family: var(--font-body);
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.accent-display {
+  font-family: var(--font-accent);
+  font-size: 3.5rem;
+  line-height: 1;
+  font-weight: 400;
+  letter-spacing: 0.02em;
+}
+@font-face {
+  font-family: "The Night Watch";
+  src: url("fonts/TheNightWatch.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}

@@ -1,1 +1,0 @@
-export { InfiniteLogoCarousel } from './InfiniteLogoCarousel';

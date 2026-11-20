@@ -1,0 +1,6 @@
+docs/
+pnpm-lock.yaml
+**/dist/
+**/.astro/
+**/.sanity/
+web/sanity.types.ts

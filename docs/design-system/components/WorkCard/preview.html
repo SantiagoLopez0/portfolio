@@ -1,0 +1,34 @@
+<!-- @dsCard group="Content" height=400 subtitle="Card de Selected work como en el wireframe: media a ancho completo y fila de título y tags" -->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:var(--font-body);font-size:0.875rem;background:var(--surface-base);color:var(--ink)}
+.wrap{padding:var(--space-8) var(--space-12)}
+.card{display:flex;flex-direction:column;gap:1.25rem;text-decoration:none;color:var(--ink)}
+.media{height:18.75rem;border-radius:var(--radius-lg);background-color:var(--surface-raised);background-image:linear-gradient(to top right,transparent calc(50% - 1px),var(--line-strong),transparent calc(50% + 1px)),linear-gradient(to bottom right,transparent calc(50% - 1px),var(--line-strong),transparent calc(50% + 1px));border:1px solid var(--line);display:flex;align-items:center;justify-content:center;font-size:0.8125rem;font-weight:500;color:var(--ink-muted)}
+.media span{background:var(--surface-raised);padding:0.25rem 0.625rem}
+.meta{display:flex;justify-content:space-between;align-items:center;gap:var(--space-6);flex-wrap:wrap}
+.title{display:flex;align-items:baseline;gap:1.25rem}
+.idx{font-size:0.875rem;font-weight:500;color:var(--ink-muted)}
+h3{margin:0;font-family:var(--font-display);font-size:2rem;line-height:1.2;font-weight:600;letter-spacing:-.02em}
+.tags{display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap}
+.tag{display:inline-block;color:var(--white);letter-spacing:-.02em;background-color:var(--tag-bg);border-radius:1.55em;padding:.25em .65em;font-family:var(--font-display);font-size:1.2em;font-weight:400;line-height:1.15}
+.year{font-size:0.875rem;font-weight:500;color:var(--ink-muted);margin-left:var(--space-2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<a class="card" href="#">
+<div class="media"><span>[Imagen o video preview en hover — ancho completo]</span></div>
+<div class="meta">
+<div class="title"><span class="idx">01</span><h3>Nombre del proyecto</h3></div>
+<div class="tags"><span class="tag">Webflow</span><span class="tag">GSAP</span><span class="tag">CMS</span><span class="year">2026</span></div>
+</div>
+</a>
+</div>
+</body>
+</html>

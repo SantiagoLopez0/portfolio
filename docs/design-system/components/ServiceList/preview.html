@@ -1,0 +1,46 @@
+<!-- @dsCard group="Content" height=480 subtitle="What I do: lista grande, hover cambia el texto de la izquierda" -->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:var(--font-body)}
+.panel{background:var(--surface-base);color:var(--ink);padding:var(--space-12);display:flex;gap:var(--space-16);flex-wrap:wrap}
+.left{flex:0 0 17.5rem;display:flex;flex-direction:column;gap:var(--space-4);padding-top:var(--space-4)}
+.left .t{font-size:0.8125rem;font-weight:500;color:var(--ink-muted)}
+.left p{margin:0;font-size:1.375rem;line-height:1.3;font-weight:500}
+.list{flex:1 1 26.25rem;min-width:0;border-top:1px solid var(--line)}
+.row{display:flex;align-items:flex-start;gap:0.875rem;padding:1rem 0 1.25rem;border-bottom:1px solid var(--line);cursor:default}
+.row .l{font-family:var(--font-display);font-size:3.5rem;line-height:1;font-weight:600;letter-spacing:-.04em;color:var(--ink-muted);transition:color .15s}
+.row .n{font-size:0.875rem;font-weight:600;margin-top:0.5rem;color:var(--ink-muted)}
+.row.on .l{color:var(--ink)}
+.row.on .n{color:var(--accent)}
+</style>
+</head>
+<body>
+<div class="panel" data-theme="dark">
+<div class="left"><span class="t" id="t">Webflow</span><p id="d">[Descripción corta: qué hago con Webflow y para qué tipo de proyecto]</p></div>
+<div class="list" id="list"></div>
+</div>
+<script>
+var items=['Webflow','Next.js','Astro + Sanity','GSAP & animación','CRO & SEO'];
+var list=document.getElementById('list');
+function set(i){
+Array.prototype.forEach.call(list.children,function(el,j){el.className='row'+(j===i?' on':'');});
+document.getElementById('t').textContent=items[i];
+document.getElementById('d').textContent='[Descripción corta: qué hago con '+items[i]+' y para qué tipo de proyecto]';
+}
+items.forEach(function(name,i){
+var r=document.createElement('div');r.className='row';
+var l=document.createElement('span');l.className='l';l.textContent=name;
+var n=document.createElement('span');n.className='n';n.textContent='( 0'+(i+1)+' )';
+r.appendChild(l);r.appendChild(n);
+r.addEventListener('mouseenter',function(){set(i);});
+list.appendChild(r);
+});
+set(0);
+</script>
+</body>
+</html>

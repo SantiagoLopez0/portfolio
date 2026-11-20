@@ -1,1 +1,0 @@
-export { WhatIDo } from './WhatIDo';

@@ -1,0 +1,49 @@
+{
+  "manifestVersion": 3,
+  "name": "Design System — Portafolio Santiago López",
+  "namespace": "SantiagoLopez",
+  "files": [
+    "components/Button/README.md",
+    "components/FaqItem/README.md",
+    "components/Header/README.md",
+    "components/ServiceList/README.md",
+    "components/Tag/README.md",
+    "components/WorkCard/README.md",
+    "fonts/TheNightWatch.ttf",
+    "tokens.css"
+  ],
+  "libraries": [],
+  "components": [
+    {
+      "name": "Button",
+      "group": "Actions",
+      "summary": "Botón pill en Jokker con tres variantes tomadas de las referencias de Santiago: relleno con flecha, outline fino con flecha y outline en negrita."
+    },
+    {
+      "name": "FaqItem",
+      "group": "Content",
+      "summary": "Fila de acordeón del FAQ: pregunta en h4 y, al abrirla, una respuesta corta."
+    },
+    {
+      "name": "Header",
+      "group": "Navigation",
+      "summary": "Barra de navegación que forma parte del hero: wordmark a la izquierda, tres links centrados y el botón Menu a la derecha."
+    },
+    {
+      "name": "ServiceList",
+      "group": "Content",
+      "summary": "Sección What I do: lista grande a la derecha y, a la izquierda, título y descripción de la opción bajo el mouse."
+    },
+    {
+      "name": "Tag",
+      "group": "Actions",
+      "summary": "Etiqueta compacta en Jokker para stack, estado y metadata."
+    },
+    {
+      "name": "WorkCard",
+      "group": "Content",
+      "summary": "Card de Selected work, como en el wireframe: bloque de media a ancho completo y, debajo, una fila con índice y título a la izquierda, y tags y año a la derecha."
+    }
+  ],
+  "assetGroups": []
+}

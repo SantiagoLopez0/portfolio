@@ -1,1 +1,0 @@
-export { ResumeModal } from './ResumeModal';

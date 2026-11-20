@@ -1,0 +1,33 @@
+<!-- @dsCard group="Navigation" height=230 subtitle="Wordmark, 3 links centrados y Menu grande con hamburguesa" -->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500&amp;family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:var(--font-body);font-size:0.875rem}
+.panel{background:var(--surface-base);color:var(--ink);padding:0 var(--space-12)}
+.cap{display:block;font-size:0.75rem;color:var(--ink-muted);padding:var(--space-3) 0 0}
+.header{display:flex;align-items:center;gap:var(--space-6);padding:var(--space-4) 0 var(--space-6)}
+.wordmark{flex:1 1 0;font-family:var(--font-display);font-weight:600;font-size:1.25rem;letter-spacing:-.02em;color:var(--ink);text-decoration:none}
+.nav{display:flex;gap:2.5rem;font-size:0.875rem;font-weight:500}
+.nav a{color:var(--ink);text-decoration:none}
+.nav a:hover{color:var(--accent)}
+.right{flex:1 1 0;display:flex;justify-content:flex-end}
+.menu{display:inline-flex;align-items:center;gap:0.75rem;background:none;border:0;padding:0;color:var(--ink);font-family:var(--font-display);font-size:1.75rem;line-height:1;font-weight:500;letter-spacing:-.02em;cursor:pointer}
+.menu:hover{color:var(--accent)}
+.menu:focus-visible{outline:0.125rem solid var(--accent);outline-offset:0.25rem}
+</style>
+</head>
+<body>
+<div class="panel" data-theme="dark">
+<span class="cap">Dark · transparente sobre el hero</span>
+<div class="header"><a class="wordmark" href="#">Santiago López</a><nav class="nav" aria-label="Principal"><a href="#">Work</a><a href="#">Services</a><a href="#">Contact</a></nav><div class="right"><button class="menu" type="button" aria-label="Abrir menú">Menu <svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1.5h24M1 8h24M1 14.5h24"/></svg></button></div></div>
+</div>
+<div class="panel" data-theme="light">
+<span class="cap">Light · estado sólido al hacer scroll</span>
+<div class="header"><a class="wordmark" href="#">Santiago López</a><nav class="nav" aria-label="Principal"><a href="#">Work</a><a href="#">Services</a><a href="#">Contact</a></nav><div class="right"><button class="menu" type="button" aria-label="Abrir menú">Menu <svg aria-hidden="true" width="26" height="16" viewBox="0 0 26 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M1 1.5h24M1 8h24M1 14.5h24"/></svg></button></div></div>
+</div>
+</body>
+</html>

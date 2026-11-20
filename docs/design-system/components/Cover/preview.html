@@ -1,0 +1,43 @@
+<!-- @dsCard height=288 -->
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600&amp;family=Inter:wght@400;500&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+.cover{position:relative;width:60rem;height:18rem;background:var(--surface-base);overflow:hidden}
+.txt{position:absolute;left:3rem;bottom:2rem;width:26.25rem}
+.name{margin:0;font-family:var(--font-display);font-size:5.5rem;line-height:.95;font-weight:600;letter-spacing:-.04em;color:var(--ink)}
+.tag{margin:1rem 0 0;font-family:var(--font-body);font-size:0.875rem;line-height:1.25rem;color:var(--ink-muted)}
+svg{position:absolute;left:30rem;top:0}
+.accent{fill:var(--accent)}
+.alt{fill:var(--accent-alt)}
+.ink{fill:var(--ink)}
+.muted{fill:var(--ink-muted)}
+.slab{rx:var(--radius-lg)}
+.pill{fill:none;stroke:var(--ink);stroke-width:1.5}
+</style>
+</head>
+<body>
+<div class="cover">
+<div class="txt"><h1 class="name">Santiago<br>López</h1><p class="tag">Sistema de diseño del portafolio · V1</p></div>
+<svg width="480" height="288" viewBox="0 0 480 288" aria-hidden="true">
+<!--
+Bloques: accent 168x200 (tabla alta que sangra por arriba), accent-alt 120x120, ink 120x88 (sangra arriba a la derecha), ink-muted 256x96 (sangra abajo a la derecha). Lados en múltiplos de space-4 (4/8/12/24...), esquinas radius-lg.
+Disposición: losa azul alta con satélites que escalonan de izquierda a derecha, tomada de la composición del hero.
+Patrón: tres pills rotadas, de la escala de radios (radius-pill = mitad del lado corto); salen de los tags sticker del hero, el gesto más específico de este portafolio.
+Pasos y radios: space-4/space-6/space-12, radius-lg, radius-pill.
+-->
+<rect class="accent slab" x="40" y="-12" width="168" height="212"/>
+<rect class="alt slab" x="224" y="56" width="120" height="120"/>
+<rect class="ink" x="360" y="-12" width="132" height="100" rx="12"/>
+<rect class="muted" x="224" y="192" width="268" height="108" rx="12"/>
+<g transform="rotate(-8 100 236)"><rect class="pill" x="52" y="222" width="96" height="28" rx="14"/></g>
+<g transform="rotate(6 300 130)"><rect class="pill" x="252" y="116" width="96" height="28" rx="14"/></g>
+<g transform="rotate(-4 400 236)"><rect class="pill" x="352" y="222" width="96" height="28" rx="14" style="stroke:var(--surface-base)"/></g>
+</svg>
+</div>
+</body>
+</html>
