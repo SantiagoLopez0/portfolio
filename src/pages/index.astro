@@ -5,6 +5,8 @@ import Hero from '@/components/sections/Hero.astro';
 import Logos from '@/components/sections/Logos.astro';
 import Work from '@/components/sections/Work.astro';
 import Services from '@/components/sections/Services.astro';
+import Process from '@/components/sections/Process.astro';
+import { showProcess } from '@/data/process';
 import { site } from '@/data/site';
 ---
 
@@ -15,5 +17,6 @@ import { site } from '@/data/site';
     <Logos />
     <Work />
     <Services />
+    {showProcess && <Process />}
   </main>
 </BaseLayout>

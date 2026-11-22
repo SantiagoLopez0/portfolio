@@ -1,0 +1,78 @@
+---
+/**
+ * Process (#process). Wireframe: H2 y 4 tarjetas de pasos en una fila (índice, título y
+ * texto abajo). Superficie elevada (`surface-raised`) como pide el design system, dentro
+ * del tema oscuro del sitio. Versión básica: Santiago la trabaja cuando tenga contenido.
+ * Oculta en la home mientras `showProcess` sea false (src/data/process.ts).
+ */
+import { processSteps, processTitle } from '@/data/process';
+---
+
+<section id="process" class="process" aria-labelledby="process-title">
+  <div class="container">
+    <h2 id="process-title" class="process__title">
+      {processTitle}
+    </h2>
+
+    <ol class="process__list" role="list">
+      {processSteps.map((step, index) => (
+        <li class="process__card">
+          <span class="process__index" aria-hidden="true">
+            {String(index + 1).padStart(2, '0')}
+          </span>
+          <h3 class="process__name">{step.title}</h3>
+          <p class="process__description">{step.description}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+</section>
+
+<style>
+  .process {
+    padding-block: var(--space-24) var(--space-30);
+    background-color: var(--surface-raised);
+    color: var(--ink);
+  }
+
+  .process__title {
+    /* 56px bajo el título, como en el wireframe (no hay token de 3.5rem). */
+    margin-bottom: 3.5rem;
+    font: var(--text-h2);
+    letter-spacing: -0.025em;
+  }
+
+  .process__list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+    margin: 0;
+  }
+
+  .process__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    min-height: 17.5rem;
+    padding: 1.75rem;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    background-color: var(--surface-base);
+  }
+
+  .process__index {
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+  }
+
+  .process__name {
+    font: var(--text-h4);
+    letter-spacing: -0.015em;
+  }
+
+  .process__description {
+    margin: auto 0 0;
+    font: var(--text-body);
+    color: var(--ink-muted);
+  }
+</style>
