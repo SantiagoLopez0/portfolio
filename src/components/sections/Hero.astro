@@ -1,0 +1,200 @@
+---
+/**
+ * Hero (#hero). Wireframe: H1 gigante en dos líneas en diagonal (arriba-izquierda /
+ * abajo-derecha), tags sticker alrededor, línea de apoyo y cue de "Scroll" abajo.
+ * Sin CTAs. Fondo de video o imagen con overlay (pendiente: sin media queda surface-base).
+ */
+import Tag from '@/components/ui/Tag.astro';
+import { hero } from '@/data/site';
+
+const [lineOne, lineTwo] = hero.titleLines;
+const { media } = hero;
+---
+
+<section id="hero" class="hero" data-theme="dark">
+  {media && (
+    <div class="hero__media" aria-hidden="true">
+      {media.type === 'video' ? (
+        <video src={media.src} poster={media.poster} autoplay muted loop playsinline />
+      ) : (
+        <img src={media.src} alt="" />
+      )}
+    </div>
+  )}
+
+  <div class="container hero__inner">
+    <div class="hero__stage">
+      <ul class="hero__tags" role="list" aria-label="Especialidades">
+        {hero.tags.map((tag) => (
+          <li class={`hero__tag hero__tag--${tag.placement}`}>
+            <Tag variant={tag.variant} rotate={tag.rotate}>
+              {tag.label}
+            </Tag>
+          </li>
+        ))}
+      </ul>
+
+      <h1 class="hero__title">
+        <span class="hero__line hero__line--start">{lineOne}</span>
+        <span class="hero__line hero__line--end">{lineTwo}</span>
+      </h1>
+    </div>
+
+    <div class="hero__footer">
+      <p class="hero__lead">{hero.lead}</p>
+      <a class="hero__scroll" href={hero.scrollHref}>
+        {hero.scrollLabel}
+        <svg
+          aria-hidden="true"
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 5v14M5 12l7 7 7-7"></path>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    display: flex;
+    min-height: 100svh;
+    background-color: var(--surface-base);
+    color: var(--ink);
+  }
+
+  /* Media de fondo + velo (overlay). Las cards de work no llevan velo; el hero sí. */
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+  }
+
+  .hero__media::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-color: var(--overlay);
+  }
+
+  .hero__media :is(img, video) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero__inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding-top: calc(var(--header-height) + var(--space-8));
+    padding-bottom: 1.75rem;
+  }
+
+  /* Escenario del H1: los tags se posicionan contra este bloque. */
+  .hero__stage {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 32.5rem;
+  }
+
+  .hero__title {
+    font: var(--text-display-hero);
+    letter-spacing: -0.06em;
+    text-wrap: nowrap;
+  }
+
+  .hero__line {
+    display: block;
+  }
+
+  .hero__line--end {
+    text-align: right;
+    /* El tracking negativo también se aplica tras la última letra y la empuja fuera
+       del borde; esta compensación deja la línea alineada justo al margen derecho. */
+    padding-inline-end: 0.06em;
+  }
+
+  .hero__tags {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    margin: 0;
+    pointer-events: none;
+  }
+
+  .hero__tag {
+    position: absolute;
+    pointer-events: auto;
+  }
+
+  /* Posiciones del wireframe (en % del escenario). */
+  .hero__tag--top-left {
+    top: 0.5rem;
+    left: 6%;
+  }
+  .hero__tag--top-right {
+    top: 2.25rem;
+    right: 8%;
+  }
+  .hero__tag--middle-left {
+    top: 46%;
+    left: 0;
+  }
+  .hero__tag--middle-right {
+    top: 50%;
+    right: 0;
+  }
+  .hero__tag--bottom-left {
+    bottom: 0.875rem;
+    left: 14%;
+  }
+  .hero__tag--bottom-right {
+    bottom: 0;
+    right: 16%;
+  }
+
+  .hero__footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-6);
+  }
+
+  .hero__lead {
+    max-width: 32.5rem;
+    font: var(--text-body-lg);
+  }
+
+  .hero__scroll {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+    transition: color 0.2s ease;
+  }
+
+  .hero__scroll:hover {
+    color: var(--ink);
+  }
+
+  .hero__scroll svg {
+    width: 0.875rem;
+    height: auto;
+  }
+</style>

@@ -1,0 +1,158 @@
+---
+/**
+ * Header (docs/design-system/components/Header). Forma parte del hero:
+ * wordmark a la izquierda, tres links centrados y el botón Menu a la derecha.
+ * Fijo arriba: transparente sobre el hero y, al hacer scroll, fondo surface-base
+ * translúcido con blur y una hairline abajo.
+ * TODO: el botón Menu abrirá el overlay con todos los links (se diseña al final).
+ */
+import { site } from '@/data/site';
+---
+
+<header class="site-header" data-theme="dark" data-scrolled="false">
+  <div class="container site-header__inner">
+    <a class="site-header__wordmark" href="#hero">
+      {site.name}
+    </a>
+
+    <nav class="site-header__nav" aria-label="Principal">
+      <ul role="list">
+        {site.primaryNav.map((item) => (
+          <li>
+            <a href={item.href}>{item.label}</a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+
+    <div class="site-header__end">
+      <button class="site-header__menu" type="button" aria-label="Abrir menú" aria-expanded="false">
+        <span aria-hidden="true">Menu</span>
+        <svg
+          aria-hidden="true"
+          width="26"
+          height="16"
+          viewBox="0 0 26 16"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+        >
+          <path d="M1 1.5h24M1 8h24M1 14.5h24"></path>
+        </svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Estado "scrolled": se activa en cuanto la página deja el tope.
+  const header = document.querySelector<HTMLElement>('.site-header');
+  if (header) {
+    let ticking = false;
+    const update = () => {
+      header.dataset.scrolled = String(window.scrollY > 8);
+      ticking = false;
+    };
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (!ticking) {
+          ticking = true;
+          requestAnimationFrame(update);
+        }
+      },
+      { passive: true },
+    );
+    update();
+  }
+</script>
+
+<style>
+  .site-header {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 50;
+    color: var(--ink);
+    border-bottom: 1px solid transparent;
+    transition:
+      background-color 0.3s ease,
+      border-color 0.3s ease,
+      backdrop-filter 0.3s ease;
+  }
+
+  .site-header[data-scrolled='true'] {
+    background-color: color-mix(in srgb, var(--surface-base) 72%, transparent);
+    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(1rem);
+    border-bottom-color: var(--line);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    min-height: var(--header-height);
+    padding-block: var(--space-6);
+  }
+
+  .site-header__wordmark {
+    flex: 1 1 0;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .site-header__nav ul {
+    display: flex;
+    gap: 2.5rem;
+    margin: 0;
+    font: var(--text-body-sm);
+  }
+
+  .site-header__end {
+    flex: 1 1 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .site-header__menu {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    font: var(--text-menu);
+    letter-spacing: -0.02em;
+  }
+
+  .site-header__menu svg {
+    width: 1.625rem;
+    height: auto;
+  }
+
+  .site-header__wordmark,
+  .site-header__nav a,
+  .site-header__menu {
+    transition: color 0.2s ease;
+  }
+
+  .site-header__nav a:hover,
+  .site-header__menu:hover {
+    color: var(--accent);
+  }
+
+  .site-header a:focus-visible,
+  .site-header__menu:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 0.25rem;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .site-header,
+    .site-header__wordmark,
+    .site-header__nav a,
+    .site-header__menu {
+      transition: none;
+    }
+  }
+</style>

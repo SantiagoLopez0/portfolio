@@ -143,7 +143,9 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 
 ## Estado actual y pendientes
 
-- Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`). **No hay secciones de la página construidas todavía.**
+- Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`).
+- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → fondo translúcido con blur al hacer scroll; el botón Menu aún no abre nada) y Hero (`Hero.astro`). Componente `ui/Tag.astro`. Siguen: Logos, Selected work + popup, What I do, Process, About, FAQ, Contact + Footer, overlay del menú.
+- **Contenido provisional** en `src/data/site.ts` (nombre, nav, textos y tags del hero) mientras no existan los singletons `siteSettings`/`home`. Cuando se creen, ese archivo se reemplaza por consultas GROQ; los componentes no cambian porque ya reciben el contenido desde fuera.
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.
 - **CLI de Sanity**: Santiago también trabaja con otra cuenta de Sanity (BenorMedia). El CLI tiene una sola sesión a la vez; si `schemas deploy` o `deploy` fallan con "Unauthorized / missing grants", es que el CLI está con la otra cuenta: pedirle que corra `npx sanity login` con la cuenta de la org "Santiago Lopez". El Studio local usa la sesión del navegador y no depende de eso.
@@ -158,5 +160,6 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 - Antes de construir un componente, leer su README en `docs/design-system/components/` y su `preview.html`.
 - HTML semántico y accesible: landmarks, un solo `h1`, foco visible, `aria-expanded` en acordeones y menú, `alt` en imágenes, overlay del menú y popups con manejo de foco y `Escape`.
 - Rendimiento: imágenes de Sanity con tamaño y formato (`urlFor(...).width().auto('format')`), `loading="lazy"` fuera del primer viewport, videos con `poster`, `muted`, `playsinline` y sin autoplay pesado en mobile.
-- Verificar con `pnpm build` (incluye `astro check`) antes de dar algo por terminado.
+- Verificar con `pnpm build` (incluye `astro check`) antes de dar algo por terminado, y revisar el render real: `pnpm build && pnpm preview --port 4329` en segundo plano + capturas headless con Chrome (`chrome.exe --headless=new --window-size=1440,900 --screenshot=<ruta>`) a 1440, 1920 y 1280×720. El navegador integrado no abre localhost.
+- Variables globales de layout en `global.css`: `--em-base` (0.875rem, base de los componentes en em: tags, botones) y `--header-height` (compensa el header fijo; también `scroll-padding-top`).
 - Commits pequeños y descriptivos. Trabajar en ramas; no hacer push ni merge a `main` sin que Santiago lo pida.

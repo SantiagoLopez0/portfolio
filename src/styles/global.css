@@ -1,9 +1,18 @@
 /* Base global del sitio. Los tokens viven en tokens.css; aquí solo reset y escala fluida. */
 @import './tokens.css';
 
+:root {
+  /* Base del em para botones y tags (design system → Tipografía): 0.875rem = 14px a 1440.
+     Los componentes en em fijan font-size: var(--em-base) en su raíz y escalan desde ahí. */
+  --em-base: 0.875rem;
+  /* Alto del header fijo: lo usan las secciones para no quedar tapadas al navegar por anchors. */
+  --header-height: 4.75rem; /* space-6 arriba y abajo + texto del Menu (1.75rem) */
+}
+
 /* Escala fluida (docs/design-system/README.md → "Escala fluida"):
    todo se mide en rem calculado desde 1440px (px / 16); lo que escala es la base del html. */
 html {
+  scroll-padding-top: var(--header-height);
   font-size: clamp(10px, 1.111vw, 22px); /* 16px a 1440px */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;

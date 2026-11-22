@@ -1,0 +1,54 @@
+---
+/**
+ * Tag (docs/design-system/components/Tag). Etiqueta compacta en la fuente display.
+ * - variant: default (tag-bg + white), accent (Disponible), alt (accent-alt).
+ * - rotate: convierte el tag en "sticker" (solo en el hero, de -6 a 6 grados).
+ * Medidas en em sobre --em-base, como en el design system.
+ */
+interface Props {
+  variant?: 'default' | 'accent' | 'alt';
+  rotate?: number;
+  class?: string;
+}
+
+const { variant = 'default', rotate, class: className } = Astro.props;
+const style = rotate !== undefined ? `--tag-rotate: ${rotate}deg` : undefined;
+---
+
+<span class:list={['tag-root', className]} style={style}>
+  <span class:list={['tag', variant !== 'default' && `tag--${variant}`]}>
+    <slot />
+  </span>
+</span>
+
+<style>
+  .tag-root {
+    display: inline-block;
+    font-size: var(--em-base);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 0.25em 0.65em;
+    border-radius: 1.55em;
+    background-color: var(--tag-bg);
+    color: var(--white);
+    font-family: var(--font-display);
+    font-size: 1.2em;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+    transform: rotate(var(--tag-rotate, 0deg));
+  }
+
+  .tag--accent {
+    background-color: var(--accent);
+    color: var(--on-accent);
+  }
+
+  .tag--alt {
+    background-color: var(--accent-alt);
+    color: var(--on-accent-alt);
+  }
+</style>
