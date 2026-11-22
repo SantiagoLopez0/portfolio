@@ -1,6 +1,11 @@
 // Contenido provisional mientras no existen los schemas de Sanity (siteSettings / home).
 // Todo el texto de la página sale de aquí o de Sanity, nunca escrito dentro de los componentes.
 // Cuando se cree el singleton correspondiente, estos datos se reemplazan por consultas GROQ.
+import type { ImageMetadata } from 'astro';
+import heroImage from '@/assets/hero/hero-1.jpg';
+
+export type HeroMedia =
+  { type: 'image'; src: ImageMetadata } | { type: 'video'; src: string; poster?: string };
 
 export const site = {
   name: 'Santiago López',
@@ -42,6 +47,6 @@ export const hero = {
   lead: 'I design and build fast, editable websites with motion, in Webflow, Next.js and Astro.',
   scrollLabel: 'Scroll',
   scrollHref: '#work',
-  /** Fondo: imagen o video (pendiente). Sin media, el hero queda sobre surface-base. */
-  media: null as null | { type: 'image' | 'video'; src: string; poster?: string; alt?: string },
+  /** Fondo decorativo (sin alt): se muestra en escala de grises y con velo negro al 45%. */
+  media: { type: 'image', src: heroImage } as HeroMedia | null,
 };

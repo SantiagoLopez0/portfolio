@@ -18,6 +18,10 @@
      Pedido: peso 100. Bricolage Grotesque llega como mínimo a 200, así que se usa 200. */
   --text-menu: 200 2rem/1 var(--font-display);
 
+  /* 22 nov 2026 — Velo del hero: negro puro al 45% sobre la imagen en escala de grises
+     (el design system usaba --overlay, #02070A al 45%). */
+  --hero-overlay: rgb(0 0 0 / 0.45);
+
   /* 22 nov 2026 — Hover: sin color de acento; los elementos interactivos bajan a opacidad .8. */
   --hover-opacity: 0.8;
 }

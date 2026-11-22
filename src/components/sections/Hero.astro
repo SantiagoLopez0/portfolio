@@ -2,8 +2,9 @@
 /**
  * Hero (#hero). Wireframe: H1 gigante en dos líneas en diagonal (arriba-izquierda /
  * abajo-derecha), tags sticker alrededor, línea de apoyo y cue de "Scroll" abajo.
- * Sin CTAs. Fondo de video o imagen con overlay (pendiente: sin media queda surface-base).
+ * Sin CTAs. Fondo de imagen o video en escala de grises con velo negro (--hero-overlay).
  */
+import { Image } from 'astro:assets';
 import Tag from '@/components/ui/Tag.astro';
 import { hero } from '@/data/site';
 
@@ -17,7 +18,15 @@ const { media } = hero;
       {media.type === 'video' ? (
         <video src={media.src} poster={media.poster} autoplay muted loop playsinline />
       ) : (
-        <img src={media.src} alt="" />
+        <Image
+          src={media.src}
+          alt=""
+          widths={[640, 960, 1280, media.src.width]}
+          sizes="100vw"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
       )}
     </div>
   )}
@@ -91,13 +100,15 @@ const { media } = hero;
     content: '';
     position: absolute;
     inset: 0;
-    background-color: var(--overlay);
+    background-color: var(--hero-overlay);
   }
 
   .hero__media :is(img, video) {
     width: 100%;
     height: 100%;
+    max-width: none;
     object-fit: cover;
+    filter: grayscale(1);
   }
 
   .hero__inner {
