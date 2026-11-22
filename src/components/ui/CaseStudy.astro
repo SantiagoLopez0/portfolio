@@ -1,0 +1,364 @@
+---
+/**
+ * Popup de case study (diseño propuesto, pendiente de visto bueno de Santiago).
+ * <dialog> nativo con showModal(): foco atrapado, Escape y fondo inerte los da el
+ * navegador. Panel claro casi a pantalla completa, con scroll propio (data-lenis-prevent).
+ * Contenido: barra con cierre, portada 16:9, título + resumen, ficha (cliente, rol, año,
+ * stack), cuerpo en Portable Text, galería y link al sitio en vivo.
+ */
+import { PortableText } from 'astro-portabletext';
+import Tag from '@/components/ui/Tag.astro';
+import MediaPlaceholder from '@/components/ui/MediaPlaceholder.astro';
+import { imageSet } from '@/lib/sanity/image';
+import type { WorkItem } from '@/lib/work';
+
+interface Props {
+  item: WorkItem;
+  id: string;
+}
+
+const { item, id } = Astro.props;
+const titleId = `${id}-title`;
+const widths = [640, 960, 1344, 1920];
+const cover = item.cover?.asset ? imageSet(item.cover, widths, 16 / 9) : null;
+const gallery = (item.gallery ?? [])
+  .filter((image) => image.asset)
+  .map((image) => ({ ...image, ...imageSet(image, widths) }));
+const facts = [
+  { label: 'Client', value: item.client },
+  { label: 'Role', value: item.role },
+  { label: 'Year', value: String(item.year) },
+].filter((fact) => fact.value);
+const sizes = '(min-width: 1440px) 72rem, calc(100vw - 6rem)';
+---
+
+<dialog id={id} class="case" aria-labelledby={titleId} data-theme="light" data-lenis-prevent>
+  <div class="case__panel">
+    <div class="case__bar">
+      <span class="label case__eyebrow">Case study</span>
+      <button type="button" class="case__close label hover-fade" data-case-close>
+        Close
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M6 6l12 12M18 6L6 18"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="case__content">
+      <div class="case__cover">
+        {cover ? (
+          <img
+            src={cover.src}
+            srcset={cover.srcset}
+            sizes={sizes}
+            alt={item.cover?.alt ?? ''}
+            width="1600"
+            height="900"
+            loading="lazy"
+            decoding="async"
+          />
+        ) : (
+          <MediaPlaceholder label="Cover image" />
+        )}
+      </div>
+
+      <header class="case__head">
+        <h2 id={titleId} class="case__title">
+          {item.title}
+        </h2>
+        {item.summary && <p class="case__summary">{item.summary}</p>}
+      </header>
+
+      <dl class="case__facts">
+        {facts.map((fact) => (
+          <div class="case__fact">
+            <dt class="label">{fact.label}</dt>
+            <dd>{fact.value}</dd>
+          </div>
+        ))}
+        {item.tags?.length ? (
+          <div class="case__fact">
+            <dt class="label">Stack</dt>
+            <dd class="case__tags">
+              {item.tags.map((tag) => (
+                <Tag>{tag}</Tag>
+              ))}
+            </dd>
+          </div>
+        ) : null}
+      </dl>
+
+      {item.body?.length ? (
+        <div class="case__body">
+          <PortableText value={item.body} />
+        </div>
+      ) : null}
+
+      {gallery.length ? (
+        <div class="case__gallery">
+          {gallery.map((image) => (
+            <img
+              src={image.src}
+              srcset={image.srcset}
+              sizes={sizes}
+              alt={image.alt}
+              width={image.width ?? undefined}
+              height={image.height ?? undefined}
+              loading="lazy"
+              decoding="async"
+            />
+          ))}
+        </div>
+      ) : !item.cover ? (
+        <div class="case__gallery case__gallery--placeholder">
+          <MediaPlaceholder label="Gallery image" />
+          <MediaPlaceholder label="Gallery image" />
+        </div>
+      ) : null}
+
+      {item.liveUrl && (
+        <a class="case__live label hover-fade" href={item.liveUrl} target="_blank" rel="noopener">
+          Visit live site
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2.2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M7 17L17 7M8 7h9v9"></path>
+          </svg>
+          <span class="visually-hidden">(opens in a new tab)</span>
+        </a>
+      )}
+    </div>
+  </div>
+</dialog>
+
+<style>
+  .case {
+    width: min(100% - var(--space-12), 72rem);
+    max-width: none;
+    height: calc(100dvh - var(--space-12));
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    border: 0;
+    border-radius: var(--radius-lg);
+    background-color: var(--surface-base);
+    color: var(--ink);
+  }
+
+  .case::backdrop {
+    background-color: var(--overlay-strong);
+  }
+
+  /* Entrada y salida: fundido + subida corta. */
+  @media (prefers-reduced-motion: no-preference) {
+    .case,
+    .case::backdrop {
+      opacity: 0;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease,
+        overlay 0.3s allow-discrete,
+        display 0.3s allow-discrete;
+    }
+
+    .case {
+      transform: translateY(var(--space-6));
+    }
+
+    .case[open],
+    .case[open]::backdrop {
+      opacity: 1;
+    }
+
+    .case[open] {
+      transform: none;
+    }
+
+    @starting-style {
+      .case[open],
+      .case[open]::backdrop {
+        opacity: 0;
+      }
+
+      .case[open] {
+        transform: translateY(var(--space-6));
+      }
+    }
+  }
+
+  .case__panel {
+    min-height: 100%;
+  }
+
+  .case__bar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-4) var(--space-8);
+    border-bottom: 1px solid var(--line);
+    background-color: var(--surface-base);
+  }
+
+  .case__eyebrow {
+    color: var(--ink-muted);
+  }
+
+  .case__close {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    cursor: pointer;
+  }
+
+  .case__close svg {
+    width: 1rem;
+    height: 1rem;
+  }
+
+  .case__content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-12);
+    padding: var(--space-8) var(--space-8) var(--space-16);
+  }
+
+  .case__cover {
+    overflow: hidden;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-lg);
+  }
+
+  .case__cover :global(.media-placeholder) {
+    border-radius: inherit;
+  }
+
+  .case__cover img,
+  .case__gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .case__head {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    max-width: 48rem;
+  }
+
+  .case__title {
+    font: var(--text-h2);
+    letter-spacing: -0.025em;
+  }
+
+  .case__summary {
+    font: var(--text-body-lg);
+  }
+
+  .case__facts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-6);
+    margin: 0;
+    padding-block: var(--space-6);
+    border-block: 1px solid var(--line);
+  }
+
+  .case__fact {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .case__fact dt {
+    color: var(--ink-muted);
+  }
+
+  .case__fact dd {
+    margin: 0;
+    font: var(--text-body);
+  }
+
+  .case__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+  }
+
+  .case__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    max-width: 48rem;
+    font: var(--text-body);
+  }
+
+  .case__body :global(:is(p, ul, h3)) {
+    margin-block: 0;
+  }
+
+  .case__body :global(h3) {
+    margin-top: var(--space-4);
+    font: var(--text-h4);
+    letter-spacing: -0.015em;
+  }
+
+  .case__body :global(ul) {
+    padding-inline-start: 1.25em;
+  }
+
+  .case__body :global(a) {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+
+  .case__gallery {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+  }
+
+  .case__gallery img {
+    border-radius: var(--radius-lg);
+  }
+
+  .case__gallery--placeholder :global(.media-placeholder) {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-lg);
+  }
+
+  .case__live {
+    display: inline-flex;
+    align-items: center;
+    align-self: flex-start;
+    gap: var(--space-2);
+  }
+
+  .case__live svg {
+    width: 0.875rem;
+    height: 0.875rem;
+  }
+</style>

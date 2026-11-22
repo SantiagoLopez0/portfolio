@@ -220,3 +220,62 @@ export type AllSanitySchemaTypes =
   | SanityAssetSourceData
   | SanityImageAsset
   | Geopoint;
+
+// Source: ../src/lib/sanity/queries.ts
+// Variable: SELECTED_WORK_QUERY
+// Query: *[_type == "project" && defined(slug.current)] | order(order asc, year desc) [0...4] {    _id,    title,    "slug": slug.current,    year,    tags,    cover { asset, hotspot, crop, alt },    client,    role,    liveUrl,    summary,    body,    gallery[] {      _key,      asset,      hotspot,      crop,      alt,      "width": asset->metadata.dimensions.width,      "height": asset->metadata.dimensions.height    }  }
+export type SELECTED_WORK_QUERY_RESULT = Array<{
+  _id: string;
+  title: string;
+  slug: string;
+  year: number;
+  tags: Array<string> | null;
+  cover: {
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string;
+  };
+  client: string | null;
+  role: string | null;
+  liveUrl: string | null;
+  summary: string | null;
+  body: Array<{
+    children?: Array<{
+      marks?: Array<string>;
+      text?: string;
+      _type: 'span';
+      _key: string;
+    }>;
+    style?: 'h3' | 'normal';
+    listItem?: 'bullet';
+    markDefs?: Array<{
+      href: string;
+      _type: 'link';
+      _key: string;
+    }>;
+    level?: number;
+    _type: 'block';
+    _key: string;
+  }> | null;
+  gallery: Array<{
+    _key: string;
+    asset: SanityImageAssetReference | null;
+    hotspot: SanityImageHotspot | null;
+    crop: SanityImageCrop | null;
+    alt: string;
+    width: number | null;
+    height: number | null;
+  }> | null;
+}>;
+
+// Query TypeMap
+declare global {
+  interface SanityQueries {
+    '\n  *[_type == "project" && defined(slug.current)] | order(order asc, year desc) [0...4] {\n    _id,\n    title,\n    "slug": slug.current,\n    year,\n    tags,\n    cover { asset, hotspot, crop, alt },\n    client,\n    role,\n    liveUrl,\n    summary,\n    body,\n    gallery[] {\n      _key,\n      asset,\n      hotspot,\n      crop,\n      alt,\n      "width": asset->metadata.dimensions.width,\n      "height": asset->metadata.dimensions.height\n    }\n  }\n': SELECTED_WORK_QUERY_RESULT;
+  }
+}
+// Lets @sanity/client releases that predate the global registry read it too
+declare module '@sanity/client' {
+  interface SanityQueries extends globalThis.SanityQueries {}
+}

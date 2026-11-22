@@ -1,0 +1,83 @@
+---
+/**
+ * Selected work (#work). Wireframe: sección clara, H2 + conteo "(04)" y 4 WorkCard
+ * apiladas a ancho completo, cada una abre su popup de case study.
+ * Contenido desde Sanity (`project`); mientras no haya proyectos publicados, placeholders.
+ */
+import WorkCard from '@/components/ui/WorkCard.astro';
+import CaseStudy from '@/components/ui/CaseStudy.astro';
+import { getSelectedWork } from '@/lib/work';
+
+const { items } = await getSelectedWork();
+const count = `(${String(items.length).padStart(2, '0')})`;
+const dialogId = (slug: string) => `case-${slug}`;
+---
+
+<section id="work" class="work" data-theme="light" aria-labelledby="work-title">
+  <div class="container">
+    <header class="work__header">
+      <h2 id="work-title" class="work__title">
+        Selected work
+      </h2>
+      <span class="work__count">{count}</span>
+    </header>
+
+    <div class="work__list">
+      {items.map((item, index) => (
+        <WorkCard item={item} index={index} dialogId={dialogId(item.slug)} />
+      ))}
+    </div>
+  </div>
+
+  {items.map((item) => (
+    <CaseStudy item={item} id={dialogId(item.slug)} />
+  ))}
+</section>
+
+<script>
+  import { initCaseStudies } from '@/scripts/case-study';
+
+  const section = document.getElementById('work');
+  if (section) initCaseStudies(section);
+</script>
+
+<style>
+  .work {
+    /* 56px entre cards y bajo el encabezado (WorkCard README); no hay token de 3.5rem. */
+    --work-gap: 3.5rem;
+
+    padding-block: var(--space-30) var(--space-24);
+    background-color: var(--surface-base);
+    color: var(--ink);
+  }
+
+  .work__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+    margin-bottom: var(--work-gap);
+  }
+
+  .work__title {
+    font: var(--text-h2);
+    letter-spacing: -0.025em;
+  }
+
+  .work__count {
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+  }
+
+  .work__list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--work-gap);
+  }
+</style>
+
+<style is:global>
+  /* Sin Lenis (reduced motion) la página de atrás tampoco debe moverse con un popup abierto. */
+  html:has(dialog.case[open]) {
+    overflow: hidden;
+  }
+</style>

@@ -1,0 +1,177 @@
+---
+/**
+ * WorkCard (docs/design-system/components/WorkCard): media a ancho completo y, debajo,
+ * índice + título a la izquierda y tags + año a la derecha. Toda la card abre el popup
+ * de case study: el botón vive en el h3 y su ::after cubre la card (patrón "stretched").
+ */
+import Tag from '@/components/ui/Tag.astro';
+import MediaPlaceholder from '@/components/ui/MediaPlaceholder.astro';
+import { imageSet } from '@/lib/sanity/image';
+import type { WorkItem } from '@/lib/work';
+
+interface Props {
+  item: WorkItem;
+  index: number;
+  dialogId: string;
+}
+
+const { item, index, dialogId } = Astro.props;
+const number = String(index + 1).padStart(2, '0');
+// Proporción del wireframe: 420px de alto en 1344px de ancho.
+const ASPECT = 1344 / 420;
+const cover = item.cover?.asset ? imageSet(item.cover, [640, 960, 1344, 1920, 2560], ASPECT) : null;
+---
+
+<article class="work-card">
+  <div class="work-card__media">
+    {cover ? (
+      <img
+        src={cover.src}
+        srcset={cover.srcset}
+        sizes="(min-width: 1440px) 84rem, calc(100vw - 6rem)"
+        alt={item.cover?.alt ?? ''}
+        width="1344"
+        height="420"
+        loading="lazy"
+        decoding="async"
+      />
+    ) : (
+      <MediaPlaceholder label="Cover image or video preview" />
+    )}
+  </div>
+
+  <div class="work-card__meta">
+    <div class="work-card__heading">
+      <span class="work-card__index" aria-hidden="true">
+        {number}
+      </span>
+      <h3 class="work-card__title">
+        <button
+          type="button"
+          class="work-card__trigger"
+          aria-haspopup="dialog"
+          aria-controls={dialogId}
+          data-case-open={dialogId}
+        >
+          {item.title}
+        </button>
+      </h3>
+    </div>
+
+    <div class="work-card__details">
+      {item.tags?.length ? (
+        <ul class="work-card__tags" role="list" aria-label="Stack">
+          {item.tags.slice(0, 3).map((tag) => (
+            <li>
+              <Tag>{tag}</Tag>
+            </li>
+          ))}
+        </ul>
+      ) : null}
+      <span class="work-card__year">{item.year}</span>
+    </div>
+  </div>
+</article>
+
+<style>
+  .work-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    transition: opacity 0.2s;
+  }
+
+  /* Hover del sitio: bajar opacidad (ajuste de Santiago), en toda la card. */
+  .work-card:hover {
+    opacity: var(--hover-opacity);
+  }
+
+  .work-card__media {
+    overflow: hidden;
+    aspect-ratio: 1344 / 420;
+    border-radius: var(--radius-lg);
+    background-color: var(--surface-raised);
+  }
+
+  .work-card__media :is(img, video) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .work-card__media :global(.media-placeholder) {
+    border-radius: inherit;
+  }
+
+  .work-card__meta {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-6);
+  }
+
+  .work-card__heading {
+    display: flex;
+    align-items: baseline;
+    gap: 1.25rem;
+  }
+
+  .work-card__index,
+  .work-card__year {
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+  }
+
+  .work-card__title {
+    font: var(--text-h3);
+    letter-spacing: -0.02em;
+  }
+
+  .work-card__trigger {
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
+    font: inherit;
+    letter-spacing: inherit;
+    text-align: start;
+    cursor: pointer;
+  }
+
+  /* El botón cubre toda la card: clic en la imagen, el título o los tags. */
+  .work-card__trigger::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: var(--radius-lg);
+  }
+
+  .work-card__trigger:focus-visible {
+    outline: none;
+  }
+
+  .work-card__trigger:focus-visible::after {
+    outline: 2px solid var(--accent);
+    outline-offset: var(--space-2);
+  }
+
+  .work-card__details {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+  }
+
+  .work-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin: 0;
+  }
+
+  .work-card__year {
+    margin-inline-start: var(--space-2);
+  }
+</style>
