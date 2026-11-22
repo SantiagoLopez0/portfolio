@@ -1,7 +1,9 @@
 ---
 /**
- * Selected work (#work). Wireframe: sección clara, H2 + conteo "(04)" y 4 WorkCard
- * apiladas a ancho completo, cada una abre su popup de case study.
+ * Selected work (#work). Wireframe: H2 + 4 WorkCard a ancho completo, cada una abre su
+ * popup de case study. Ajustes de Santiago (22 nov 2026): fondo oscuro como todo el sitio,
+ * título centrado sin conteo, y cards que se apilan al hacer scroll (sticky + escala con
+ * GSAP ScrollTrigger, ver src/scripts/work-stack.ts).
  * Contenido desde Sanity (`project`); mientras no haya proyectos publicados, placeholders.
  */
 import WorkCard from '@/components/ui/WorkCard.astro';
@@ -9,20 +11,16 @@ import CaseStudy from '@/components/ui/CaseStudy.astro';
 import { getSelectedWork } from '@/lib/work';
 
 const { items } = await getSelectedWork();
-const count = `(${String(items.length).padStart(2, '0')})`;
 const dialogId = (slug: string) => `case-${slug}`;
 ---
 
-<section id="work" class="work" data-theme="light" aria-labelledby="work-title">
+<section id="work" class="work" aria-labelledby="work-title">
   <div class="container">
-    <header class="work__header">
-      <h2 id="work-title" class="work__title">
-        Selected work
-      </h2>
-      <span class="work__count">{count}</span>
-    </header>
+    <h2 id="work-title" class="work__title">
+      Selected work
+    </h2>
 
-    <div class="work__list">
+    <div class="work__list" style={`--work-count: ${items.length}`} data-work-stack>
       {items.map((item, index) => (
         <WorkCard item={item} index={index} dialogId={dialogId(item.slug)} />
       ))}
@@ -36,42 +34,57 @@ const dialogId = (slug: string) => `case-${slug}`;
 
 <script>
   import { initCaseStudies } from '@/scripts/case-study';
+  import { initWorkStack } from '@/scripts/work-stack';
 
   const section = document.getElementById('work');
+  const list = section?.querySelector<HTMLElement>('[data-work-stack]');
   if (section) initCaseStudies(section);
+  if (list) initWorkStack(list);
 </script>
 
 <style>
   .work {
-    /* 56px entre cards y bajo el encabezado (WorkCard README); no hay token de 3.5rem. */
+    /* 56px entre cards (WorkCard README); no hay token de 3.5rem. */
     --work-gap: 3.5rem;
+    /* Título → cards: los mismos 56px menos un 10% (ajuste de Santiago). */
+    --work-title-gap: calc(var(--work-gap) * 0.9);
+    /* Pila: dónde se pegan las cards y cuánto asoma cada una por encima de la siguiente. */
+    --stack-top: calc(var(--header-height) + var(--space-8));
+    --stack-offset: var(--space-6);
 
     padding-block: var(--space-30) var(--space-24);
     background-color: var(--surface-base);
     color: var(--ink);
   }
 
-  .work__header {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-4);
-    margin-bottom: var(--work-gap);
-  }
-
   .work__title {
+    margin-bottom: var(--work-title-gap);
     font: var(--text-h2);
     letter-spacing: -0.025em;
-  }
-
-  .work__count {
-    font: var(--text-body-sm);
-    color: var(--ink-muted);
+    text-align: center;
   }
 
   .work__list {
     display: flex;
     flex-direction: column;
     gap: var(--work-gap);
+  }
+
+  /* Cards apiladas: cada una se pega un poco más abajo que la anterior para que asome. */
+  @media (prefers-reduced-motion: no-preference) {
+    .work__list > :global(.work-card) {
+      position: sticky;
+      top: calc(var(--stack-top) + var(--work-card-index) * var(--stack-offset));
+      /* El sticky se detiene cuando el margin box toca el final de la lista. Con este
+         margen (mayor cuanto más arriba se pega la card) todas se sueltan en el mismo
+         instante y la pila sale de pantalla entera, sin que las franjas se cierren. */
+      margin-bottom: calc((var(--work-count) - 1 - var(--work-card-index)) * var(--stack-offset));
+    }
+
+    /* Compensa el margen anterior: el espacio en flujo entre cards sigue siendo el gap. */
+    .work__list > :global(.work-card + .work-card) {
+      margin-top: calc((var(--work-card-index) - var(--work-count)) * var(--stack-offset));
+    }
   }
 </style>
 

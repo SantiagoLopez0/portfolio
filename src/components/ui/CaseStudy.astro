@@ -2,7 +2,7 @@
 /**
  * Popup de case study (diseño propuesto, pendiente de visto bueno de Santiago).
  * <dialog> nativo con showModal(): foco atrapado, Escape y fondo inerte los da el
- * navegador. Panel claro casi a pantalla completa, con scroll propio (data-lenis-prevent).
+ * navegador. Panel oscuro (surface-raised) casi a pantalla completa, con scroll propio (data-lenis-prevent).
  * Contenido: barra con cierre, portada 16:9, título + resumen, ficha (cliente, rol, año,
  * stack), cuerpo en Portable Text, galería y link al sitio en vivo.
  */
@@ -32,7 +32,7 @@ const facts = [
 const sizes = '(min-width: 1440px) 72rem, calc(100vw - 6rem)';
 ---
 
-<dialog id={id} class="case" aria-labelledby={titleId} data-theme="light" data-lenis-prevent>
+<dialog id={id} class="case" aria-labelledby={titleId} data-lenis-prevent>
   <div class="case__panel">
     <div class="case__bar">
       <span class="label case__eyebrow">Case study</span>
@@ -157,7 +157,7 @@ const sizes = '(min-width: 1440px) 72rem, calc(100vw - 6rem)';
     overscroll-behavior: contain;
     border: 0;
     border-radius: var(--radius-lg);
-    background-color: var(--surface-base);
+    background-color: var(--surface-raised);
     color: var(--ink);
   }
 
@@ -215,7 +215,7 @@ const sizes = '(min-width: 1440px) 72rem, calc(100vw - 6rem)';
     align-items: center;
     padding: var(--space-4) var(--space-8);
     border-bottom: 1px solid var(--line);
-    background-color: var(--surface-base);
+    background-color: var(--surface-raised);
   }
 
   .case__eyebrow {

@@ -80,11 +80,11 @@ import { site } from '@/data/site';
       backdrop-filter 0.3s ease;
   }
 
+  /* Ajuste de Santiago (22 nov 2026): al hacer scroll, sin fondo, solo blur. */
   .site-header[data-scrolled='true'] {
-    background-color: color-mix(in srgb, var(--surface-base) 72%, transparent);
     /* Prefijo primero: el minificador conserva la última declaración equivalente. */
-    -webkit-backdrop-filter: blur(1rem);
-    backdrop-filter: blur(1rem);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
     border-bottom-color: var(--line);
   }
 
@@ -99,7 +99,7 @@ import { site } from '@/data/site';
 
   .site-header__wordmark {
     font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-size: 1.55rem;
     font-weight: 600;
     letter-spacing: -0.02em;
   }

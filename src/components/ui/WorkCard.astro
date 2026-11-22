@@ -22,7 +22,7 @@ const ASPECT = 1344 / 420;
 const cover = item.cover?.asset ? imageSet(item.cover, [640, 960, 1344, 1920, 2560], ASPECT) : null;
 ---
 
-<article class="work-card">
+<article class="work-card" style={`--work-card-index: ${index}`} data-work-card>
   <div class="work-card__media">
     {cover ? (
       <img
@@ -79,11 +79,19 @@ const cover = item.cover?.asset ? imageSet(item.cover, [640, 960, 1344, 1920, 25
     display: flex;
     flex-direction: column;
     gap: 1.25rem;
+    /* Fondo opaco: en la pila (Selected work) cada card tapa a la anterior. */
+    border-radius: var(--radius-lg);
+    background-color: var(--surface-base);
+  }
+
+  /* Hover del sitio: bajar opacidad (ajuste de Santiago). Se aplica al contenido y no a
+     la card, para que el fondo siga tapando la card de abajo cuando están apiladas. */
+  .work-card__media,
+  .work-card__meta {
     transition: opacity 0.2s;
   }
 
-  /* Hover del sitio: bajar opacidad (ajuste de Santiago), en toda la card. */
-  .work-card:hover {
+  .work-card:hover :is(.work-card__media, .work-card__meta) {
     opacity: var(--hover-opacity);
   }
 

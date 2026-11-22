@@ -1,13 +1,14 @@
 ---
 /**
  * Tag (docs/design-system/components/Tag). Etiqueta compacta en la fuente display.
- * - variant: default (tag-bg + white), accent (Disponible), alt (accent-alt),
- *   glass (blanco al 10% con blur; solo sobre fotos o fondos oscuros, como el hero).
+ * - variant: default, accent (Disponible), alt (accent-alt).
+ *   Ajuste de Santiago (22 nov 2026): el default es "vidrio" en todo el sitio (blanco al
+ *   10% con blur, --tag-glass-*), en lugar del fondo #333 del design system.
  * - rotate: convierte el tag en "sticker" (solo en el hero, de -6 a 6 grados).
  * Medidas en em sobre --em-base, como en el design system.
  */
 interface Props {
-  variant?: 'default' | 'accent' | 'alt' | 'glass';
+  variant?: 'default' | 'accent' | 'alt';
   rotate?: number;
   class?: string;
 }
@@ -32,8 +33,11 @@ const style = rotate !== undefined ? `--tag-rotate: ${rotate}deg` : undefined;
     display: inline-block;
     padding: 0.25em 0.65em;
     border-radius: 1.55em;
-    background-color: var(--tag-bg);
+    background-color: var(--tag-glass-bg);
     color: var(--white);
+    /* Prefijo primero: el minificador conserva la última declaración equivalente. */
+    -webkit-backdrop-filter: blur(var(--tag-glass-blur));
+    backdrop-filter: blur(var(--tag-glass-blur));
     font-family: var(--font-display);
     font-size: 1.2em;
     font-weight: 400;
@@ -51,14 +55,5 @@ const style = rotate !== undefined ? `--tag-rotate: ${rotate}deg` : undefined;
   .tag--alt {
     background-color: var(--accent-alt);
     color: var(--on-accent-alt);
-  }
-
-  /* Ajuste de Santiago (22 nov 2026): tags del hero en vidrio sobre la foto. */
-  .tag--glass {
-    background-color: var(--tag-glass-bg);
-    color: var(--white);
-    /* Prefijo primero: el minificador conserva la última declaración equivalente. */
-    -webkit-backdrop-filter: blur(var(--tag-glass-blur));
-    backdrop-filter: blur(var(--tag-glass-blur));
   }
 </style>
