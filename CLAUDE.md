@@ -136,6 +136,15 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 - Altura de cada logo por área (mismo peso visual): `sqrt(20 / proporción)` rem, entre 1.25 y 2.75rem; ajuste fino con `scale` en `clients.ts`.
 - Notas: `sprii.svg` contenía el logo de **Unit21.ai** (así se llama en el sitio). Candybox solo vino como AVIF de 210×50 px: se ve suave en pantallas retina, pedir SVG o una versión más grande.
 
+## Selected work y popup de case study
+
+- `Work.astro` (sección clara, `#work`): H2 + conteo `(04)` en `ink-muted` y 4 `WorkCard` apiladas con 3.5rem entre ellas (56px del README; no hay token). Media a ancho completo con proporción 1344/420 y `radius-lg`.
+- Datos: `getSelectedWork()` (`src/lib/work.ts`) con `SELECTED_WORK_QUERY` (4 proyectos por `order` asc y luego `year` desc). **Si no hay proyectos publicados usa `src/data/work-placeholders.ts`** (contenido provisional, pedido por Santiago el 22 nov 2026); al publicar el primero en Sanity, el sitio pasa solo a los reales. Un error de red no cae a placeholders: el build falla. Sin `cover`, la card muestra `MediaPlaceholder` (la X del design system).
+- Imágenes de Sanity con `imageSet()` (`src/lib/sanity/image.ts`): `src` + `srcset` en formato automático, recortadas respetando el hotspot cuando se pasa una proporción.
+- Toda la card abre el popup: el `<button>` vive dentro del `h3` y su `::after` cubre la card (un botón no puede contener un heading). Hover: toda la card a `--hover-opacity`.
+- Popup (`ui/CaseStudy.astro` + `src/scripts/case-study.ts`): `<dialog>` nativo con `showModal()` (foco atrapado, Escape y vuelta del foco a la card los da el navegador); también cierra con el botón Close y con clic en el fondo. Panel claro de hasta 72rem con scroll propio (`data-lenis-prevent`); `lenis.stop()` mientras está abierto (y `overflow: hidden` en `html` si Lenis no corre). Entrada con fundido y subida corta (`@starting-style`), sin animación con reduced motion. Orden: barra sticky (Case study / Close), portada 16:9, título (`h2`) + resumen (`body-lg`), ficha Client / Role / Year / Stack, cuerpo en Portable Text, galería y link "Visit live site". **Diseño propuesto por Claude**, pendiente de ajustes de Santiago.
+- Probado por CDP a 1440: cards de 1344×420, apertura con clic y con Enter, scroll dentro del popup sin mover la página, cierre con Escape, fondo y Close, foco de vuelta en la card.
+
 ## Sanity: modelo de contenido
 
 Todo el contenido editable sale de Sanity; nada de textos de contenido hardcodeados en componentes (las etiquetas de UI sí pueden ir en código).
@@ -165,7 +174,7 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 ## Estado actual y pendientes
 
 - Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`).
-- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → fondo translúcido con blur al hacer scroll; el botón Menu aún no abre nada) y Hero (`Hero.astro`), Logos (`Logos.astro`). Componente `ui/Tag.astro`. Siguen: Selected work + popup, What I do, Process, About, FAQ, Contact + Footer, overlay del menú.
+- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → fondo translúcido con blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) y Selected work (`Work.astro`, con placeholders). Componentes `ui/`: Tag, WorkCard, CaseStudy, MediaPlaceholder. Siguen: What I do, Process, About, FAQ, Contact + Footer, overlay del menú.
 - **Contenido provisional** en `src/data/site.ts` (nombre, nav, textos y tags del hero) mientras no existan los singletons `siteSettings`/`home`. Cuando se creen, ese archivo se reemplaza por consultas GROQ; los componentes no cambian porque ya reciben el contenido desde fuera.
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.
