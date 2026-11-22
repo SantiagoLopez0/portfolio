@@ -23,10 +23,10 @@ const { media } = hero;
   )}
 
   <div class="container hero__inner">
-    <div class="hero__stage">
+    <div class="hero__stage" data-hero-stage>
       <ul class="hero__tags" role="list" aria-label="Skills">
         {hero.tags.map((tag) => (
-          <li class={`hero__tag hero__tag--${tag.placement}`}>
+          <li class={`hero__tag hero__tag--${tag.placement}`} data-hero-tag>
             <Tag variant={tag.variant} rotate={tag.rotate}>
               {tag.label}
             </Tag>
@@ -61,6 +61,14 @@ const { media } = hero;
     </div>
   </div>
 </section>
+
+<script>
+  import { initHeroTags } from '@/scripts/hero-tags';
+
+  const section = document.getElementById('hero');
+  const stage = section?.querySelector<HTMLElement>('[data-hero-stage]');
+  if (section && stage) initHeroTags(stage, section);
+</script>
 
 <style>
   .hero {
@@ -140,6 +148,8 @@ const { media } = hero;
   .hero__tag {
     position: absolute;
     pointer-events: auto;
+    user-select: none;
+    -webkit-user-select: none;
   }
 
   /* Posiciones del wireframe (en % del escenario). */

@@ -92,7 +92,7 @@ Una sola página con anchors; los case studies se abren en **popup** (no hay rut
 
 Fuera de la V1: testimonios y formulario de contacto. Mobile se trabaja después, a mano, con Santiago.
 
-Ideas de movimiento aprobadas (se implementan después del layout, no antes): tags del hero que siguen el cursor; hover de What I do que cambia también el fondo; contador animado en el dato del About; animación en scroll en Selected work; preview en video al hover de las WorkCard; header que cambia al hacer scroll.
+Ideas de movimiento aprobadas (se implementan después del layout, no antes, salvo que Santiago pida adelantar una): tags del hero con física (**hecho**, ver "Ajustes de Santiago"); hover de What I do que cambia también el fondo; contador animado en el dato del About; animación en scroll en Selected work; preview en video al hover de las WorkCard; header que cambia al hacer scroll.
 
 ## Reglas del design system (resumen operativo)
 
@@ -125,6 +125,7 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 - **Label** (`.label`, `--text-label`): mayúsculas, 700, 0.75rem, Inter. Links del header y cue de Scroll.
 - **Header**: wordmark, cada link y el Menu repartidos con `space-between` (mismo espacio entre todos); `padding-block: .5rem`, `min-height: 0`, gutter lateral el de `.container`. Menu: hamburguesa a la izquierda y la palabra a la derecha, gap `--space-2`, mayúsculas, 2rem, peso 200 (pidió 100; Bricolage no baja de 200).
 - **Hero**: línea de apoyo en `--text-body` con `--ink` al 90%. Todos los tags del hero con el estilo por defecto (sin azul).
+- **Tags del hero con física** (`src/scripts/hero-tags.ts`, GSAP + Draggable + InertiaPlugin): cursor rápido que toca un tag lo empuja (24–110px según la velocidad) y vuelve con rebote elástico; cursor lento (< 0.35 px/ms) solo lo sacude, para poder agarrarlo; drag con inercia dentro del hero y regreso a su sitio 0.8s después de soltar. Solo con mouse (`hover: hover` y `pointer: fine`) y sin `prefers-reduced-motion`; en touch quedan quietos. Probado con Chrome por DevTools Protocol (hover, agarre lento, drag + inercia + regreso, reduced motion).
 
 ## Sanity: modelo de contenido
 
