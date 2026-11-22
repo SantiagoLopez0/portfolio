@@ -3,8 +3,6 @@ node_modules/
 
 # build output
 dist/
-web/dist/
-studio/dist/
 
 # generated
 .astro/
@@ -34,5 +32,5 @@ Thumbs.db
 *.tsbuildinfo
 
 # fuentes con licencia comercial: nunca al repo público
-web/src/assets/fonts/jokker/
+src/assets/fonts/jokker/
 *.otf

@@ -2,25 +2,38 @@
   "name": "santiago-lopez-portfolio",
   "private": true,
   "type": "module",
+  "version": "0.0.1",
   "packageManager": "pnpm@9.6.0",
   "engines": {
     "node": ">=22.23.4"
   },
   "scripts": {
-    "dev": "pnpm --parallel --filter web --filter studio dev",
-    "dev:web": "pnpm --filter web dev",
-    "dev:studio": "pnpm --filter studio dev",
-    "build": "pnpm --filter web build",
-    "build:studio": "pnpm --filter studio build",
-    "preview": "pnpm --filter web preview",
-    "check": "pnpm --filter web check",
-    "typegen": "pnpm --filter studio typegen",
-    "deploy:studio": "pnpm --filter studio deploy",
+    "bootstrap": "pnpm install && pnpm --dir studio install",
+    "dev": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "astro": "astro",
+    "studio": "pnpm --dir studio dev",
+    "studio:build": "pnpm --dir studio build",
+    "studio:deploy": "pnpm --dir studio deploy",
+    "schema:deploy": "pnpm --dir studio schema:deploy",
+    "typegen": "pnpm --dir studio typegen",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },
+  "dependencies": {
+    "@sanity/client": "^8.17.0",
+    "@sanity/image-url": "^2.2.0",
+    "astro": "^7.4.13",
+    "astro-portabletext": "^1.0.1",
+    "groq": "^6.24.0",
+    "gsap": "^3.15.1"
+  },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
     "prettier": "^3.10.1",
-    "prettier-plugin-astro": "^1.1.2"
+    "prettier-plugin-astro": "^1.1.2",
+    "typescript": "^5.9.3"
   }
 }

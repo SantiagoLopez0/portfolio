@@ -19,31 +19,31 @@ Si algo del wireframe y del design system se contradice, manda el design system 
 
 ## Stack
 
-- **pnpm workspaces** (pnpm 9, Node ≥ 22.23; `.nvmrc` = 24). Monorepo con dos apps lado a lado:
-  - `web/` — **Astro 7**, salida estática (`output: 'static'`), TypeScript estricto. Deploy previsto en Vercel (sin adapter mientras sea estático).
-  - `studio/` — **Sanity Studio v6** standalone (se despliega con `sanity deploy` a `*.sanity.studio`). No se embebe en Astro.
+- **pnpm 9**, Node ≥ 22.23 (`.nvmrc` = 24). El repo **es el sitio**: Astro vive en la raíz y el Studio es un anexo en `studio/`.
+  - Raíz — **Astro 7**, salida estática (`output: 'static'`), TypeScript estricto. Deploy previsto en Vercel con la raíz del repo (sin adapter mientras sea estático).
+  - `studio/` — **Sanity Studio v6** standalone, con su **propio `package.json` y `pnpm-lock.yaml`** (no es un workspace): así Vercel solo instala lo del sitio. Se despliega con `sanity deploy` a `*.sanity.studio`. No se embebe en Astro. `tsconfig.json` de la raíz excluye `studio/`.
 - Datos: `@sanity/client` directo (no `@sanity/astro`, que arrastra React + sanity como peers solo para embeber el Studio). GROQ con `defineQuery` de `groq`. Portable Text con `astro-portabletext`. Imágenes con `@sanity/image-url`.
-- Tipos: **Sanity TypeGen** genera `web/sanity.types.ts` desde el schema y las consultas (`pnpm typegen`). `overloadClientMethods` tipa `client.fetch()` solo.
-- Estilos: **CSS plano con custom properties** + `<style>` con scope de Astro. Sin Tailwind ni CSS-in-JS. Los tokens están en `web/src/styles/tokens.css`.
+- Tipos: **Sanity TypeGen** genera `sanity.types.ts` (raíz) desde el schema y las consultas (`pnpm typegen`). `overloadClientMethods` tipa `client.fetch()` solo.
+- Estilos: **CSS plano con custom properties** + `<style>` con scope de Astro. Sin Tailwind ni CSS-in-JS. Los tokens están en `src/styles/tokens.css`.
 - Animación: **GSAP** (instalado, aún sin uso). Todo efecto respeta `prefers-reduced-motion`.
-- Fuentes: API de Fonts de Astro (`astro.config.mjs`) — Bricolage Grotesque (display) vía Google Fonts, Inter (body) vía Fontsource y The Night Watch (accent) local en `web/src/assets/fonts/`. Astro descarga las de Google/Fontsource en el build y las sirve desde el propio sitio.
+- Fuentes: API de Fonts de Astro (`astro.config.mjs`) — Bricolage Grotesque (display) vía Google Fonts, Inter (body) vía Fontsource y The Night Watch (accent) local en `src/assets/fonts/`. Astro descarga las de Google/Fontsource en el build y las sirve desde el propio sitio.
 - JS en cliente: el mínimo. Astro components + `<script>` para interacciones. Añadir un framework de islas (React, etc.) solo si una interacción lo justifica de verdad, y preguntando antes.
 
 ## Comandos (desde la raíz)
 
 ```bash
-pnpm install          # instala ambos workspaces
-pnpm dev              # web (localhost:4321) + studio (localhost:3333) en paralelo
-pnpm dev:web          # solo Astro
-pnpm dev:studio       # solo Studio
-pnpm build            # astro check + astro build → web/dist
+pnpm run bootstrap    # instala el sitio y el Studio (cada uno con su lockfile)
+pnpm dev              # sitio (localhost:4321)
+pnpm studio           # Studio (localhost:3333)
+pnpm build            # astro check + astro build → dist/
 pnpm check            # astro check (tipos y diagnósticos)
-pnpm typegen          # extrae schema y regenera web/sanity.types.ts
-pnpm deploy:studio    # sanity deploy
+pnpm typegen          # extrae schema y regenera sanity.types.ts
+pnpm schema:deploy    # sanity schemas deploy (para MCP y Studio desplegado)
+pnpm studio:deploy    # sanity deploy (Studio en *.sanity.studio)
 pnpm format           # prettier (incluye .astro)
 ```
 
-Para levantar el dev server de Astro en segundo plano desde un agente: `pnpm --filter web exec astro dev --background` (y `astro dev stop|status|logs`).
+Para levantar el dev server de Astro en segundo plano desde un agente: `pnpm astro dev --background` (y `astro dev stop|status|logs`).
 
 ## Estructura
 
@@ -51,26 +51,28 @@ Para levantar el dev server de Astro en segundo plano desde un agente: `pnpm --f
 .
 ├── CLAUDE.md
 ├── docs/                      # wireframe + design system (referencia, no se edita)
-├── web/                       # Astro
-│   ├── astro.config.mjs       # env schema (astro:env), fuentes, output
-│   ├── .env.example           # PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET, ...
-│   ├── sanity.types.ts        # generado por TypeGen (no editar)
-│   └── src/
-│       ├── assets/fonts/      # fuentes locales (The Night Watch)
-│       ├── components/
-│       │   ├── ui/            # componentes del design system: Button, Tag, ...
-│       │   └── sections/      # secciones de la home: Hero, Logos, Work, Services, ...
-│       ├── layouts/BaseLayout.astro
-│       ├── lib/sanity/        # client.ts, image.ts, queries.ts
-│       ├── pages/index.astro  # la home (única página)
-│       └── styles/            # tokens.css (copia adaptada) + global.css (reset y escala)
-└── studio/                    # Sanity Studio
+├── package.json               # el sitio (Astro)
+├── astro.config.mjs           # env schema (astro:env), fuentes, output
+├── .env.example               # PUBLIC_SANITY_PROJECT_ID, PUBLIC_SANITY_DATASET, ...
+├── sanity.types.ts            # generado por TypeGen (no editar)
+├── public/
+├── src/
+│   ├── assets/fonts/          # fuentes locales (The Night Watch)
+│   ├── components/
+│   │   ├── ui/                # componentes del design system: Button, Tag, ...
+│   │   └── sections/          # secciones de la home: Hero, Logos, Work, Services, ...
+│   ├── layouts/BaseLayout.astro
+│   ├── lib/sanity/            # client.ts, image.ts, queries.ts
+│   ├── pages/index.astro      # la home (única página)
+│   └── styles/                # tokens.css (copia adaptada) + global.css (reset y escala)
+└── studio/                    # Sanity Studio (anexo, package.json propio)
+    ├── package.json
     ├── sanity.config.ts
-    ├── sanity.cli.ts          # projectId/dataset + config de TypeGen
+    ├── sanity.cli.ts          # projectId/dataset, studioHost + config de TypeGen
     └── schemaTypes/           # index.ts registra los tipos; documents/ y objects/
 ```
 
-Convenciones de archivos: componentes Astro en PascalCase (`WorkCard.astro`); schemas y utilidades en kebab-case (`process-step.ts`), cada schema exporta una const con su nombre (`export const processStep = defineType(...)`). Alias `@/*` → `web/src/*`.
+Convenciones de archivos: componentes Astro en PascalCase (`WorkCard.astro`); schemas y utilidades en kebab-case (`process-step.ts`), cada schema exporta una const con su nombre (`export const processStep = defineType(...)`). Alias `@/*` → `src/*`.
 
 ## La página (V1)
 
@@ -103,8 +105,8 @@ Ideas de movimiento aprobadas (se implementan después del layout, no antes): ta
 - Iconos: SVG inline de trazo 2px, extremos redondeados, color `ink`. Las flechas de botones son SVG (trazo 2.2px), nunca caracteres.
 - Índices `01`, `02` o `( 01 )` en listas grandes. Etiquetas editoriales entre corchetes `[Perfil]`. Sin emojis.
 - Gutter `--space-12`, ancho máximo 1344px (`.container`), padding de sección `--space-30` (o `--space-24` compacto).
-- Tipografía display: **Bricolage Grotesque** (Google Fonts, variable 400–700), registrada con la variable genérica `--font-display-face`: cambiar de fuente display = cambiar solo esa entrada en `astro.config.mjs`. **Jokker (Displaay) está fuera** por decisión de Santiago (20 nov 2026): no hay licencia confirmada a su nombre (le pasaron los OTF de otro comprador). No volver a añadir Jokker ni ningún archivo de fuente comercial al repo, que es público; `.gitignore` bloquea `*.otf` y `web/src/assets/fonts/jokker/`. Si algún día tiene licencia web propia: usar los WOFF2 de la licencia y descargarlos en el build desde un almacenamiento privado (opción "repo privado de fuentes + token en Vercel"), nunca commitearlos.
-- `web/src/styles/tokens.css` es una copia de `docs/design-system/tokens.css` con dos cambios: sin `@font-face` y con los stacks apuntando a las variables de Astro (`--font-display-face`, `--font-inter`, `--font-night-watch`). Si el design system cambia, se actualiza a mano manteniendo esas diferencias.
+- Tipografía display: **Bricolage Grotesque** (Google Fonts, variable 400–700), registrada con la variable genérica `--font-display-face`: cambiar de fuente display = cambiar solo esa entrada en `astro.config.mjs`. **Jokker (Displaay) está fuera** por decisión de Santiago (20 nov 2026): no hay licencia confirmada a su nombre (le pasaron los OTF de otro comprador). No volver a añadir Jokker ni ningún archivo de fuente comercial al repo, que es público; `.gitignore` bloquea `*.otf` y `src/assets/fonts/jokker/`. Si algún día tiene licencia web propia: usar los WOFF2 de la licencia y descargarlos en el build desde un almacenamiento privado (opción "repo privado de fuentes + token en Vercel"), nunca commitearlos.
+- `src/styles/tokens.css` es una copia de `docs/design-system/tokens.css` con dos cambios: sin `@font-face` y con los stacks apuntando a las variables de Astro (`--font-display-face`, `--font-inter`, `--font-night-watch`). Si el design system cambia, se actualiza a mano manteniendo esas diferencias.
 
 Componentes ya especificados: Button, Tag, Header, WorkCard, ServiceList, FaqItem. Pendientes de diseño (se definen al maquetar, con Santiago): ProcessCard, bloque About, Contact + Footer, overlay del menú, popup de case study.
 
@@ -134,20 +136,21 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 
 ## Variables de entorno
 
-- `web/.env` — `PUBLIC_SANITY_PROJECT_ID`, `PUBLIC_SANITY_DATASET` (default `production`), `PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN` (opcional, solo servidor). Declaradas y tipadas en `env.schema` de `astro.config.mjs`; se leen desde `astro:env/client` o `astro:env/server`, nunca con `import.meta.env` suelto.
+- `.env` (raíz) — `PUBLIC_SANITY_PROJECT_ID`, `PUBLIC_SANITY_DATASET` (default `production`), `PUBLIC_SANITY_STUDIO_URL`, `SANITY_API_READ_TOKEN` (opcional, solo servidor). Declaradas y tipadas en `env.schema` de `astro.config.mjs`; se leen desde `astro:env/client` o `astro:env/server`, nunca con `import.meta.env` suelto.
 - `studio/.env` — `SANITY_STUDIO_PROJECT_ID`, `SANITY_STUDIO_DATASET`.
 - Los `.env` no se commitean (solo los `.env.example`). Tokens y secretos nunca en código ni en commits.
 - Mientras `PUBLIC_SANITY_PROJECT_ID` esté vacío, `sanityClient` es `null` e `isSanityConfigured` es `false`: el build no debe romperse por eso.
 
 ## Estado actual y pendientes
 
-- Setup listo: monorepo, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `web/sanity.types.ts`). **No hay secciones de la página construidas todavía.**
+- Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`). **No hay secciones de la página construidas todavía.**
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
-- **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm --filter studio schema:deploy`.
+- **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.
 - **CLI de Sanity**: Santiago también trabaja con otra cuenta de Sanity (BenorMedia). El CLI tiene una sola sesión a la vez; si `schemas deploy` o `deploy` fallan con "Unauthorized / missing grants", es que el CLI está con la otra cuenta: pedirle que corra `npx sanity login` con la cuenta de la org "Santiago Lopez". El Studio local usa la sesión del navegador y no depende de eso.
 - Falta el dominio final (`site` en `astro.config.mjs`).
+- **Studio sin desplegar**: el hostname `portfolio.sanity.studio` ya está tomado (los nombres son globales). Falta que Santiago elija otro; después: `studioHost` en `studio/sanity.cli.ts`, `pnpm studio:deploy` y `PUBLIC_SANITY_STUDIO_URL` en `.env`. Hasta entonces el Studio no aparece en el dashboard de Sanity (solo se listan los desplegados o registrados).
 - Pendientes de contenido (de Santiago): H1 del hero, dato grande del About, contenido de FAQ, textos y tags de proyectos, servicios y proceso, logos de clientes reales.
-- Deploy: Vercel con root `web/` (build `pnpm build` desde la raíz o `astro build` en `web/`), más un webhook de Sanity → deploy hook de Vercel para reconstruir al publicar.
+- Deploy: Vercel con la raíz del repo (framework Astro, build `pnpm build`, salida `dist/`), más un webhook de Sanity → deploy hook de Vercel para reconstruir al publicar.
 
 ## Forma de trabajo
 

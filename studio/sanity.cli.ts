@@ -5,12 +5,14 @@ export default defineCliConfig({
     projectId: process.env.SANITY_STUDIO_PROJECT_ID ?? '',
     dataset: process.env.SANITY_STUDIO_DATASET ?? 'production',
   },
-  // Hostname de `sanity deploy` (queda en https://<studioHost>.sanity.studio).
-  // studioHost: 'santiagolopez',
+  // `sanity deploy` publica el Studio en https://<studioHost>.sanity.studio (nombre global).
+  // "portfolio" ya está tomado. TODO: definir el nombre con Santiago.
+  // studioHost: '',
+  // TypeGen lee las consultas del sitio (raíz del repo) y escribe los tipos en ../sanity.types.ts
   typegen: {
-    path: '../web/src/**/*.{ts,astro}',
+    path: '../src/**/*.{ts,astro}',
     schema: 'schema.json',
-    generates: '../web/sanity.types.ts',
+    generates: '../sanity.types.ts',
     overloadClientMethods: true,
   },
 });

@@ -1,11 +1,11 @@
 # Portafolio — Santiago López
 
-Portafolio personal (V2026), construido con **Astro 7** y **Sanity Studio v6** en un monorepo de pnpm.
+Portafolio personal (V2026). El sitio es **Astro 7** (en la raíz) y el contenido viene de **Sanity**, cuyo Studio vive en `studio/` con su propio `package.json`.
 
 ```
-web/      → sitio (Astro, estático)
-studio/   → Sanity Studio (standalone)
-docs/     → wireframe de la home y design system
+src/  public/   → sitio (Astro, estático)
+studio/         → Sanity Studio (standalone)
+docs/           → wireframe de la home y design system
 ```
 
 ## Empezar
@@ -13,21 +13,24 @@ docs/     → wireframe de la home y design system
 Requisitos: Node ≥ 22.23 (ver `.nvmrc`) y pnpm 9.
 
 ```bash
-pnpm install
-cp web/.env.example web/.env        # completar PUBLIC_SANITY_PROJECT_ID
-cp studio/.env.example studio/.env  # completar SANITY_STUDIO_PROJECT_ID
-pnpm dev                            # web en :4321, studio en :3333
+pnpm run bootstrap                  # instala el sitio y el Studio
+cp .env.example .env
+cp studio/.env.example studio/.env
+pnpm dev                            # sitio en :4321
+pnpm studio                         # Studio en :3333
 ```
 
 ## Scripts
 
-| Comando              | Qué hace                                                |
-| -------------------- | ------------------------------------------------------- |
-| `pnpm dev`           | Astro y Studio en paralelo                              |
-| `pnpm build`         | `astro check` + build estático en `web/dist`            |
-| `pnpm typegen`       | Regenera `web/sanity.types.ts` desde schema y consultas |
-| `pnpm deploy:studio` | Despliega el Studio en `*.sanity.studio`                |
-| `pnpm format`        | Prettier                                                |
+| Comando              | Qué hace                                            |
+| -------------------- | --------------------------------------------------- |
+| `pnpm dev`           | Sitio en desarrollo                                 |
+| `pnpm build`         | `astro check` + build estático en `dist/`           |
+| `pnpm studio`        | Studio en desarrollo                                |
+| `pnpm typegen`       | Regenera `sanity.types.ts` desde schema y consultas |
+| `pnpm schema:deploy` | Sube el schema a Sanity                             |
+| `pnpm studio:deploy` | Despliega el Studio en `*.sanity.studio`            |
+| `pnpm format`        | Prettier                                            |
 
 La versión anterior (Next.js) quedó en el tag `legacy-nextjs-v2026` y la rama `legacy/nextjs`.
 

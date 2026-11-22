@@ -3,4 +3,5 @@ pnpm-lock.yaml
 **/dist/
 **/.astro/
 **/.sanity/
-web/sanity.types.ts
+sanity.types.ts
+studio/schema.json
