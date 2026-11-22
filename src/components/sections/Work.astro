@@ -20,7 +20,7 @@ const dialogId = (slug: string) => `case-${slug}`;
       Selected work
     </h2>
 
-    <div class="work__list" style={`--work-count: ${items.length}`} data-work-stack>
+    <div class="work__list" data-work-stack>
       {items.map((item, index) => (
         <WorkCard item={item} index={index} dialogId={dialogId(item.slug)} />
       ))}
@@ -48,9 +48,8 @@ const dialogId = (slug: string) => `case-${slug}`;
     --work-gap: 3.5rem;
     /* Título → cards: los mismos 56px menos un 10% (ajuste de Santiago). */
     --work-title-gap: calc(var(--work-gap) * 0.9);
-    /* Pila: dónde se pegan las cards y cuánto asoma cada una por encima de la siguiente. */
+    /* Pila: dónde se pegan las cards (todas en el mismo punto). */
     --stack-top: calc(var(--header-height) + var(--space-8));
-    --stack-offset: var(--space-6);
 
     padding-block: var(--space-30) var(--space-24);
     background-color: var(--surface-base);
@@ -70,20 +69,13 @@ const dialogId = (slug: string) => `case-${slug}`;
     gap: var(--work-gap);
   }
 
-  /* Cards apiladas: cada una se pega un poco más abajo que la anterior para que asome. */
+  /* Cards apiladas: todas se pegan en el mismo punto; la que llega tapa por completo a la
+     anterior, que se encoge detrás (work-stack.ts). Sin franjas a la vista: la atención
+     queda en la card activa (ajuste de Santiago, 22 nov 2026). */
   @media (prefers-reduced-motion: no-preference) {
     .work__list > :global(.work-card) {
       position: sticky;
-      top: calc(var(--stack-top) + var(--work-card-index) * var(--stack-offset));
-      /* El sticky se detiene cuando el margin box toca el final de la lista. Con este
-         margen (mayor cuanto más arriba se pega la card) todas se sueltan en el mismo
-         instante y la pila sale de pantalla entera, sin que las franjas se cierren. */
-      margin-bottom: calc((var(--work-count) - 1 - var(--work-card-index)) * var(--stack-offset));
-    }
-
-    /* Compensa el margen anterior: el espacio en flujo entre cards sigue siendo el gap. */
-    .work__list > :global(.work-card + .work-card) {
-      margin-top: calc((var(--work-card-index) - var(--work-count)) * var(--stack-offset));
+      top: var(--stack-top);
     }
   }
 </style>

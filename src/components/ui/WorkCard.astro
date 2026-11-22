@@ -22,7 +22,7 @@ const ASPECT = 1344 / 420;
 const cover = item.cover?.asset ? imageSet(item.cover, [640, 960, 1344, 1920, 2560], ASPECT) : null;
 ---
 
-<article class="work-card" style={`--work-card-index: ${index}`} data-work-card>
+<article class="work-card" data-work-card>
   <div class="work-card__media">
     {cover ? (
       <img

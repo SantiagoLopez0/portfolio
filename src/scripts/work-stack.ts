@@ -1,9 +1,10 @@
 /**
  * Selected work: cards que se apilan al hacer scroll (pedido de Santiago, 22 nov 2026).
- * - Cada card es `position: sticky` (CSS en Work.astro) y se pega un poco más abajo que
- *   la anterior, así de cada card tapada asoma una franja.
- * - Mientras la card siguiente sube y la tapa, la de abajo se encoge desde su borde
- *   superior hasta STACK_SCALE (no desaparece). Va atada al scroll (scrub).
+ * - Cada card es `position: sticky` (CSS en Work.astro) y todas se pegan en el mismo
+ *   punto, así la que llega tapa por completo a la anterior.
+ * - Mientras la card siguiente sube, la de abajo se encoge hacia su centro hasta
+ *   STACK_SCALE y queda escondida detrás (ajuste de Santiago: las cards encogidas no
+ *   deben verse, para no quitarle atención a la card activa). Va atada al scroll (scrub).
  * Con "reducir movimiento" no hay sticky ni escala: las cards quedan en lista.
  */
 import { gsap } from 'gsap';
@@ -52,7 +53,7 @@ export function initWorkStack(list: HTMLElement) {
         {
           scale: STACK_SCALE,
           ease: 'none',
-          transformOrigin: '50% 0%',
+          transformOrigin: '50% 50%',
           scrollTrigger: {
             // Empieza cuando la card siguiente llega al borde inferior de esta (ya pegada)
             // y termina cuando la siguiente se pega en su sitio.
