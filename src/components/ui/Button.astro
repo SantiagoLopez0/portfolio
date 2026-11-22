@@ -1,0 +1,103 @@
+---
+/**
+ * Button (docs/design-system/components/Button). Pill en la fuente display, mayúsculas.
+ * - filled: fondo accent, texto white, 19px/700, con flecha → (un solo relleno por pantalla).
+ * - outline: borde 1px ink, 18px/400, con flecha ↗ (CTAs que llevan a otro sitio).
+ * - outline-bold: borde 1.5px ink, 18px/700, sin icono.
+ * Hover: opacidad (ajuste de Santiago: nada de cambios de color en hover).
+ * Medidas en em sobre --em-base (14px a 1440), como en el design system.
+ */
+import type { HTMLAttributes } from 'astro/types';
+
+interface Props extends HTMLAttributes<'a'> {
+  href: string;
+  variant?: 'filled' | 'outline' | 'outline-bold';
+}
+
+const { href, variant = 'filled', class: className, ...attrs } = Astro.props;
+---
+
+<span class="button-root">
+  <a class:list={['button', `button--${variant}`, className]} href={href} {...attrs}>
+    <slot />
+    {variant === 'filled' && (
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M5 12h14M13 6l6 6-6 6"></path>
+      </svg>
+    )}
+    {variant === 'outline' && (
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2.2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M7 17L17 7M8 7h9v9"></path>
+      </svg>
+    )}
+  </a>
+</span>
+
+<style>
+  .button-root {
+    display: inline-block;
+    font-size: var(--em-base);
+  }
+
+  .button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.45em;
+    /* 13px × 26px sobre el texto de 18px. */
+    padding: 0.722em 1.444em;
+    border: 1px solid var(--ink);
+    border-radius: 8.33em;
+    background-color: transparent;
+    color: var(--ink);
+    font-family: var(--font-display);
+    font-size: 1.2857em;
+    font-weight: 400;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    text-align: center;
+    text-transform: uppercase;
+    transition: opacity 0.2s;
+  }
+
+  .button:hover {
+    opacity: var(--hover-opacity);
+  }
+
+  .button svg {
+    flex: none;
+    width: 0.9em;
+    height: 0.9em;
+  }
+
+  .button--filled {
+    /* 19px/700: el blanco sobre accent solo cumple contraste en texto grande; no reducir. */
+    padding: 0.684em 1.368em;
+    border-color: var(--accent);
+    background-color: var(--accent);
+    color: var(--white);
+    font-size: 1.357em;
+    font-weight: 700;
+  }
+
+  .button--outline-bold {
+    border-width: 1.5px;
+    font-weight: 700;
+  }
+</style>

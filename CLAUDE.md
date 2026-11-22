@@ -161,10 +161,20 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 ## About
 
-- `About.astro` (`#about`): **1 a 1 con el wireframe** (pedido de Santiago, 22 nov 2026), pero en fondo oscuro como el resto. Foto vertical de 32.5rem × mín. 47.5rem con `radius-sm` a la izquierda (placeholder mientras `about.photo` sea null); a `space-12`, la columna derecha reparte arriba la etiqueta (`body-sm`, `ink-muted`) y el dato grande (display 18.75rem, 600, interlineado 0.78, −0.05em, en `--line-strong` como el gris tenue del wireframe) y abajo "Info" + 4 bloques en dos columnas (gap `space-12` × 2.5rem): etiqueta con el componente Tag (ajuste de Santiago) y texto en `body`.
+- `About.astro` (`#about`): **1 a 1 con el wireframe** (pedido de Santiago, 22 nov 2026), pero en fondo oscuro como el resto. Foto vertical de 32.5rem × mín. 47.5rem con `radius-sm` a la izquierda (placeholder mientras `about.photo` sea null); a `space-12`, la columna derecha reparte arriba la etiqueta (`body-sm`, `ink-muted`) y el dato grande (display 18.75rem, 600, interlineado 0.78, −0.05em, en `--line-strong` como el gris tenue del wireframe) y abajo "Info" + 4 bloques en dos columnas (gap `space-12` × 2.5rem): etiqueta con el componente Tag y sin corchetes (ajustes de Santiago) y texto en `body`.
 - "Info" en la fuente display (Bricolage Grotesque, 3.5rem, peso 400, +0.02em, mayúsculas), como en el wireframe. **No usar The Night Watch aquí** (se probó y Santiago la cambió, 22 nov 2026); por ahora la fuente accent no tiene uso en la página.
-- **Contador** (`src/scripts/count-up.ts`): el dato grande cuenta de `00` a su valor (`data-count-up`, hoy 16) en 1.6s con `power2.out` cuando entra en pantalla (borde superior al 85% del viewport), una sola vez. Mantiene los ceros a la izquierda y usa cifras tabulares. El HTML trae el valor final (sin JS o con reduced motion se queda así) y los lectores de pantalla leen solo el valor final.
-- H2 "About" visualmente oculto (el wireframe no muestra título). Textos entre corchetes = huecos por llenar (dato grande, bio, logros, idiomas). La etiqueta del dato sigue pendiente (16 = ¿edad, años, proyectos?).
+- **Contador** (`src/scripts/count-up.ts`): el dato grande cuenta de `00` a su valor (`data-count-up`, hoy 26) en 1.6s con `power2.out` cuando entra en pantalla (borde superior al 85% del viewport), una sola vez. Mantiene los ceros a la izquierda y usa cifras tabulares. El HTML trae el valor final (sin JS o con reduced motion se queda así) y los lectores de pantalla leen solo el valor final.
+- H2 "About" visualmente oculto (el wireframe no muestra título). Textos entre corchetes = huecos por llenar (dato grande, bio, logros, idiomas). La etiqueta del dato sigue pendiente (26 = ¿edad, años, proyectos?).
+
+## FAQ
+
+- `Faq.astro` (`#faq`, oscura): **mismas columnas que What I do** (izquierda de 24rem, separación `calc(space-16 * 2.15)`; pedido de Santiago). Izquierda: H2 "FAQ", intro (`body`, `ink-muted`, máx. 20rem) y botón `outline-bold` "Contact" a `#contact`. Derecha: 6 preguntas (FaqItem): línea superior en `ink`, filas separadas con `--line`, pregunta en `h4` dentro de un `<button aria-expanded>` con icono más/menos, respuesta en `body` `ink-muted` de máx. 32.5rem.
+- **Acordeón** (`src/scripts/faq.ts`): todas cerradas al cargar; cada una se abre y cierra por su cuenta (no cierra las demás). Animación suave solo con CSS: la respuesta es un grid que pasa de `0fr` a `1fr` (0.45s) con fundido del texto y la línea vertical del más que se encoge; cerrada queda con `visibility: hidden` (fuera del foco y del árbol de accesibilidad). Sin animación con reduced motion.
+- Las preguntas y respuestas son un borrador mío; el contenido real lo define Santiago.
+
+## Button
+
+- `ui/Button.astro` (design system): `filled` (accent, 19px/700, flecha →), `outline` (borde 1px, 18px/400, flecha ↗) y `outline-bold` (borde 1.5px, 18px/700, sin icono). Mayúsculas, pill, fuente display, medidas en em sobre `--em-base`. Hover por opacidad (regla de Santiago), no relleno de color.
 
 ## Sanity: modelo de contenido
 
@@ -195,7 +205,7 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 ## Estado actual y pendientes
 
 - Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`).
-- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). About (`About.astro`, contenido provisional en `src/data/about.ts`). Componentes `ui/`: Tag, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
+- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). About (`About.astro`, contenido provisional en `src/data/about.ts`) y FAQ (`Faq.astro`, borrador en `src/data/faq.ts`). Componentes `ui/`: Tag, Button, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
 - **Contenido provisional** en `src/data/site.ts` (nombre, nav, textos y tags del hero) mientras no existan los singletons `siteSettings`/`home`. Cuando se creen, ese archivo se reemplaza por consultas GROQ; los componentes no cambian porque ya reciben el contenido desde fuera.
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.

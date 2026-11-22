@@ -17,19 +17,19 @@ export const about = {
   photo: null as { src: ImageMetadata; alt: string } | null,
   stat: {
     label: '[Key figure: age, years or projects]',
-    value: '16',
+    value: '26',
   },
   infoTitle: 'Info',
   blocks: [
     {
-      label: '[Profile]',
+      label: 'Profile',
       text: '[Short bio: who you are, where you are based and how you work with clients and teams.]',
     },
-    { label: '[Stack]', text: 'Webflow, Next.js, Astro, Sanity, GSAP' },
+    { label: 'Stack', text: 'Webflow, Next.js, Astro, Sanity, GSAP' },
     {
-      label: '[Achievements]',
+      label: 'Achievements',
       text: '[Awards, features or results worth highlighting.]',
     },
-    { label: '[Languages]', text: '[Languages]' },
+    { label: 'Languages', text: '[Languages]' },
   ] satisfies AboutBlock[],
 };
