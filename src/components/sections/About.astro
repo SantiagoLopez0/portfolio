@@ -1,0 +1,151 @@
+---
+/**
+ * About (#about), 1 a 1 con el wireframe (referencia Kaisei): foto vertical a la
+ * izquierda; a la derecha, etiqueta + dato grande arriba y bloque INFO abajo con 4
+ * bloques [etiqueta] en dos columnas. Fondo oscuro como el resto del sitio (decisión de
+ * Santiago, 22 nov 2026). "Info" va en The Night Watch (accent-display), el único momento
+ * decorativo de la página según el design system. Contenido en src/data/about.ts.
+ */
+import { Image } from 'astro:assets';
+import MediaPlaceholder from '@/components/ui/MediaPlaceholder.astro';
+import { about } from '@/data/about';
+---
+
+<section id="about" class="about" aria-labelledby="about-title">
+  <h2 id="about-title" class="visually-hidden">
+    {about.title}
+  </h2>
+
+  <div class="container about__inner">
+    <div class="about__photo">
+      {about.photo ? (
+        <Image
+          src={about.photo.src}
+          alt={about.photo.alt}
+          widths={[400, 520, 800, 1040]}
+          sizes="32.5rem"
+          loading="lazy"
+        />
+      ) : (
+        <MediaPlaceholder label="Vertical photo: portrait, desk or detail" />
+      )}
+    </div>
+
+    <div class="about__content">
+      <div class="about__stat">
+        <p class="about__stat-label">{about.stat.label}</p>
+        <p class="about__stat-value">{about.stat.value}</p>
+      </div>
+
+      <div class="about__info">
+        <h3 class="about__info-title">{about.infoTitle}</h3>
+        <dl class="about__blocks">
+          {about.blocks.map((block) => (
+            <div class="about__block">
+              <dt class="about__block-label">{block.label}</dt>
+              <dd class="about__block-text">{block.text}</dd>
+            </div>
+          ))}
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Medidas del wireframe a 1440 (px / 16). */
+  .about {
+    padding-block: var(--space-24) var(--space-30);
+    background-color: var(--surface-base);
+    color: var(--ink);
+  }
+
+  .about__inner {
+    display: flex;
+    align-items: stretch;
+    gap: var(--space-12);
+  }
+
+  /* Foto: 520px de ancho, mínimo 760px de alto, radius-sm. */
+  .about__photo {
+    flex: 0 0 32.5rem;
+    max-width: 100%;
+    min-height: 47.5rem;
+    overflow: hidden;
+    border-radius: var(--radius-sm);
+  }
+
+  .about__photo :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about__photo :global(.media-placeholder) {
+    border-radius: inherit;
+  }
+
+  .about__content {
+    flex: 1 1 35rem;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-12);
+  }
+
+  .about__stat {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: var(--space-6);
+  }
+
+  .about__stat-label,
+  .about__block-label {
+    margin: 0;
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+  }
+
+  /* Dato grande: 300px, interlineado 0.78. Gris tenue (en el wireframe, #c9ccd0 sobre blanco). */
+  .about__stat-value {
+    margin: 0;
+    font-family: var(--font-display);
+    font-size: 18.75rem;
+    font-weight: 600;
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    color: var(--line-strong);
+  }
+
+  .about__info {
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  .about__info-title {
+    font: var(--text-accent-display);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+  }
+
+  .about__blocks {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-12) 2.5rem;
+    margin: 0;
+  }
+
+  .about__block {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .about__block-text {
+    margin: 0;
+    font: var(--text-body);
+  }
+</style>

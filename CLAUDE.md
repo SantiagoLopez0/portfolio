@@ -159,6 +159,12 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 - `Process.astro` (`#process`): versión básica del wireframe. H2 a la izquierda y 4 tarjetas en fila (`surface-base` con borde `--line` y `radius-lg` sobre la sección en `surface-raised`): índice, título (`h4`) y texto abajo. Textos placeholder en `src/data/process.ts`.
 - **Oculta** (decisión de Santiago, 22 nov 2026): no tiene contenido y puede trabajarla después del lanzamiento. `showProcess = false` en `src/data/process.ts` hace que `index.astro` no la renderice (no sale en el HTML). Para mostrarla: `true`, y añadir "Process" al overlay del menú (que no debe enlazar a `#process` mientras esté oculta).
 
+## About
+
+- `About.astro` (`#about`): **1 a 1 con el wireframe** (pedido de Santiago, 22 nov 2026), pero en fondo oscuro como el resto. Foto vertical de 32.5rem × mín. 47.5rem con `radius-sm` a la izquierda (placeholder mientras `about.photo` sea null); a `space-12`, la columna derecha reparte arriba la etiqueta (`body-sm`, `ink-muted`) y el dato grande (display 18.75rem, 600, interlineado 0.78, −0.05em, en `--line-strong` como el gris tenue del wireframe) y abajo "Info" + 4 bloques en dos columnas (gap `space-12` × 2.5rem): etiqueta entre corchetes y texto en `body`.
+- "Info" en **The Night Watch** (`--text-accent-display`, mayúsculas): el wireframe lo dibuja en sans, pero el design system reserva aquí su único momento decorativo.
+- H2 "About" visualmente oculto (el wireframe no muestra título). Textos entre corchetes = huecos por llenar (dato grande, bio, logros, idiomas). Idea aprobada pendiente: el dato grande como contador animado.
+
 ## Sanity: modelo de contenido
 
 Todo el contenido editable sale de Sanity; nada de textos de contenido hardcodeados en componentes (las etiquetas de UI sí pueden ir en código).
@@ -188,7 +194,7 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 ## Estado actual y pendientes
 
 - Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`).
-- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). Componentes `ui/`: Tag, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
+- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). About (`About.astro`, contenido provisional en `src/data/about.ts`). Componentes `ui/`: Tag, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
 - **Contenido provisional** en `src/data/site.ts` (nombre, nav, textos y tags del hero) mientras no existan los singletons `siteSettings`/`home`. Cuando se creen, ese archivo se reemplaza por consultas GROQ; los componentes no cambian porque ya reciben el contenido desde fuera.
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.
