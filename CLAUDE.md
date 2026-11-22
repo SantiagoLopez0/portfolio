@@ -112,8 +112,19 @@ Componentes ya especificados: Button, Tag, Header, WorkCard, ServiceList, FaqIte
 
 ## Idioma
 
-- Secciones/navegación en inglés (Work, Services, Process, About, FAQ, Contact); contenido de cada sección en español. Mantenerlo consistente. `<html lang="es">`.
+- **Todo el sitio en inglés** (decisión de Santiago, 22 nov 2026): navegación, contenido, `aria-label`, `alt` y metadatos. `<html lang="en">`.
+- El Studio de Sanity (descripciones de campos) puede seguir en español: es la herramienta de Santiago, no el sitio.
 - Comunicación con Santiago y comentarios de código: en español.
+
+## Ajustes de Santiago sobre el design system
+
+Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-overrides.css` (cargado después de `tokens.css`, que queda como copia fiel).
+
+- **Hover**: nada de color de acento. Todo elemento interactivo baja a `opacity: var(--hover-opacity)` (0.8) con la clase `.hover-fade`. El foco con teclado sigue con anillo `--accent`.
+- **Textos de body**: siempre peso 500 e interlineado 1.3 (`--text-body*`). Tamaño máximo 1.5rem (24px a 1440).
+- **Label** (`.label`, `--text-label`): mayúsculas, 700, 0.75rem, Inter. Links del header y cue de Scroll.
+- **Header**: wordmark, cada link y el Menu repartidos con `space-between` (mismo espacio entre todos); `padding-block: .5rem`, `min-height: 0`, gutter lateral el de `.container`. Menu: hamburguesa a la izquierda y la palabra a la derecha, gap `--space-2`, mayúsculas, 2rem, peso 200 (pidió 100; Bricolage no baja de 200).
+- **Hero**: línea de apoyo en `--text-body` con `--ink` al 90%. Todos los tags del hero con el estilo por defecto (sin azul).
 
 ## Sanity: modelo de contenido
 

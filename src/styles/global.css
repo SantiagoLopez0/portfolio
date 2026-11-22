@@ -1,12 +1,13 @@
 /* Base global del sitio. Los tokens viven en tokens.css; aquí solo reset y escala fluida. */
 @import './tokens.css';
+@import './tokens-overrides.css';
 
 :root {
   /* Base del em para botones y tags (design system → Tipografía): 0.875rem = 14px a 1440.
      Los componentes en em fijan font-size: var(--em-base) en su raíz y escalan desde ahí. */
   --em-base: 0.875rem;
   /* Alto del header fijo: lo usan las secciones para no quedar tapadas al navegar por anchors. */
-  --header-height: 4.75rem; /* space-6 arriba y abajo + texto del Menu (1.75rem) */
+  --header-height: 3rem; /* 0.5rem arriba y abajo + texto del Menu (2rem) */
 }
 
 /* Escala fluida (docs/design-system/README.md → "Escala fluida"):
@@ -108,6 +109,27 @@ p {
   max-width: calc(84rem + var(--space-12) * 2);
   margin-inline: auto;
   padding-inline: var(--space-12);
+}
+
+/* Label: links del nav y cue de Scroll (tokens-overrides.css). */
+.label {
+  font: var(--text-label);
+  text-transform: uppercase;
+}
+
+/* Hover estándar de elementos interactivos: opacidad, sin color de acento. */
+.hover-fade {
+  transition: opacity 0.2s ease;
+}
+
+.hover-fade:hover {
+  opacity: var(--hover-opacity);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hover-fade {
+    transition: none;
+  }
 }
 
 .visually-hidden {

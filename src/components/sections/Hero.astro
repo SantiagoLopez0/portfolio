@@ -24,7 +24,7 @@ const { media } = hero;
 
   <div class="container hero__inner">
     <div class="hero__stage">
-      <ul class="hero__tags" role="list" aria-label="Especialidades">
+      <ul class="hero__tags" role="list" aria-label="Skills">
         {hero.tags.map((tag) => (
           <li class={`hero__tag hero__tag--${tag.placement}`}>
             <Tag variant={tag.variant} rotate={tag.rotate}>
@@ -42,7 +42,7 @@ const { media } = hero;
 
     <div class="hero__footer">
       <p class="hero__lead">{hero.lead}</p>
-      <a class="hero__scroll" href={hero.scrollHref}>
+      <a class="hero__scroll label hover-fade" href={hero.scrollHref}>
         {hero.scrollLabel}
         <svg
           aria-hidden="true"
@@ -177,24 +177,19 @@ const { media } = hero;
 
   .hero__lead {
     max-width: 32.5rem;
-    font: var(--text-body-lg);
+    font: var(--text-body);
+    color: color-mix(in srgb, var(--ink) 90%, transparent);
   }
 
+  /* Mismos estilos que los links del nav (.label + .hover-fade). */
   .hero__scroll {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
-    font: var(--text-body-sm);
-    color: var(--ink-muted);
-    transition: color 0.2s ease;
-  }
-
-  .hero__scroll:hover {
-    color: var(--ink);
   }
 
   .hero__scroll svg {
-    width: 0.875rem;
+    width: 0.75rem;
     height: auto;
   }
 </style>

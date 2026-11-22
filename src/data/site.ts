@@ -23,20 +23,23 @@ export interface HeroTag {
   rotate: number;
 }
 
+/** Tags provisionales alrededor del H1. Todos con el estilo por defecto. */
+const heroTags: HeroTag[] = [
+  { label: 'Webflow', placement: 'top-left', rotate: -6 },
+  { label: 'Next.js', placement: 'top-right', rotate: 5 },
+  { label: 'Astro + Sanity', placement: 'middle-left', rotate: 4 },
+  { label: 'Colombia', placement: 'middle-right', rotate: -4 },
+  { label: 'GSAP', placement: 'bottom-left', rotate: -3 },
+  { label: 'Available', placement: 'bottom-right', rotate: 6 },
+];
+
 export const hero = {
   /** H1 en dos líneas: la primera arriba a la izquierda, la segunda abajo a la derecha. Texto final por definir. */
   titleLines: ['Web', 'Developer'] as [string, string],
   /** Tags provisionales alrededor del H1. */
-  tags: [
-    { label: 'Webflow', placement: 'top-left', rotate: -6 },
-    { label: 'Next.js', placement: 'top-right', rotate: 5 },
-    { label: 'Astro + Sanity', placement: 'middle-left', rotate: 4 },
-    { label: 'Colombia', placement: 'middle-right', rotate: -4 },
-    { label: 'GSAP', placement: 'bottom-left', rotate: -3 },
-    { label: 'Disponible', variant: 'accent', placement: 'bottom-right', rotate: 6 },
-  ] satisfies HeroTag[],
+  tags: heroTags,
   /** Línea de apoyo: propuesta de valor (provisional). */
-  lead: 'Diseño y desarrollo sitios web rápidos, editables y con movimiento, en Webflow, Next.js y Astro.',
+  lead: 'I design and build fast, editable websites with motion, in Webflow, Next.js and Astro.',
   scrollLabel: 'Scroll',
   scrollHref: '#work',
   /** Fondo: imagen o video (pendiente). Sin media, el hero queda sobre surface-base. */

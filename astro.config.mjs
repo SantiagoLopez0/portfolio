@@ -34,13 +34,13 @@ export default defineConfig({
 
   // Fuentes del design system (docs/design-system/README.md → Tipografía).
   fonts: [
-    // display: Bricolage Grotesque (Google Fonts, variable 400–700). Astro la descarga en el build
+    // display: Bricolage Grotesque (Google Fonts, variable 200–700). Astro la descarga en el build
     // y la sirve desde el propio sitio. Jokker queda fuera hasta confirmar licencia (ver CLAUDE.md).
     {
       provider: fontProviders.google(),
       name: 'Bricolage Grotesque',
       cssVariable: '--font-display-face',
-      weights: ['400 700'],
+      weights: ['200 700'], // 200 para el Menu (peso ligero), 400–700 para títulos y UI
       styles: ['normal'],
       subsets: ['latin'],
       fallbacks: ['sans-serif'],
