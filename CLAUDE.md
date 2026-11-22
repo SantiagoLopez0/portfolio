@@ -92,7 +92,7 @@ Una sola página con anchors; los case studies se abren en **popup** (no hay rut
 
 Fuera de la V1: testimonios y formulario de contacto. Mobile se trabaja después, a mano, con Santiago.
 
-Ideas de movimiento aprobadas (se implementan después del layout, no antes, salvo que Santiago pida adelantar una): tags del hero con física (**hecho**, ver "Ajustes de Santiago"); hover de What I do que cambia también el fondo; contador animado en el dato del About; animación en scroll en Selected work; preview en video al hover de las WorkCard; header que cambia al hacer scroll.
+Ideas de movimiento aprobadas (se implementan después del layout, no antes, salvo que Santiago pida adelantar una): tags del hero con drag and drop (**hecho**, ver "Ajustes de Santiago"); hover de What I do que cambia también el fondo; contador animado en el dato del About; animación en scroll en Selected work; preview en video al hover de las WorkCard; header que cambia al hacer scroll.
 
 ## Reglas del design system (resumen operativo)
 
@@ -125,7 +125,7 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 - **Label** (`.label`, `--text-label`): mayúsculas, 700, 0.75rem, Inter. Links del header y cue de Scroll.
 - **Header**: wordmark, cada link y el Menu repartidos con `space-between` (mismo espacio entre todos); `padding-block: .5rem`, `min-height: 0`, gutter lateral el de `.container`. Menu: hamburguesa a la izquierda y la palabra a la derecha, gap `--space-2`, mayúsculas, 2rem, peso 200 (pidió 100; Bricolage no baja de 200).
 - **Hero**: línea de apoyo en `--text-body` con `--ink` al 90%. Todos los tags del hero con el estilo por defecto (sin azul).
-- **Tags del hero con física** (`src/scripts/hero-tags.ts`, GSAP + Draggable + InertiaPlugin). **Sin rebote ni pausas** (pedido de Santiago): todo regreso es `power3.out`/`power2.inOut`, nunca `elastic`. Hover: solo un cursor rápido (≥ 0.6 px/ms) empuja el tag (24–110px según la velocidad) y vuelve en 0.6s; a velocidad normal o lenta solo se sacude, para poder agarrarlo. La velocidad del cursor se suaviza, ignora ráfagas de eventos (< 8ms) y vale 0 si el mouse está quieto (> 60ms); un tag en movimiento no reacciona al hover (evita empujones fantasma al volver bajo un cursor quieto). Drag con lanzamiento corto (inercia máx. 0.35s) y regreso inmediato. Solo con mouse (`hover: hover` y `pointer: fine`) y sin `prefers-reduced-motion`. Probado con Chrome por DevTools Protocol.
+- **Tags del hero: drag and drop libre** (`src/scripts/hero-tags.ts`, GSAP Draggable + InertiaPlugin). **Sin animación en hover y sin regreso a la posición inicial** (decisión de Santiago, 22 nov 2026; antes hubo hover con empujón y regreso, se descartó). Los tags se arrastran, se lanzan con inercia corta (máx. 0.35s) y se quedan donde caen, dentro del escenario del H1 (`[data-hero-stage]`: bajo el header, sobre la línea de apoyo, dentro de los márgenes). El último arrastrado queda encima. Al recargar vuelven a su sitio. Solo con mouse (`hover: hover` y `pointer: fine`) y sin `prefers-reduced-motion`; en touch quedan quietos. Probado con Chrome por DevTools Protocol.
 
 ## Sanity: modelo de contenido
 

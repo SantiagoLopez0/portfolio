@@ -65,9 +65,8 @@ const { media } = hero;
 <script>
   import { initHeroTags } from '@/scripts/hero-tags';
 
-  const section = document.getElementById('hero');
-  const stage = section?.querySelector<HTMLElement>('[data-hero-stage]');
-  if (section && stage) initHeroTags(stage, section);
+  const stage = document.querySelector<HTMLElement>('#hero [data-hero-stage]');
+  if (stage) initHeroTags(stage);
 </script>
 
 <style>
