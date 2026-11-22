@@ -1,0 +1,248 @@
+---
+/**
+ * Contact + Footer (#contact). Wireframe: una sola pieza separada por una línea —
+ * arriba disponibilidad, CTA (display-xl), correo y botones, centrados; abajo el footer
+ * con marca, links, redes, ©, hora local y "Back to top".
+ * Ajustes de Santiago (22 nov 2026):
+ * - Fondo de contraste (tema claro, #fff) frente al resto del sitio, que es oscuro.
+ * - Esquinas superiores redondeadas: se ve como una tarjeta por encima de todo.
+ * - Al llegar, la sección de arriba se mueve hacia abajo, por debajo de la tarjeta
+ *   (src/scripts/closing-reveal.ts).
+ * Va fuera de <main> para que <footer> sea el pie de la página (contentinfo).
+ */
+import Button from '@/components/ui/Button.astro';
+import { site } from '@/data/site';
+import { contact, footer } from '@/data/contact';
+
+const year = new Date().getFullYear();
+const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
+const bookingHref = contact.secondaryCta.href || '#contact';
+---
+
+<div class="closing" data-theme="light" data-closing>
+  <section id="contact" class="contact" aria-labelledby="contact-title">
+    <div class="container contact__inner">
+      <p class="contact__availability">
+        <span class="contact__dot" aria-hidden="true"></span>
+        {contact.availability}
+      </p>
+      <h2 id="contact-title" class="contact__title">
+        {contact.title}
+      </h2>
+      <a class="contact__email hover-fade" href={emailHref}>
+        {contact.email || contact.emailPlaceholder}
+      </a>
+      <div class="contact__actions">
+        <Button href={emailHref}>{contact.primaryCta.label}</Button>
+        <Button
+          href={bookingHref}
+          variant="outline"
+          {...(contact.secondaryCta.href ? { target: '_blank', rel: 'noopener' } : {})}
+        >
+          {contact.secondaryCta.label}
+        </Button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="container">
+    <div class="footer">
+      <div class="footer__top">
+        <div class="footer__brand">
+          <a class="footer__name hover-fade" href="#hero">
+            {site.name}
+          </a>
+          <span class="footer__role">{footer.role}</span>
+        </div>
+
+        <nav class="footer__nav" aria-label="Footer">
+          <ul role="list">
+            {footer.nav.map((link) => (
+              <li>
+                <a class="label hover-fade" href={link.href}>
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <ul class="footer__socials" role="list" aria-label="Social">
+          {footer.socials.map((social) => (
+            <li>
+              {social.href ? (
+                <a class="label hover-fade" href={social.href} target="_blank" rel="noopener">
+                  {social.label}
+                </a>
+              ) : (
+                <span class="label">{social.label}</span>
+              )}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div class="footer__bottom">
+        <span>
+          © {year} {site.name}
+        </span>
+        <span>
+          {footer.timeLabel} <time data-local-time={footer.timeZone}>--:--</time>
+        </span>
+        <a class="footer__top-link label hover-fade" href={footer.backToTop.href}>
+          {footer.backToTop.label}
+          <svg
+            aria-hidden="true"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M12 19V5M5 12l7-7 7 7"></path>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script>
+  import { initClosingReveal } from '@/scripts/closing-reveal';
+  import { initLocalTime } from '@/scripts/local-time';
+
+  const card = document.querySelector<HTMLElement>('[data-closing]');
+  if (card) initClosingReveal(card);
+  document.querySelectorAll<HTMLTimeElement>('[data-local-time]').forEach(initLocalTime);
+</script>
+
+<style>
+  .closing {
+    /* Radio de la tarjeta: a escala de sección, el radius-lg (0.75rem) se pierde. */
+    --closing-radius: 2rem;
+
+    position: relative;
+    z-index: 1;
+    border-radius: var(--closing-radius) var(--closing-radius) 0 0;
+    background-color: var(--surface-base);
+    color: var(--ink);
+  }
+
+  /* Contact: 120px arriba; bloque centrado con 32px entre piezas. */
+  .contact {
+    padding-top: var(--space-30);
+  }
+
+  .contact__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-8);
+    text-align: center;
+  }
+
+  .contact__availability {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin: 0;
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+  }
+
+  .contact__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: var(--accent);
+  }
+
+  .contact__title {
+    max-width: 60rem;
+    font: var(--text-display-xl);
+    letter-spacing: -0.035em;
+  }
+
+  .contact__email {
+    padding-bottom: var(--space-1);
+    border-bottom: 1.5px solid currentColor;
+    font: 500 1.5rem/1.3 var(--font-body);
+  }
+
+  .contact__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-4);
+  }
+
+  /* Footer: 96px bajo el contacto, línea arriba (al ancho del contenido), 40px de aire. */
+  .footer {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin-top: var(--space-24);
+    padding-top: 2.5rem;
+    padding-bottom: var(--space-12);
+    border-top: 1px solid var(--line);
+  }
+
+  .footer__top {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-8);
+  }
+
+  .footer__brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .footer__name {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+  }
+
+  .footer__role,
+  .footer__bottom {
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+  }
+
+  .footer__nav ul,
+  .footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    gap: var(--space-8);
+    margin: 0;
+  }
+
+  .footer__socials {
+    gap: var(--space-4);
+  }
+
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-4);
+  }
+
+  .footer__top-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    color: var(--ink);
+  }
+
+  .footer__top-link svg {
+    width: 0.75rem;
+    height: 0.75rem;
+  }
+</style>

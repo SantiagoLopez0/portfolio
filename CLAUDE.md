@@ -97,7 +97,7 @@ Ideas de movimiento aprobadas (se implementan después del layout, no antes, sal
 ## Reglas del design system (resumen operativo)
 
 - **Escala fluida en rem**: todo valor del diseño (a 1440px) se escribe `px / 16` en rem. La base del `html` escala (`global.css`). Bordes de 1px/1.5px se quedan en px. Botones y tags usan **em** sobre una base de `0.875rem`.
-- **Temas**: dark por defecto. Las secciones claras usan `data-theme="light"` en su wrapper; los componentes no cambian, solo los tokens. **Por ahora todo el sitio va oscuro** (decisión de Santiago, 22 nov 2026), aunque el wireframe marque secciones claras; con todas las secciones hechas se decide si alguna lleva un fondo oscuro de contraste o `#fff`.
+- **Temas**: dark por defecto. Las secciones claras usan `data-theme="light"` en su wrapper; los componentes no cambian, solo los tokens. **Todo el sitio va oscuro** (decisión de Santiago, 22 nov 2026), aunque el wireframe marque secciones claras. **Excepción: Contact + Footer**, que va en tema claro (`#fff`) como fondo de contraste.
 - **Nunca valores sueltos** de color, espacio, radio o tipografía: siempre `var(--token)`. Si falta un token, se pregunta; no se inventa.
 - Color 90/10: neutros llevan todo; `--accent` (azul #0297DE) en muy pocos puntos (botón relleno, índice activo de ServiceList, un tag). Acentos como texto solo sobre oscuro o ≥ 24px; sobre claro, como relleno. Texto encima de un acento: `--on-accent` / `--on-accent-alt`. El negro es `#02070A`, nunca `#000`.
 - **Líneas, no sombras** (`--line`, `--line-strong`).
@@ -176,6 +176,13 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 - `ui/Button.astro` (design system): `filled` (accent, 19px/700, flecha →), `outline` (borde 1px, 18px/400, flecha ↗) y `outline-bold` (borde 1.5px, 18px/700, sin icono). Mayúsculas, pill, fuente display, medidas en em sobre `--em-base`. Hover por opacidad (regla de Santiago), no relleno de color.
 
+## Contact + Footer
+
+- `Contact.astro`: un `<div class="closing" data-theme="light">` **fuera de `<main>`** con `<section id="contact">` y `<footer>` (así el footer es el pie de la página). Fondo de contraste claro (`#fff`, pedido de Santiago) y **esquinas superiores redondeadas** (`--closing-radius: 2rem`; el `radius-lg` se pierde a escala de sección): se ve como una tarjeta por encima de todo.
+- Contact (wireframe): centrado, 32px entre piezas: disponibilidad con punto `accent`, H2 en `display-xl`, correo subrayado (1.5rem/500) y botones `filled` "Email me" + `outline` "Book a call" ↗. Footer: línea `--line` al ancho del contenido, marca + rol, links del nav (Process solo si `showProcess`), redes (LinkedIn, GitHub; sin `href` se muestran como texto), ©, hora local de Bogotá en vivo (`src/scripts/local-time.ts`) y "Back to top".
+- **Efecto de tarjeta** (`src/scripts/closing-reveal.ts`): mientras la tarjeta sube, la última `<section>` de `<main>` baja a la mitad de la velocidad del scroll (GSAP ScrollTrigger, scrub, desde que la tarjeta asoma hasta el final de la página), así queda por debajo de la tarjeta. **Solo se desplaza, no se encoge** (Santiago lo pidió así al verlo con escala). Sin efecto con reduced motion.
+- Pendientes de contenido: correo, link de agenda, links de redes. Ojo: si la tarjeta llega a quedar bajo el header (pantallas bajas o mobile), el texto blanco del header no se ve sobre el fondo claro.
+
 ## Sanity: modelo de contenido
 
 Todo el contenido editable sale de Sanity; nada de textos de contenido hardcodeados en componentes (las etiquetas de UI sí pueden ir en código).
@@ -205,7 +212,7 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 ## Estado actual y pendientes
 
 - Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`).
-- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). About (`About.astro`, contenido provisional en `src/data/about.ts`) y FAQ (`Faq.astro`, borrador en `src/data/faq.ts`). Componentes `ui/`: Tag, Button, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
+- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). About (`About.astro`, contenido provisional en `src/data/about.ts`) FAQ (`Faq.astro`, borrador en `src/data/faq.ts`) y Contact + Footer (`Contact.astro`, provisional en `src/data/contact.ts`). Componentes `ui/`: Tag, Button, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
 - **Contenido provisional** en `src/data/site.ts` (nombre, nav, textos y tags del hero) mientras no existan los singletons `siteSettings`/`home`. Cuando se creen, ese archivo se reemplaza por consultas GROQ; los componentes no cambian porque ya reciben el contenido desde fuera.
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.
