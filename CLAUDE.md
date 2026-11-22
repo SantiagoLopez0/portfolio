@@ -127,6 +127,14 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 - **Hero**: línea de apoyo en `--text-body` con `--ink` al 90%. Todos los tags del hero con el estilo por defecto (sin azul).
 - **Tags del hero: drag and drop libre** (`src/scripts/hero-tags.ts`, GSAP Draggable + InertiaPlugin). **Sin animación en hover y sin regreso a la posición inicial** (decisión de Santiago, 22 nov 2026; antes hubo hover con empujón y regreso, se descartó). Los tags se arrastran, se lanzan con inercia corta (máx. 0.35s) y se quedan donde caen, dentro del escenario del H1 (`[data-hero-stage]`: bajo el header, sobre la línea de apoyo, dentro de los márgenes). El último arrastrado queda encima. Al recargar vuelven a su sitio. Solo con mouse (`hover: hover` y `pointer: fine`) y sin `prefers-reduced-motion`; en touch quedan quietos. Probado con Chrome por DevTools Protocol.
 
+## Logos ("Websites delivered for")
+
+- Originales en la carpeta `Logos/` fuera del repo; versiones listas para el sitio en `src/assets/logos/` (kebab-case) y la lista en `src/data/clients.ts`.
+- **Convertidos a blanco en el archivo, nunca con filtros CSS** (un `filter: brightness(0) invert(1)` vuelve blanco todo lo opaco y aparecen bloques). SVG: se cambian los valores de color (`fill`, `stroke`, `stop-color`) a `#FFFFFF` fuera de `<mask>`/`<clipPath>`, que quedan intactos. Raster: si el logo tiene colores superpuestos se pasan a grises por luminancia (0.35–1) para que no se fundan; se recortan los márgenes transparentes.
+- Sección oscura: etiqueta a la izquierda y marquee CSS (dos copias de la lista, la segunda `aria-hidden`; 45s; fundido en los bordes). Logos a opacidad 0.8, en mobile 1. Con `prefers-reduced-motion` no se anima y la lista hace wrap.
+- Altura de cada logo por área (mismo peso visual): `sqrt(20 / proporción)` rem, entre 1.25 y 2.75rem; ajuste fino con `scale` en `clients.ts`.
+- Notas: `sprii.svg` contenía el logo de **Unit21.ai** (así se llama en el sitio). Candybox solo vino como AVIF de 210×50 px: se ve suave en pantallas retina, pedir SVG o una versión más grande.
+
 ## Sanity: modelo de contenido
 
 Todo el contenido editable sale de Sanity; nada de textos de contenido hardcodeados en componentes (las etiquetas de UI sí pueden ir en código).
@@ -156,7 +164,7 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 ## Estado actual y pendientes
 
 - Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`).
-- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → fondo translúcido con blur al hacer scroll; el botón Menu aún no abre nada) y Hero (`Hero.astro`). Componente `ui/Tag.astro`. Siguen: Logos, Selected work + popup, What I do, Process, About, FAQ, Contact + Footer, overlay del menú.
+- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → fondo translúcido con blur al hacer scroll; el botón Menu aún no abre nada) y Hero (`Hero.astro`), Logos (`Logos.astro`). Componente `ui/Tag.astro`. Siguen: Selected work + popup, What I do, Process, About, FAQ, Contact + Footer, overlay del menú.
 - **Contenido provisional** en `src/data/site.ts` (nombre, nav, textos y tags del hero) mientras no existan los singletons `siteSettings`/`home`. Cuando se creen, ese archivo se reemplaza por consultas GROQ; los componentes no cambian porque ya reciben el contenido desde fuera.
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.

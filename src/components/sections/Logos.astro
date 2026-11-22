@@ -1,0 +1,136 @@
+---
+/**
+ * Logos (wireframe: "Websites delivered for" + logos de sitios entregados, en marquee).
+ * Logos en blanco a opacidad .8 (1 en mobile). La lista se duplica para que el marquee
+ * sea continuo; la copia va con aria-hidden. Con "reducir movimiento" no se anima.
+ */
+import { Image } from 'astro:assets';
+import { clients, clientsLabel } from '@/data/clients';
+
+/**
+ * Altura de cada logo según su proporción, para que todos tengan un peso visual parecido:
+ * misma área aproximada. TARGET_AREA en rem²: un logo 5:1 queda a 2rem de alto.
+ */
+const TARGET_AREA = 20;
+const MIN_HEIGHT = 1.25;
+const MAX_HEIGHT = 2.75;
+
+const logos = clients.map((client) => {
+  const aspect = client.logo.width / client.logo.height;
+  const base = Math.sqrt(TARGET_AREA / aspect) * (client.scale ?? 1);
+  const height = Math.min(MAX_HEIGHT, Math.max(MIN_HEIGHT, base));
+  return { ...client, height: `${height.toFixed(3)}rem` };
+});
+---
+
+<section class="logos" data-theme="dark" aria-labelledby="logos-label">
+  <div class="container logos__inner">
+    <h2 id="logos-label" class="logos__label label">
+      {clientsLabel}
+    </h2>
+
+    <div class="logos__viewport">
+      {[false, true].map((isCopy) => (
+        <ul class="logos__track" role="list" aria-hidden={isCopy ? 'true' : undefined}>
+          {logos.map((client) => (
+            <li class="logos__item">
+              <Image
+                src={client.logo}
+                alt={isCopy ? '' : client.name}
+                style={`height: ${client.height}`}
+                loading="lazy"
+                decoding="async"
+              />
+            </li>
+          ))}
+        </ul>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .logos {
+    background-color: var(--surface-base);
+    color: var(--ink);
+  }
+
+  .logos__inner {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    gap: var(--space-12);
+    padding-block: var(--space-8);
+    border-bottom: 1px solid var(--line);
+  }
+
+  .logos__label {
+    color: var(--ink-muted);
+    white-space: nowrap;
+  }
+
+  /* Marquee: dos copias de la lista que se desplazan juntas; bordes con fundido. */
+  .logos__viewport {
+    --logos-gap: var(--space-16);
+    display: flex;
+    overflow: hidden;
+    mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+  }
+
+  .logos__track {
+    flex: none;
+    display: flex;
+    align-items: center;
+    gap: var(--logos-gap);
+    margin: 0;
+    padding-right: var(--logos-gap);
+    animation: logos-marquee 45s linear infinite;
+  }
+
+  .logos__item {
+    flex: none;
+    display: flex;
+    align-items: center;
+  }
+
+  .logos__item img {
+    width: auto;
+    max-width: none;
+    opacity: 0.8;
+  }
+
+  @keyframes logos-marquee {
+    to {
+      transform: translateX(-100%);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .logos__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .logos__item img {
+      opacity: 1;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .logos__viewport {
+      mask-image: none;
+      -webkit-mask-image: none;
+    }
+
+    .logos__track {
+      flex-wrap: wrap;
+      row-gap: var(--space-6);
+      animation: none;
+    }
+
+    .logos__track[aria-hidden='true'] {
+      display: none;
+    }
+  }
+</style>
