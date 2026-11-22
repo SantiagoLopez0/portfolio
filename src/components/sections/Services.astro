@@ -4,7 +4,7 @@
  * derecha y, a la izquierda, el nombre y la descripción de la opción activa.
  * - La opción activa cambia con hover (mouse), con clic o tap (touch) y con el teclado.
  *   La primera es la activa por defecto. Al salir de la lista se queda la última.
- * - Ajuste de Santiago (22 nov 2026): títulos de la lista en `ink` con opacidad 0.75; la
+ * - Ajuste de Santiago (22 nov 2026): títulos de la lista en `ink` (2.75rem) con opacidad 0.6; la
  *   activa (o la que está bajo el mouse) a opacidad 1.
  * - Semántica de pestañas (tablist / tab / tabpanel): las 5 descripciones están en el HTML
  *   y el texto de la izquierda es el panel de la pestaña activa.
@@ -78,15 +78,15 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     color: var(--ink);
   }
 
-  /* Wireframe: columna de texto de 320px y 64px de separación; Santiago pidió +10% en la
-     columna (22rem) y +15% en la separación. */
+  /* Columna de texto de 24rem y separación de space-16 × 2.15 (ajustes de Santiago sobre
+     los 320px y 64px del wireframe). */
   .services__inner {
     display: flex;
-    gap: calc(var(--space-16) * 1.15);
+    gap: calc(var(--space-16) * 2.15);
   }
 
   .services__detail {
-    flex: 0 0 22rem;
+    flex: 0 0 24rem;
     min-width: 0;
     padding-top: var(--space-6);
   }
@@ -114,9 +114,10 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     }
   }
 
-  /* Mismo estilo que los links del nav (.label): mayúsculas, 700, 0.75rem, ink. */
+  /* Estilo de los links del nav (.label: mayúsculas, 700, 0.75rem), en ink-muted. */
   .services__name {
     margin: 0;
+    color: var(--ink-muted);
   }
 
   .services__description {
@@ -144,20 +145,30 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     cursor: pointer;
   }
 
-  /* Ajuste de Santiago: 0.75 en reposo; 1 en la activa y en la que está bajo el mouse. */
+  /* Ajustes de Santiago: 2.75rem; 0.6 en reposo; la activa y la que está bajo el mouse a
+     opacidad 1 y se corren 16px a la derecha. */
   .services__label {
     font-family: var(--font-display);
-    font-size: 4.75rem;
+    font-size: 2.75rem;
     font-weight: 600;
     line-height: 1;
     letter-spacing: -0.04em;
-    opacity: 0.75;
-    transition: opacity 0.2s;
+    opacity: 0.6;
+    transition:
+      opacity 0.2s,
+      padding 0.3s ease;
   }
 
   .services__item:hover .services__label,
   .services__item[aria-selected='true'] .services__label {
+    padding-inline-start: 1rem;
     opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .services__label {
+      transition: opacity 0.2s;
+    }
   }
 
   .services__index {

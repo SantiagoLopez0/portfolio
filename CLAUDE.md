@@ -149,8 +149,8 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 ## What I do (ServiceList)
 
-- `Services.astro` (`#services`, oscura): columna izquierda de 22rem (20rem del wireframe +10%) a `calc(space-16 * 1.15)` de la lista, con el nombre en estilo de link del nav (`.label`) y la descripción (`body-lg`) de la opción activa; lista grande a la derecha (display 4.75rem, 600, −0.04em) con índice `( 01 )` y separadores `--line`. H2 "What I do" visualmente oculto (el wireframe no muestra título).
-- **Opacidad de los títulos** (ajuste de Santiago, 22 nov 2026): todos en `ink` a 0.75; la activa y la que está bajo el mouse a 1 (en lugar de `ink-muted` / `ink` del design system). La primera es la activa por defecto. El índice de la activa va en `accent` (punto azul previsto en el design system).
+- `Services.astro` (`#services`, oscura): columna izquierda de 24rem a `calc(space-16 * 2.15)` de la lista, con el nombre en estilo de link del nav (`.label`) en `ink-muted` y la descripción (`body-lg`) de la opción activa; lista a la derecha (display 2.75rem, 600, −0.04em; el design system pedía hasta 4.75rem) con índice `( 01 )` y separadores `--line`. H2 "What I do" visualmente oculto (el wireframe no muestra título).
+- **Opacidad de los títulos** (ajuste de Santiago, 22 nov 2026): todos en `ink` a 0.6; la activa y la que está bajo el mouse a 1 y con `padding-left` de 1rem (se corre a la derecha con transición) (en lugar de `ink-muted` / `ink` del design system). La primera es la activa por defecto. El índice de la activa va en `accent` (punto azul previsto en el design system).
 - Cambia la activa (`src/scripts/service-list.ts`): hover con mouse, clic o tap en touch, y teclado. Al salir de la lista se queda la última. Semántica de pestañas (`tablist` / `tab` / `tabpanel`, flechas, Home y End): las 5 descripciones están en el HTML y la de la izquierda es el panel activo, que entra con un fundido corto (sin animación con reduced motion).
 - Pendiente (idea aprobada): que el hover cambie también un video o imagen de fondo.
 
