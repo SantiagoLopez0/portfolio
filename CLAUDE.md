@@ -175,15 +175,15 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 ## Button
 
-- `ui/Button.astro` (design system): `filled` (accent, 19px/700, flecha →), `outline` (borde 1px, 18px/400, flecha ↗) y `outline-bold` (borde 1.5px, 18px/700, sin icono). Mayúsculas, pill, fuente display, medidas en em sobre `--em-base`. Hover por opacidad (regla de Santiago), no relleno de color.
+- `ui/Button.astro` (design system): `filled` (accent, 19px/700, flecha →), `outline` (borde 1px, 18px/400, flecha ↗) y `outline-bold` (borde 1.5px, 18px/700, sin icono). Mayúsculas, pill, fuente display, medidas en em sobre `--em-base`. Hover por opacidad (regla de Santiago), no relleno de color. **Padding de 0.45em** en todos los lados y en todas las variantes (ajuste de Santiago, en lugar de los 13 × 26px del design system).
 
 ## Bottom section (Contact + Footer)
 
 Santiago la llama **"bottom section"**.
 
 
-- `Contact.astro`: un `<div class="closing" data-theme="light">` **fuera de `<main>`** con `<section id="contact">` y `<footer>` (así el footer es el pie de la página). Fondo de contraste claro (`#fff`, **provisional**: Santiago está eligiendo entre blanco, blanco roto `#f4f5f6`, azul accent, naranja accent-alt, foto del hero en gris con velo y negro con borde; nada de gris oscuro) y **esquinas superiores redondeadas** (`--closing-radius: 2rem`; el `radius-lg` se pierde a escala de sección): se ve como una tarjeta por encima de todo.
-- Contact (wireframe): centrado, 32px entre piezas: disponibilidad con punto `accent`, H2 en `display-xl`, correo subrayado (1.5rem/500) y botones `filled` "Email me" + `outline` "Book a call" ↗. Footer: línea `--line` al ancho del contenido, marca + rol, links del nav (Process solo si `showProcess`), redes (LinkedIn, GitHub; sin `href` se muestran como texto), ©, hora local de Bogotá en vivo (`src/scripts/local-time.ts`) y "Back to top".
+- `Contact.astro`: un `<div class="closing" data-theme="light">` **fuera de `<main>`** con `<section id="contact">` y `<footer>` (así el footer es el pie de la página). Fondo de contraste **`#eaeaea`** (elegido por Santiago, 22 nov 2026, tras ver blanco, blanco roto, azul, naranja, foto del hero y negro con borde; nada de gris oscuro), con los tokens del tema claro y **esquinas superiores redondeadas** (`--closing-radius: 2rem`; el `radius-lg` se pierde a escala de sección): se ve como una tarjeta por encima de todo.
+- Contact (wireframe): centrado, 32px entre piezas: disponibilidad con punto `accent` en estilo de link del nav (`.label`; un tag de vidrio no se vería en fondo claro), H2 en `display-xl`, correo subrayado (1.5rem/500) y botones `filled` "Email me" + `outline` "Book a call" ↗. Footer: línea `--line` al ancho del contenido, marca + rol, links del nav (Process solo si `showProcess`), redes (LinkedIn, GitHub; sin `href` se muestran como texto), ©, hora local de Bogotá en vivo (`src/scripts/local-time.ts`) y "Back to top"; toda la fila de abajo en `.label` color `ink`, igual que "Back to top".
 - **Efecto de tarjeta** (`src/scripts/closing-reveal.ts`): mientras la tarjeta sube, la última `<section>` de `<main>` baja a la mitad de la velocidad del scroll (GSAP ScrollTrigger, scrub, desde que la tarjeta asoma hasta el final de la página), así queda por debajo de la tarjeta. **Solo se desplaza, no se encoge** (Santiago lo pidió así al verlo con escala). Sin efecto con reduced motion.
 - Pendientes de contenido: correo, link de agenda, links de redes. Ojo: si la tarjeta llega a quedar bajo el header (pantallas bajas o mobile), el texto blanco del header no se ve sobre el fondo claro.
 

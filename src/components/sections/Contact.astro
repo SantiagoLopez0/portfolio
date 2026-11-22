@@ -4,7 +4,8 @@
  * arriba disponibilidad, CTA (display-xl), correo y botones, centrados; abajo el footer
  * con marca, links, redes, ©, hora local y "Back to top".
  * Ajustes de Santiago (22 nov 2026):
- * - Fondo de contraste (tema claro, #fff) frente al resto del sitio, que es oscuro.
+ * - Fondo de contraste claro (#eaeaea, tokens del tema claro) frente al resto del sitio,
+ *   que es negro.
  * - Esquinas superiores redondeadas: se ve como una tarjeta por encima de todo.
  * - Al llegar, la sección de arriba se mueve hacia abajo, por debajo de la tarjeta
  *   (src/scripts/closing-reveal.ts).
@@ -22,7 +23,7 @@ const bookingHref = contact.secondaryCta.href || '#contact';
 <div class="closing" data-theme="light" data-closing>
   <section id="contact" class="contact" aria-labelledby="contact-title">
     <div class="container contact__inner">
-      <p class="contact__availability">
+      <p class="contact__availability label">
         <span class="contact__dot" aria-hidden="true"></span>
         {contact.availability}
       </p>
@@ -83,10 +84,10 @@ const bookingHref = contact.secondaryCta.href || '#contact';
       </div>
 
       <div class="footer__bottom">
-        <span>
+        <span class="label">
           © {year} {site.name}
         </span>
-        <span>
+        <span class="label">
           {footer.timeLabel} <time data-local-time={footer.timeZone}>--:--</time>
         </span>
         <a class="footer__top-link label hover-fade" href={footer.backToTop.href}>
@@ -121,6 +122,8 @@ const bookingHref = contact.secondaryCta.href || '#contact';
   .closing {
     /* Radio de la tarjeta: a escala de sección, el radius-lg (0.75rem) se pierde. */
     --closing-radius: 2rem;
+    /* Fondo elegido por Santiago (22 nov 2026). */
+    --surface-base: #eaeaea;
 
     position: relative;
     z-index: 1;
@@ -142,13 +145,13 @@ const bookingHref = contact.secondaryCta.href || '#contact';
     text-align: center;
   }
 
+  /* Estilo de link del nav (.label). Un tag no sirve aquí: es blanco translúcido y en
+     el fondo claro no se vería. */
   .contact__availability {
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
     margin: 0;
-    font: var(--text-body-sm);
-    color: var(--ink-muted);
   }
 
   .contact__dot {
@@ -208,8 +211,7 @@ const bookingHref = contact.secondaryCta.href || '#contact';
     letter-spacing: -0.02em;
   }
 
-  .footer__role,
-  .footer__bottom {
+  .footer__role {
     font: var(--text-body-sm);
     color: var(--ink-muted);
   }
@@ -227,10 +229,12 @@ const bookingHref = contact.secondaryCta.href || '#contact';
     gap: var(--space-4);
   }
 
+  /* Todo el texto como "Back to top" (.label, ink). */
   .footer__bottom {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    align-items: center;
     gap: var(--space-4);
   }
 
