@@ -148,7 +148,7 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.
 - **CLI de Sanity**: Santiago también trabaja con otra cuenta de Sanity (BenorMedia). El CLI tiene una sola sesión a la vez; si `schemas deploy` o `deploy` fallan con "Unauthorized / missing grants", es que el CLI está con la otra cuenta: pedirle que corra `npx sanity login` con la cuenta de la org "Santiago Lopez". El Studio local usa la sesión del navegador y no depende de eso.
 - Falta el dominio final (`site` en `astro.config.mjs`).
-- **Studio sin desplegar**: el hostname `portfolio.sanity.studio` ya está tomado (los nombres son globales). Falta que Santiago elija otro; después: `studioHost` en `studio/sanity.cli.ts`, `pnpm studio:deploy` y `PUBLIC_SANITY_STUDIO_URL` en `.env`. Hasta entonces el Studio no aparece en el dashboard de Sanity (solo se listan los desplegados o registrados).
+- **Studio desplegado** en https://santiago-lopez.sanity.studio (redirige al dashboard de la org, `@on31SsbFa`; appId `id1bmgg4xual2jeoxjj47y6c` en `studio/sanity.cli.ts`). Para publicar cambios del Studio: `pnpm studio:deploy`. Los nombres `portfolio` y `santiagolopez` estaban tomados por otros.
 - Pendientes de contenido (de Santiago): H1 del hero, dato grande del About, contenido de FAQ, textos y tags de proyectos, servicios y proceso, logos de clientes reales.
 - Deploy: Vercel con la raíz del repo (framework Astro, build `pnpm build`, salida `dist/`), más un webhook de Sanity → deploy hook de Vercel para reconstruir al publicar.
 
