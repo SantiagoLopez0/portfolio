@@ -22,13 +22,13 @@ export type HeroTagPlacement =
 
 export interface HeroTag {
   label: string;
-  variant?: 'default' | 'accent' | 'alt';
+  variant?: 'default' | 'accent' | 'alt' | 'glass';
   placement: HeroTagPlacement;
   /** Rotación del sticker, de -6 a 6 grados (design system → Tag). */
   rotate: number;
 }
 
-/** Tags provisionales alrededor del H1. Todos con el estilo por defecto. */
+/** Tags provisionales alrededor del H1. Todos en vidrio (variant glass por defecto en el hero). */
 const heroTags: HeroTag[] = [
   { label: 'Webflow', placement: 'top-left', rotate: -6 },
   { label: 'Next.js', placement: 'top-right', rotate: 5 },

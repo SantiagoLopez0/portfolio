@@ -36,7 +36,7 @@ const { media } = hero;
       <ul class="hero__tags" role="list" aria-label="Skills">
         {hero.tags.map((tag) => (
           <li class={`hero__tag hero__tag--${tag.placement}`} data-hero-tag>
-            <Tag variant={tag.variant} rotate={tag.rotate}>
+            <Tag variant={tag.variant ?? 'glass'} rotate={tag.rotate}>
               {tag.label}
             </Tag>
           </li>

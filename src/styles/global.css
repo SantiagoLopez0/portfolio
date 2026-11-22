@@ -17,6 +17,10 @@ html {
   font-size: clamp(10px, 1.111vw, 22px); /* 16px a 1440px */
   -webkit-text-size-adjust: 100%;
   text-size-adjust: 100%;
+}
+
+/* Scroll suave nativo solo si Lenis no está activo (Lenis agrega la clase .lenis al html). */
+html:not(.lenis) {
   scroll-behavior: smooth;
 }
 
@@ -27,7 +31,7 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
+  html:not(.lenis) {
     scroll-behavior: auto;
   }
 }
