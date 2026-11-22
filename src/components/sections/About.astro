@@ -3,11 +3,14 @@
  * About (#about), 1 a 1 con el wireframe (referencia Kaisei): foto vertical a la
  * izquierda; a la derecha, etiqueta + dato grande arriba y bloque INFO abajo con 4
  * bloques [etiqueta] en dos columnas. Fondo oscuro como el resto del sitio (decisión de
- * Santiago, 22 nov 2026). "Info" va en The Night Watch (accent-display), el único momento
- * decorativo de la página según el design system. Contenido en src/data/about.ts.
+ * Santiago, 22 nov 2026). Ajustes de Santiago: "Info" en la fuente display (Bricolage
+ * Grotesque) y no en The Night Watch; etiquetas de los bloques con el estilo de los tags;
+ * el dato grande cuenta desde 00 al entrar en pantalla (src/scripts/count-up.ts).
+ * Contenido en src/data/about.ts.
  */
 import { Image } from 'astro:assets';
 import MediaPlaceholder from '@/components/ui/MediaPlaceholder.astro';
+import Tag from '@/components/ui/Tag.astro';
 import { about } from '@/data/about';
 ---
 
@@ -34,7 +37,13 @@ import { about } from '@/data/about';
     <div class="about__content">
       <div class="about__stat">
         <p class="about__stat-label">{about.stat.label}</p>
-        <p class="about__stat-value">{about.stat.value}</p>
+        <p class="about__stat-value">
+          {/* El HTML trae el valor final (sin JS o con reduced motion se queda así). */}
+          <span aria-hidden="true" data-count-up={about.stat.value}>
+            {about.stat.value}
+          </span>
+          <span class="visually-hidden">{about.stat.value}</span>
+        </p>
       </div>
 
       <div class="about__info">
@@ -42,7 +51,9 @@ import { about } from '@/data/about';
         <dl class="about__blocks">
           {about.blocks.map((block) => (
             <div class="about__block">
-              <dt class="about__block-label">{block.label}</dt>
+              <dt class="about__block-label">
+                <Tag>{block.label}</Tag>
+              </dt>
               <dd class="about__block-text">{block.text}</dd>
             </div>
           ))}
@@ -51,6 +62,12 @@ import { about } from '@/data/about';
     </div>
   </div>
 </section>
+
+<script>
+  import { initCountUp } from '@/scripts/count-up';
+
+  document.querySelectorAll<HTMLElement>('#about [data-count-up]').forEach((el) => initCountUp(el));
+</script>
 
 <style>
   /* Medidas del wireframe a 1440 (px / 16). */
@@ -101,8 +118,7 @@ import { about } from '@/data/about';
     gap: var(--space-6);
   }
 
-  .about__stat-label,
-  .about__block-label {
+  .about__stat-label {
     margin: 0;
     font: var(--text-body-sm);
     color: var(--ink-muted);
@@ -117,6 +133,8 @@ import { about } from '@/data/about';
     line-height: 0.78;
     letter-spacing: -0.05em;
     color: var(--line-strong);
+    /* Cifras de ancho fijo: el número no "baila" mientras cuenta. */
+    font-variant-numeric: tabular-nums;
   }
 
   .about__info {
@@ -125,8 +143,12 @@ import { about } from '@/data/about';
     gap: 3.5rem;
   }
 
+  /* Wireframe: 56px, peso 400, +0.02em, mayúsculas, en la fuente display. */
   .about__info-title {
-    font: var(--text-accent-display);
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 400;
+    line-height: 1;
     letter-spacing: 0.02em;
     text-transform: uppercase;
   }

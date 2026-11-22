@@ -17,7 +17,7 @@ export const about = {
   photo: null as { src: ImageMetadata; alt: string } | null,
   stat: {
     label: '[Key figure: age, years or projects]',
-    value: '00',
+    value: '16',
   },
   infoTitle: 'Info',
   blocks: [

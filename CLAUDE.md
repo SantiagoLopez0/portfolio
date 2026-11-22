@@ -92,7 +92,7 @@ Una sola página con anchors; los case studies se abren en **popup** (no hay rut
 
 Fuera de la V1: testimonios y formulario de contacto. Mobile se trabaja después, a mano, con Santiago.
 
-Ideas de movimiento aprobadas (se implementan después del layout, no antes, salvo que Santiago pida adelantar una): tags del hero con drag and drop (**hecho**, ver "Ajustes de Santiago"); hover de What I do que cambia también el fondo; contador animado en el dato del About; animación en scroll en Selected work (**hecho**: pila de cards, ver "Selected work"); preview en video al hover de las WorkCard; header que cambia al hacer scroll.
+Ideas de movimiento aprobadas (se implementan después del layout, no antes, salvo que Santiago pida adelantar una): tags del hero con drag and drop (**hecho**, ver "Ajustes de Santiago"); hover de What I do que cambia también el fondo; contador animado en el dato del About (**hecho**); animación en scroll en Selected work (**hecho**: pila de cards, ver "Selected work"); preview en video al hover de las WorkCard; header que cambia al hacer scroll.
 
 ## Reglas del design system (resumen operativo)
 
@@ -161,9 +161,10 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 ## About
 
-- `About.astro` (`#about`): **1 a 1 con el wireframe** (pedido de Santiago, 22 nov 2026), pero en fondo oscuro como el resto. Foto vertical de 32.5rem × mín. 47.5rem con `radius-sm` a la izquierda (placeholder mientras `about.photo` sea null); a `space-12`, la columna derecha reparte arriba la etiqueta (`body-sm`, `ink-muted`) y el dato grande (display 18.75rem, 600, interlineado 0.78, −0.05em, en `--line-strong` como el gris tenue del wireframe) y abajo "Info" + 4 bloques en dos columnas (gap `space-12` × 2.5rem): etiqueta entre corchetes y texto en `body`.
-- "Info" en **The Night Watch** (`--text-accent-display`, mayúsculas): el wireframe lo dibuja en sans, pero el design system reserva aquí su único momento decorativo.
-- H2 "About" visualmente oculto (el wireframe no muestra título). Textos entre corchetes = huecos por llenar (dato grande, bio, logros, idiomas). Idea aprobada pendiente: el dato grande como contador animado.
+- `About.astro` (`#about`): **1 a 1 con el wireframe** (pedido de Santiago, 22 nov 2026), pero en fondo oscuro como el resto. Foto vertical de 32.5rem × mín. 47.5rem con `radius-sm` a la izquierda (placeholder mientras `about.photo` sea null); a `space-12`, la columna derecha reparte arriba la etiqueta (`body-sm`, `ink-muted`) y el dato grande (display 18.75rem, 600, interlineado 0.78, −0.05em, en `--line-strong` como el gris tenue del wireframe) y abajo "Info" + 4 bloques en dos columnas (gap `space-12` × 2.5rem): etiqueta con el componente Tag (ajuste de Santiago) y texto en `body`.
+- "Info" en la fuente display (Bricolage Grotesque, 3.5rem, peso 400, +0.02em, mayúsculas), como en el wireframe. **No usar The Night Watch aquí** (se probó y Santiago la cambió, 22 nov 2026); por ahora la fuente accent no tiene uso en la página.
+- **Contador** (`src/scripts/count-up.ts`): el dato grande cuenta de `00` a su valor (`data-count-up`, hoy 16) en 1.6s con `power2.out` cuando entra en pantalla (borde superior al 85% del viewport), una sola vez. Mantiene los ceros a la izquierda y usa cifras tabulares. El HTML trae el valor final (sin JS o con reduced motion se queda así) y los lectores de pantalla leen solo el valor final.
+- H2 "About" visualmente oculto (el wireframe no muestra título). Textos entre corchetes = huecos por llenar (dato grande, bio, logros, idiomas). La etiqueta del dato sigue pendiente (16 = ¿edad, años, proyectos?).
 
 ## Sanity: modelo de contenido
 
