@@ -1,0 +1,180 @@
+---
+/**
+ * What I do (#services), componente ServiceList del design system: lista grande a la
+ * derecha y, a la izquierda, el nombre y la descripción de la opción activa.
+ * - La opción activa cambia con hover (mouse), con clic o tap (touch) y con el teclado.
+ *   La primera es la activa por defecto. Al salir de la lista se queda la última.
+ * - Ajuste de Santiago (22 nov 2026): títulos de la lista en `ink` con opacidad 0.9; la
+ *   activa (o la que está bajo el mouse) a opacidad 1.
+ * - Semántica de pestañas (tablist / tab / tabpanel): las 5 descripciones están en el HTML
+ *   y el texto de la izquierda es el panel de la pestaña activa.
+ */
+import { services, servicesTitle } from '@/data/services';
+
+const id = (index: number, part: 'tab' | 'panel') => `service-${part}-${index + 1}`;
+const number = (index: number) => String(index + 1).padStart(2, '0');
+---
+
+<section id="services" class="services" aria-labelledby="services-title">
+  <div class="container services__inner" data-services>
+    <h2 id="services-title" class="visually-hidden">
+      {servicesTitle}
+    </h2>
+
+    <div class="services__detail">
+      {services.map((service, index) => (
+        <div
+          id={id(index, 'panel')}
+          class="services__panel"
+          role="tabpanel"
+          aria-labelledby={id(index, 'tab')}
+          hidden={index !== 0}
+          data-service-panel
+        >
+          <p class="services__name">{service.name}</p>
+          <p class="services__description">{service.description}</p>
+        </div>
+      ))}
+    </div>
+
+    <div
+      class="services__list"
+      role="tablist"
+      aria-label={servicesTitle}
+      aria-orientation="vertical"
+    >
+      {services.map((service, index) => (
+        <button
+          id={id(index, 'tab')}
+          class="services__item"
+          type="button"
+          role="tab"
+          aria-selected={index === 0 ? 'true' : 'false'}
+          aria-controls={id(index, 'panel')}
+          tabindex={index === 0 ? 0 : -1}
+          data-service-tab
+        >
+          <span class="services__label">{service.name}</span>
+          <span class="services__index" aria-hidden="true">
+            ( {number(index)} )
+          </span>
+        </button>
+      ))}
+    </div>
+  </div>
+</section>
+
+<script>
+  import { initServiceList } from '@/scripts/service-list';
+
+  const root = document.querySelector<HTMLElement>('#services [data-services]');
+  if (root) initServiceList(root);
+</script>
+
+<style>
+  .services {
+    padding-block: var(--space-24) var(--space-30);
+    background-color: var(--surface-base);
+    color: var(--ink);
+  }
+
+  /* Wireframe: columna de texto de 320px, 64px de separación y lista a lo ancho. */
+  .services__inner {
+    display: flex;
+    gap: var(--space-16);
+  }
+
+  .services__detail {
+    flex: 0 0 20rem;
+    min-width: 0;
+    padding-top: var(--space-6);
+  }
+
+  .services__panel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+  }
+
+  .services__panel[hidden] {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .services__panel {
+      animation: services-panel-in 0.35s ease both;
+    }
+  }
+
+  @keyframes services-panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(var(--space-2));
+    }
+  }
+
+  .services__name {
+    margin: 0;
+    font: var(--text-body-sm);
+    color: var(--ink-muted);
+  }
+
+  .services__description {
+    margin: 0;
+    font: var(--text-body-lg);
+  }
+
+  .services__list {
+    flex: 1 1 40rem;
+    min-width: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .services__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.875rem;
+    width: 100%;
+    padding: 1.25rem 0 var(--space-6);
+    border: 0;
+    border-bottom: 1px solid var(--line);
+    background: none;
+    color: var(--ink);
+    text-align: start;
+    cursor: pointer;
+  }
+
+  /* Ajuste de Santiago: 0.9 en reposo; 1 en la activa y en la que está bajo el mouse. */
+  .services__label {
+    font-family: var(--font-display);
+    font-size: 4.75rem;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: -0.04em;
+    opacity: 0.9;
+    transition: opacity 0.2s;
+  }
+
+  .services__item:hover .services__label,
+  .services__item[aria-selected='true'] .services__label {
+    opacity: 1;
+  }
+
+  .services__index {
+    margin-top: 0.625rem;
+    font: var(--text-body-sm);
+    font-weight: 600;
+    color: var(--ink-muted);
+    white-space: nowrap;
+    transition: color 0.2s;
+  }
+
+  /* Design system: el índice de la fila activa va en accent (uno de los pocos puntos azules). */
+  .services__item[aria-selected='true'] .services__index {
+    color: var(--accent);
+  }
+
+  .services__item:focus-visible {
+    outline-offset: -2px;
+  }
+</style>
