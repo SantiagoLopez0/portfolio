@@ -1,10 +1,10 @@
 /**
- * Física de los tags del hero (decisión de Santiago, 22 nov 2026):
- * - Hover: al tocar el borde de un tag con el cursor, sale empujado en la dirección
- *   del contacto (más lejos cuanto más rápido va el mouse) y vuelve a su lugar con rebote.
- *   Si el cursor llega lento (para agarrarlo), solo se sacude en su sitio: así se puede arrastrar.
- * - Drag: se puede agarrar y lanzar con inercia dentro del hero; al soltarlo, vuelve
- *   a su posición tras una pausa para que el H1 nunca quede tapado.
+ * Física de los tags del hero (decisiones de Santiago, 22 nov 2026):
+ * - Hover: si el cursor pasa rápido y toca un tag, sale empujado en la dirección del
+ *   contacto (más lejos cuanto más rápido va el mouse) y vuelve a su lugar suave, sin rebote.
+ *   Si el cursor llega a velocidad normal o lenta (para agarrarlo), solo se sacude en su sitio.
+ * - Drag: se puede agarrar y lanzar con inercia dentro del hero; al soltarlo (o al terminar
+ *   la inercia) vuelve de inmediato a su posición, sin pausa ni rebote.
  * Solo en dispositivos con mouse y sin "reducir movimiento". En touch los tags quedan quietos.
  */
 import { gsap } from 'gsap';
@@ -23,21 +23,34 @@ const PUSH_MAX = 110;
 const PUSH_PER_SPEED = 60;
 /** Giro máximo extra del empujón, en grados. */
 const PUSH_ROTATION = 10;
-/** Por debajo de esta velocidad (px/ms) el cursor "quiere agarrar": sin empujón, solo sacudida. */
-const GRAB_SPEED = 0.35;
-/** Giro de la sacudida al llegar lento, en grados. */
+/**
+ * Velocidad (px/ms) a partir de la cual el hover empuja. Por debajo, el cursor
+ * "quiere agarrar" y el tag solo se sacude. 0.6 px/ms ≈ cruzar 600px en un segundo.
+ */
+const PUSH_SPEED = 0.6;
+/** Giro de la sacudida, en grados. */
 const WIGGLE_ROTATION = 6;
-/** Pausa antes de volver a casa después de un drag, en segundos. */
-const RETURN_DELAY = 0.8;
+/** Duración máxima del lanzamiento con inercia al soltar, en segundos. */
+const THROW_MAX = 0.35;
+/** Regreso a casa: suave, sin rebote. */
+const RETURN_DURATION = 0.6;
+const RETURN_EASE = 'power3.out';
 
-function returnHome(el: HTMLElement, delay = 0) {
+// Medición de la velocidad del cursor.
+/** Si el mouse no se movió en este tiempo (ms), se considera quieto: velocidad 0. */
+const IDLE_AFTER = 60;
+/** Intervalo mínimo entre muestras (ms): evita picos cuando el navegador agrupa eventos. */
+const MIN_SAMPLE_DT = 8;
+/** Suavizado de la velocidad (0–1): peso de la muestra nueva. */
+const SMOOTHING = 0.35;
+
+function returnHome(el: HTMLElement) {
   return gsap.to(el, {
     x: 0,
     y: 0,
     rotation: 0,
-    delay,
-    duration: 1.4,
-    ease: 'elastic.out(1, 0.45)',
+    duration: RETURN_DURATION,
+    ease: RETURN_EASE,
     overwrite: 'auto',
   });
 }
@@ -49,28 +62,41 @@ export function initHeroTags(stage: HTMLElement, bounds: HTMLElement) {
   const mm = gsap.matchMedia();
 
   mm.add(ENABLED_QUERY, () => {
-    // Velocidad del cursor (px/ms) para graduar el empujón.
+    // Velocidad suavizada del cursor (px/ms).
     let lastX = 0;
     let lastY = 0;
-    let lastTime = performance.now();
+    let lastSample = 0;
+    let lastMove = 0;
     let vx = 0;
     let vy = 0;
 
     const trackPointer = (event: PointerEvent) => {
       const now = performance.now();
-      const dt = Math.max(now - lastTime, 1);
-      vx = (event.clientX - lastX) / dt;
-      vy = (event.clientY - lastY) / dt;
+      lastMove = now;
+      const dt = now - lastSample;
+      if (dt < MIN_SAMPLE_DT) return;
+      // Tras una pausa larga, empieza de cero en vez de arrastrar la velocidad vieja.
+      const fresh = dt > IDLE_AFTER || lastSample === 0;
+      const ix = fresh ? 0 : (event.clientX - lastX) / dt;
+      const iy = fresh ? 0 : (event.clientY - lastY) / dt;
+      vx = fresh ? ix : vx + (ix - vx) * SMOOTHING;
+      vy = fresh ? iy : vy + (iy - vy) * SMOOTHING;
       lastX = event.clientX;
       lastY = event.clientY;
-      lastTime = now;
+      lastSample = now;
     };
     window.addEventListener('pointermove', trackPointer, { passive: true });
+
+    /** Velocidad actual: 0 si el mouse está quieto. */
+    const currentSpeed = () => (performance.now() - lastMove > IDLE_AFTER ? 0 : Math.hypot(vx, vy));
 
     const cleanups = tags.map((el) => {
       const [draggable] = Draggable.create(el, {
         type: 'x,y',
         inertia: true,
+        // Lanzamiento corto: el regreso empieza casi al soltar.
+        minDuration: 0,
+        maxDuration: THROW_MAX,
         bounds,
         edgeResistance: 0.75,
         zIndexBoost: true,
@@ -78,23 +104,24 @@ export function initHeroTags(stage: HTMLElement, bounds: HTMLElement) {
           gsap.killTweensOf(el);
         },
         onRelease() {
-          // Sin lanzamiento (soltó quieto): vuelve directamente.
-          if (!this.isThrowing) returnHome(el, RETURN_DELAY);
+          // Sin lanzamiento (soltó quieto): vuelve ya.
+          if (!this.isThrowing) returnHome(el);
         },
         onThrowComplete() {
-          returnHome(el, RETURN_DELAY);
+          returnHome(el);
         },
       });
 
-      const push = (event: PointerEvent) => {
+      const onEnter = (event: PointerEvent) => {
         if (draggable.isPressed || draggable.isThrowing) return;
+        // Mientras el tag se mueve (empujón o regreso) no reacciona: evita que,
+        // al volver y pasar bajo un cursor quieto, salga empujado otra vez.
+        if (gsap.isTweening(el)) return;
 
-        const speed = Math.hypot(vx, vy);
+        const speed = currentSpeed();
 
-        // Cursor lento = intención de agarrar: el tag solo se sacude en su sitio,
-        // así no se escapa de la mano. Cursor rápido = empujón.
-        if (speed < GRAB_SPEED) {
-          gsap.killTweensOf(el);
+        // Velocidad normal o lenta: intención de agarrar. Solo una sacudida en su sitio.
+        if (speed < PUSH_SPEED) {
           gsap
             .timeline()
             .to(el, {
@@ -102,7 +129,7 @@ export function initHeroTags(stage: HTMLElement, bounds: HTMLElement) {
               duration: 0.15,
               ease: 'power2.out',
             })
-            .add(returnHome(el));
+            .to(el, { rotation: 0, duration: 0.35, ease: RETURN_EASE });
           return;
         }
 
@@ -119,26 +146,29 @@ export function initHeroTags(stage: HTMLElement, bounds: HTMLElement) {
         }
 
         const distance = gsap.utils.clamp(PUSH_MIN, PUSH_MAX, speed * PUSH_PER_SPEED);
-        const x = (gsap.getProperty(el, 'x') as number) + (dx / length) * distance;
-        const y = (gsap.getProperty(el, 'y') as number) + (dy / length) * distance;
 
-        gsap.killTweensOf(el);
         gsap
           .timeline()
           .to(el, {
-            x,
-            y,
+            x: (dx / length) * distance,
+            y: (dy / length) * distance,
             rotation: gsap.utils.random(-PUSH_ROTATION, PUSH_ROTATION),
             duration: 0.35,
             ease: 'power3.out',
           })
-          .add(returnHome(el));
+          .to(el, {
+            x: 0,
+            y: 0,
+            rotation: 0,
+            duration: RETURN_DURATION,
+            ease: 'power2.inOut',
+          });
       };
 
-      el.addEventListener('pointerenter', push);
+      el.addEventListener('pointerenter', onEnter);
 
       return () => {
-        el.removeEventListener('pointerenter', push);
+        el.removeEventListener('pointerenter', onEnter);
         draggable.kill();
       };
     });
