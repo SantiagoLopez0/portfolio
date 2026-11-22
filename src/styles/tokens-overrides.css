@@ -36,3 +36,11 @@
   font-weight: 500;
   line-height: 1.3;
 }
+
+/* 22 nov 2026 — Fondo principal en negro puro (#000) en lugar de #02070A (el design system
+   decía "nunca #000"; Santiago lo cambió). Solo el fondo del tema oscuro; surface-raised
+   y los textos sobre acento siguen como en el sistema. */
+:root,
+[data-theme='dark'] {
+  --surface-base: #000000;
+}

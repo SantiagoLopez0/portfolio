@@ -99,7 +99,7 @@ Ideas de movimiento aprobadas (se implementan después del layout, no antes, sal
 - **Escala fluida en rem**: todo valor del diseño (a 1440px) se escribe `px / 16` en rem. La base del `html` escala (`global.css`). Bordes de 1px/1.5px se quedan en px. Botones y tags usan **em** sobre una base de `0.875rem`.
 - **Temas**: dark por defecto. Las secciones claras usan `data-theme="light"` en su wrapper; los componentes no cambian, solo los tokens. **Todo el sitio va oscuro** (decisión de Santiago, 22 nov 2026), aunque el wireframe marque secciones claras. **Excepción: Contact + Footer**, que va en tema claro (`#fff`) como fondo de contraste.
 - **Nunca valores sueltos** de color, espacio, radio o tipografía: siempre `var(--token)`. Si falta un token, se pregunta; no se inventa.
-- Color 90/10: neutros llevan todo; `--accent` (azul #0297DE) en muy pocos puntos (botón relleno, índice activo de ServiceList, un tag). Acentos como texto solo sobre oscuro o ≥ 24px; sobre claro, como relleno. Texto encima de un acento: `--on-accent` / `--on-accent-alt`. El negro es `#02070A`, nunca `#000`.
+- Color 90/10: neutros llevan todo; `--accent` (azul #0297DE) en muy pocos puntos (botón relleno, índice activo de ServiceList, un tag). Acentos como texto solo sobre oscuro o ≥ 24px; sobre claro, como relleno. Texto encima de un acento: `--on-accent` / `--on-accent-alt`. El design system pide negro `#02070A` y nunca `#000`, pero **Santiago cambió el fondo principal a `#000`** (ver "Ajustes de Santiago").
 - **Líneas, no sombras** (`--line`, `--line-strong`).
 - Tipografía: `display-hero` una sola vez por página; `accent-display` (The Night Watch) una sola vez y nunca < 40px. Botones siempre en mayúsculas; el botón relleno es 19px/700 y no se reduce (contraste).
 - Iconos: SVG inline de trazo 2px, extremos redondeados, color `ink`. Las flechas de botones son SVG (trazo 2.2px), nunca caracteres.
@@ -120,6 +120,7 @@ Componentes ya especificados: Button, Tag, Header, WorkCard, ServiceList, FaqIte
 
 Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-overrides.css` (cargado después de `tokens.css`, que queda como copia fiel).
 
+- **Fondo principal negro puro** (22 nov 2026): `--surface-base` del tema oscuro es `#000` (en `tokens-overrides.css`), no `#02070A`. `surface-raised` (`#0d1317`: popup, placeholders, Process) sigue igual. Santiago no quiere grises oscuros como fondo de contraste.
 - **Hover**: nada de color de acento. Todo elemento interactivo baja a `opacity: var(--hover-opacity)` (0.8) con la clase `.hover-fade`. El foco con teclado sigue con anillo `--accent`.
 - **Textos de body**: siempre peso 500 e interlineado 1.3 (`--text-body*`). Tamaño máximo 1.5rem (24px a 1440).
 - **Label** (`.label`, `--text-label`): mayúsculas, 700, 0.75rem, Inter. Links del header y cue de Scroll.
@@ -176,9 +177,12 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 - `ui/Button.astro` (design system): `filled` (accent, 19px/700, flecha →), `outline` (borde 1px, 18px/400, flecha ↗) y `outline-bold` (borde 1.5px, 18px/700, sin icono). Mayúsculas, pill, fuente display, medidas en em sobre `--em-base`. Hover por opacidad (regla de Santiago), no relleno de color.
 
-## Contact + Footer
+## Bottom section (Contact + Footer)
 
-- `Contact.astro`: un `<div class="closing" data-theme="light">` **fuera de `<main>`** con `<section id="contact">` y `<footer>` (así el footer es el pie de la página). Fondo de contraste claro (`#fff`, pedido de Santiago) y **esquinas superiores redondeadas** (`--closing-radius: 2rem`; el `radius-lg` se pierde a escala de sección): se ve como una tarjeta por encima de todo.
+Santiago la llama **"bottom section"**.
+
+
+- `Contact.astro`: un `<div class="closing" data-theme="light">` **fuera de `<main>`** con `<section id="contact">` y `<footer>` (así el footer es el pie de la página). Fondo de contraste claro (`#fff`, **provisional**: Santiago está eligiendo entre blanco, blanco roto `#f4f5f6`, azul accent, naranja accent-alt, foto del hero en gris con velo y negro con borde; nada de gris oscuro) y **esquinas superiores redondeadas** (`--closing-radius: 2rem`; el `radius-lg` se pierde a escala de sección): se ve como una tarjeta por encima de todo.
 - Contact (wireframe): centrado, 32px entre piezas: disponibilidad con punto `accent`, H2 en `display-xl`, correo subrayado (1.5rem/500) y botones `filled` "Email me" + `outline` "Book a call" ↗. Footer: línea `--line` al ancho del contenido, marca + rol, links del nav (Process solo si `showProcess`), redes (LinkedIn, GitHub; sin `href` se muestran como texto), ©, hora local de Bogotá en vivo (`src/scripts/local-time.ts`) y "Back to top".
 - **Efecto de tarjeta** (`src/scripts/closing-reveal.ts`): mientras la tarjeta sube, la última `<section>` de `<main>` baja a la mitad de la velocidad del scroll (GSAP ScrollTrigger, scrub, desde que la tarjeta asoma hasta el final de la página), así queda por debajo de la tarjeta. **Solo se desplaza, no se encoge** (Santiago lo pidió así al verlo con escala). Sin efecto con reduced motion.
 - Pendientes de contenido: correo, link de agenda, links de redes. Ojo: si la tarjeta llega a quedar bajo el header (pantallas bajas o mobile), el texto blanco del header no se ve sobre el fondo claro.
