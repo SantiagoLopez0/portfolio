@@ -97,6 +97,11 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     let ticking = false;
     const update = () => {
       header.dataset.scrolled = String(window.scrollY > 8);
+      // Sobre la bottom section (fondo claro) el header pasa a tinta negra.
+      const closing = document.querySelector<HTMLElement>('[data-closing]');
+      header.dataset.onLight = String(
+        !!closing && closing.getBoundingClientRect().top <= header.offsetHeight / 2,
+      );
       ticking = false;
     };
     window.addEventListener(
@@ -192,6 +197,11 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
 
   .site-header[data-menu-open='true'] .site-header__burger-bottom {
     transform: rotate(-45deg) scaleX(0.92) translateY(-6.5px);
+  }
+
+  /* Sobre la bottom section (clara), tinta negra. */
+  .site-header[data-on-light='true'] {
+    --ink: #000;
   }
 
   /* Menú abierto: sobre el panel claro, el header pasa a tinta oscura, sin blur ni línea,
@@ -325,6 +335,30 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     .menu-backdrop,
     .menu__link {
       transition: none !important;
+    }
+  }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    /* Solo wordmark y Menu: los links del centro viven en el menú. */
+    .site-header__link {
+      display: none;
+    }
+
+    .site-header__wordmark {
+      font-size: 1.25rem;
+    }
+
+    /* Menú: links a la derecha y el correo debajo, a la izquierda. */
+    .menu__inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-8);
+    }
+
+    .menu__email {
+      order: 2;
+      align-self: flex-start;
     }
   }
 </style>

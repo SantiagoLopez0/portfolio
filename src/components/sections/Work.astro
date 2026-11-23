@@ -78,6 +78,14 @@ const dialogId = (slug: string) => `case-${slug}`;
       top: var(--stack-top);
     }
   }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    .work {
+      --work-gap: var(--space-8);
+      --stack-top: calc(var(--header-height) + var(--space-4));
+    }
+  }
 </style>
 
 <style is:global>

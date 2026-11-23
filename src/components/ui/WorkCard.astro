@@ -20,21 +20,32 @@ const number = String(index + 1).padStart(2, '0');
 // Proporción del wireframe: 420px de alto en 1344px de ancho.
 const ASPECT = 1344 / 420;
 const cover = item.cover?.asset ? imageSet(item.cover, [640, 960, 1344, 1920, 2560], ASPECT) : null;
+// En mobile la media es 4:3 (a 3.2:1 quedaría una franja): recorte propio desde Sanity.
+const coverMobile = item.cover?.asset ? imageSet(item.cover, [480, 768, 1080], 4 / 3) : null;
 ---
 
 <article class="work-card" data-work-card>
   <div class="work-card__media">
     {cover ? (
-      <img
-        src={cover.src}
-        srcset={cover.srcset}
-        sizes="(min-width: 1440px) 84rem, calc(100vw - 6rem)"
-        alt={item.cover?.alt ?? ''}
-        width="1344"
-        height="420"
-        loading="lazy"
-        decoding="async"
-      />
+      <picture>
+        {coverMobile && (
+          <source
+            media="(max-width: 768px)"
+            srcset={coverMobile.srcset}
+            sizes="calc(100vw - 2.5rem)"
+          />
+        )}
+        <img
+          src={cover.src}
+          srcset={cover.srcset}
+          sizes="(min-width: 1440px) 84rem, calc(100vw - 6rem)"
+          alt={item.cover?.alt ?? ''}
+          width="1344"
+          height="420"
+          loading="lazy"
+          decoding="async"
+        />
+      </picture>
     ) : (
       <MediaPlaceholder label="Cover image or video preview" />
     )}
@@ -181,5 +192,34 @@ const cover = item.cover?.asset ? imageSet(item.cover, [640, 960, 1344, 1920, 25
 
   .work-card__year {
     margin-inline-start: var(--space-2);
+  }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    .work-card {
+      gap: var(--space-3);
+    }
+
+    .work-card__media {
+      aspect-ratio: 4 / 3;
+    }
+
+    .work-card__media :global(picture) {
+      display: contents;
+    }
+
+    .work-card__meta {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-3);
+    }
+
+    .work-card__heading {
+      gap: var(--space-3);
+    }
+
+    .work-card__tags {
+      gap: var(--space-2);
+    }
   }
 </style>

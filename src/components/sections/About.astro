@@ -170,4 +170,46 @@ import { about } from '@/data/about';
     margin: 0;
     font: var(--text-body);
   }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    /* Imagen arriba y contenido abajo, poco espaciado. */
+    .about__inner {
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .about__photo {
+      flex: none;
+      width: 100%;
+      min-height: 0;
+      aspect-ratio: 4 / 5;
+    }
+
+    .about__content {
+      flex: none;
+      gap: var(--space-8);
+    }
+
+    .about__stat-value {
+      font-size: 7.5rem;
+    }
+
+    .about__info {
+      gap: var(--space-6);
+    }
+
+    .about__info-title {
+      font-size: 2.25rem;
+    }
+
+    .about__blocks {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+    }
+
+    .about__block {
+      gap: var(--space-3);
+    }
+  }
 </style>

@@ -217,4 +217,55 @@ const { media } = hero;
     width: 0.75rem;
     height: auto;
   }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    .hero__inner {
+      gap: var(--space-6);
+      padding-top: calc(var(--header-height) + var(--space-6));
+      padding-bottom: var(--space-6);
+    }
+
+    .hero__stage {
+      min-height: 0;
+    }
+
+    /* "Developer" ocupa todo el ancho disponible. */
+    .hero__title {
+      font-size: 19.5vw;
+    }
+
+    /* Tags fuera de la franja del H1 (que queda al centro del escenario). */
+    .hero__tag--top-left {
+      top: 0;
+      left: 0;
+    }
+    .hero__tag--top-right {
+      top: 3.5rem;
+      right: 0;
+    }
+    .hero__tag--middle-left {
+      top: 22%;
+      left: 4%;
+    }
+    .hero__tag--middle-right {
+      top: auto;
+      bottom: 24%;
+      right: 4%;
+    }
+    .hero__tag--bottom-left {
+      bottom: 3.5rem;
+      left: 0;
+    }
+    .hero__tag--bottom-right {
+      bottom: 0;
+      right: 8%;
+    }
+
+    .hero__footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+  }
 </style>

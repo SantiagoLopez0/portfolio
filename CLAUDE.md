@@ -90,7 +90,7 @@ Una sola página con anchors; los case studies se abren en **popup** (no hay rut
 | 06  | FAQ              | `#faq`      | claro / raised                        | 6 `FaqItem` en acordeón + intro + botón "Contactar".                                                                                                                                                         |
 | 07  | Contact + Footer | `#contact`  | oscuro                                | Misma sección separada por una línea. Disponibilidad, CTA (`display-xl`), correo, botones; footer con links, redes, ©, hora local, "Volver arriba".                                                          |
 
-Fuera de la V1: testimonios y formulario de contacto. Mobile se trabaja después, a mano, con Santiago.
+Fuera de la V1: testimonios y formulario de contacto. Mobile: hecho (ver "Mobile").
 
 Ideas de movimiento aprobadas (se implementan después del layout, no antes, salvo que Santiago pida adelantar una): tags del hero con drag and drop (**hecho**, ver "Ajustes de Santiago"); hover de What I do que cambia también el fondo; contador animado en el dato del About (**hecho**); animación en scroll en Selected work (**hecho**: pila de cards, ver "Selected work"); preview en video al hover de las WorkCard; header que cambia al hacer scroll.
 
@@ -200,6 +200,24 @@ Santiago la llama **"bottom section"**.
 - **Efecto de tarjeta** (`src/scripts/closing-reveal.ts`): mientras la tarjeta sube, la última `<section>` de `<main>` baja a la mitad de la velocidad del scroll (GSAP ScrollTrigger, scrub, desde que la tarjeta asoma hasta el final de la página), así queda por debajo de la tarjeta. **Solo se desplaza, no se encoge** (Santiago lo pidió así al verlo con escala). Sin efecto con reduced motion.
 - Pendientes de contenido: correo, link de agenda, links de redes. Ojo: si la tarjeta llega a quedar bajo el header (pantallas bajas o mobile), el texto blanco del header no se ve sobre el fondo claro.
 
+## Mobile (≤ 768px)
+
+Hecho el 22 nov 2026 con Santiago. Un solo breakpoint, `@media (max-width: 768px)`, al final del `<style>` de cada componente.
+
+- **Base**: `html { font-size: 16px }` (la escala fluida bajaría a 10px). En `tokens-overrides.css` se compactan `--space-12` (también el gutter: 20px), `--space-16/24/30` y los títulos (`display-xl` 2.75rem, `h2` 2.25rem, `h3` 1.5rem, `h4` 1.25rem, `body-lg` 1.125rem, Menu 1.5rem).
+- **Header**: solo wordmark (1.25rem) y Menu. Sobre la bottom section (si queda debajo del header) pasa a tinta negra (`data-on-light`, calculado en el scroll del header; aplica en todos los tamaños).
+- **Menú**: links a la derecha y el correo debajo, a la izquierda.
+- **Hero**: H1 a `19.5vw` ("Developer" ocupa el ancho), tags reubicados fuera de la franja del H1 y quietos (el arrastre solo existe con mouse), línea de apoyo y Scroll en columna.
+- **Logos**: label arriba, marquee con logos al 80% y menos separación.
+- **Selected work**: **se mantiene la pila** (sticky + escala), pegada bajo el header. Media en **4:3** con recorte propio desde Sanity (`<picture>` con `<source>` mobile); título arriba y tags + año debajo.
+- **Case study**: pantalla completa, ficha en 2 columnas.
+- **What I do**: **sin pestañas; todos los servicios abiertos** (nombre 2rem + índice y la misma descripción que en escritorio), en una lista aparte (`.services__mobile`) que solo se muestra en mobile; las pestañas se ocultan.
+- **About**: foto 4:5 arriba, dato grande (7.5rem), Info y bloques en una columna, poco espaciado.
+- **FAQ**: título, intro y botón arriba; preguntas abajo; filas más bajas.
+- **Process** (oculta): una columna.
+- **Bottom section**: radio 1.25rem, botones uno debajo del otro; footer en columna (nombre, links, redes; luego ©, hora y Back to top).
+- Probado a 390×844 con touch (sin scroll horizontal) y regresión a 1440. **Tablet (769–1100px) sin ajustar**: usa el layout de escritorio con la escala fluida (rem de ~10–12px).
+
 ## Sanity: modelo de contenido
 
 Todo el contenido editable sale de Sanity; nada de textos de contenido hardcodeados en componentes (las etiquetas de UI sí pueden ir en código).
@@ -229,7 +247,7 @@ Reglas Sanity: usar `defineType`/`defineField`/`defineArrayMember`; registrar ca
 ## Estado actual y pendientes
 
 - Setup listo: Astro en la raíz + Studio en `studio/`, Astro + fuentes + tokens + escala fluida, clientes de Sanity, TypeGen configurado. Schema `project` hecho (tipos en `sanity.types.ts`).
-- **Secciones construidas** (escritorio; mobile pendiente): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). About (`About.astro`, contenido provisional en `src/data/about.ts`) FAQ (`Faq.astro`, borrador en `src/data/faq.ts`) y Contact + Footer (`Contact.astro`, provisional en `src/data/contact.ts`). Componentes `ui/`: Tag, Button, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
+- **Secciones construidas** (escritorio y mobile): Header (`src/components/sections/Header.astro`, fijo, transparente → solo blur al hacer scroll; el botón Menu aún no abre nada), Hero (`Hero.astro`), Logos (`Logos.astro`) Selected work (`Work.astro`, con placeholders) y What I do (`Services.astro`, textos provisionales en `src/data/services.ts`). Process (`Process.astro`) está hecha en versión básica pero **oculta** (ver "Process"). About (`About.astro`, contenido provisional en `src/data/about.ts`) FAQ (`Faq.astro`, borrador en `src/data/faq.ts`) y Contact + Footer (`Contact.astro`, provisional en `src/data/contact.ts`). Componentes `ui/`: Tag, Button, WorkCard, CaseStudy, MediaPlaceholder. Siguen: About, FAQ, Contact + Footer, overlay del menú.
 - **Contenido provisional** en `src/data/site.ts` (nombre, nav, textos y tags del hero) mientras no existan los singletons `siteSettings`/`home`. Cuando se creen, ese archivo se reemplaza por consultas GROQ; los componentes no cambian porque ya reciben el contenido desde fuera.
 - **Proyecto de Sanity conectado**: "Portfolio", project ID `etaah5um`, dataset `production` (público), organización "Santiago Lopez". CORS: `http://localhost:3333` (Studio, con credenciales) y `http://localhost:4321` (Astro, sin credenciales). No usar `j4xqm16v` (renombrado "portfolio - no use") ni `27zero` (de un cliente). Al tener dominio: añadirlo a CORS.
 - **Schema desplegado** en `etaah5um/production` (`sanity schemas deploy`): las herramientas MCP ya ven `project`. Después de cada cambio de schema: `pnpm typegen` y `pnpm schema:deploy`.

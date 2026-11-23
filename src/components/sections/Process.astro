@@ -75,4 +75,21 @@ import { processSteps, processTitle } from '@/data/process';
     font: var(--text-body);
     color: var(--ink-muted);
   }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    .process__title {
+      margin-bottom: var(--space-8);
+    }
+
+    .process__list {
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+    }
+
+    .process__card {
+      min-height: 0;
+      padding: var(--space-6);
+    }
+  }
 </style>

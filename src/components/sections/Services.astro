@@ -61,6 +61,21 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
         </button>
       ))}
     </div>
+
+    <!-- Mobile: todos los servicios abiertos, sin interacción (pedido de Santiago). -->
+    <ul class="services__mobile" role="list">
+      {services.map((service, index) => (
+        <li class="services__mobile-item">
+          <h3 class="services__mobile-name">
+            {service.name}
+            <span class="services__index" aria-hidden="true">
+              ( {number(index)} )
+            </span>
+          </h3>
+          <p class="services__mobile-description">{service.description}</p>
+        </li>
+      ))}
+    </ul>
   </div>
 </section>
 
@@ -185,7 +200,57 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     color: var(--accent);
   }
 
+  .services__mobile {
+    display: none;
+  }
+
   .services__item:focus-visible {
     outline-offset: -2px;
+  }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    /* En mobile no hay pestañas: la lista completa, cada servicio con su descripción. */
+    .services__detail,
+    .services__list {
+      display: none;
+    }
+
+    .services__mobile {
+      display: block;
+      width: 100%;
+      margin: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .services__mobile-item {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+      padding-block: var(--space-6);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .services__mobile-name {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.875rem;
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+
+    .services__mobile-name .services__index {
+      margin-top: 0.25rem;
+      letter-spacing: 0;
+    }
+
+    .services__mobile-description {
+      margin: 0;
+      font: var(--text-body);
+      color: var(--ink-muted);
+    }
   }
 </style>

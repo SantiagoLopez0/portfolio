@@ -211,4 +211,30 @@ const id = (index: number, part: 'question' | 'answer') => `faq-${part}-${index 
       transition: none;
     }
   }
+
+  /* Mobile (≤ 768px). */
+  @media (max-width: 768px) {
+    /* Título, intro y botón arriba; preguntas abajo; poco espaciado. */
+    .faq__inner {
+      flex-direction: column;
+      gap: var(--space-8);
+    }
+
+    .faq__intro {
+      flex: none;
+      gap: var(--space-4);
+    }
+
+    .faq__list {
+      flex: none;
+    }
+
+    .faq__question {
+      padding: 1.25rem 0;
+    }
+
+    .faq__answer-text {
+      padding-bottom: 1.25rem;
+    }
+  }
 </style>
