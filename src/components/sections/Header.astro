@@ -171,7 +171,8 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
 
   /* Hamburguesa → X: las líneas de arriba y abajo giran hacia el centro y se acortan un
      poco, así la X ocupa el mismo alto que la hamburguesa (16px) y queda cuadrada; la del
-     medio se va. Trazo de 2.4 para acompañar el peso 600 de "Menu". */
+     medio se va. Trazo de 2.4 para acompañar el peso 600 de "Menu". Orden: primero baja
+     (o sube) la línea al centro y después gira, así los cuatro brazos miden lo mismo. */
   .site-header__burger path {
     transform-box: view-box;
     transform-origin: 13px 8px;
@@ -181,7 +182,7 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
   }
 
   .site-header[data-menu-open='true'] .site-header__burger-top {
-    transform: translateY(6.5px) rotate(45deg) scaleX(0.92);
+    transform: rotate(45deg) scaleX(0.92) translateY(6.5px);
   }
 
   .site-header[data-menu-open='true'] .site-header__burger-middle {
@@ -190,7 +191,7 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
   }
 
   .site-header[data-menu-open='true'] .site-header__burger-bottom {
-    transform: translateY(-6.5px) rotate(-45deg) scaleX(0.92);
+    transform: rotate(-45deg) scaleX(0.92) translateY(-6.5px);
   }
 
   /* Menú abierto: sobre el panel claro, el header pasa a tinta oscura, sin blur ni línea,
