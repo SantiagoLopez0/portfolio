@@ -128,7 +128,7 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
   - El foco con teclado sigue con anillo `--accent` (y en `.link-line` también muestra el subrayado).
 - **Textos de body**: siempre peso 500 e interlineado 1.3 (`--text-body*`). Tamaño máximo 1.5rem (24px a 1440).
 - **Label** (`.label`, `--text-label`): mayúsculas, 700, 0.75rem, Inter. Links del header y cue de Scroll.
-- **Header**: wordmark, cada link y el Menu repartidos con `space-between` (mismo espacio entre todos); `padding-block: .5rem`, `min-height: 0`, gutter lateral el de `.container`. Menu: hamburguesa a la izquierda y la palabra a la derecha, gap `--space-2`, mayúsculas, 2rem, peso 200 (pidió 100; Bricolage no baja de 200). Wordmark a 1.55rem. Al hacer scroll: **sin fondo**, solo `backdrop-filter: blur(20px)` y la línea inferior.
+- **Header**: wordmark, cada link y el Menu repartidos con `space-between` (mismo espacio entre todos); `padding-block: .5rem`, `min-height: 0`, gutter lateral el de `.container`. Menu: hamburguesa a la izquierda y la palabra a la derecha, gap `--space-2`, 2rem, peso 600, sin mayúsculas (antes 200 en mayúsculas). Wordmark a 1.55rem. Al hacer scroll: **sin fondo**, solo `backdrop-filter: blur(20px)` y la línea inferior.
 - **Hero**: línea de apoyo en `--text-body` con `--ink` al 90%. Sin azul en los tags.
 - **Tags iguales en todo el sitio**: el estilo por defecto del Tag es vidrio (`--tag-glass-bg`, blanco al 10%, y `backdrop-filter: blur(--tag-glass-blur)` de 20px) en lugar del `#333` del design system. Ya no hay variante `glass`; quedan `accent` y `alt` sin uso.
 - **Degradado del hero** (22 nov 2026): sobre el velo, `--hero-gradient` (negro `#000` arriba y abajo, transparente del 28% al 72%).
@@ -168,9 +168,9 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 ## Menú
 
-- Botón "Menu" del header (Bricolage Grotesque 200, 2rem, mayúsculas; sin efecto de hover) con hamburguesa que pasa a **X** (las líneas de arriba y abajo giran al centro, la del medio se va; 0.45s).
-- Al abrir (referencia Boncho, pedido de Santiago 22 nov 2026): un **panel claro (`#eaeaea`, como la bottom section) aparece de abajo hacia arriba** con `clip-path` (0.6s), arriba de la página y detrás del header, alto según el contenido con mínimo 32vh. Del navbar quedan solo el wordmark y "Menu" (pasan a tinta negra; los 3 links del centro se ocultan; sin blur). Velo negro al 50% sobre el resto de la página.
-- Contenido: links a la derecha, alineados con "Menu" (Work, Services, Process solo si `showProcess`, About, FAQ, Contact) y el correo a la izquierda, todos como títulos pequeños (`h4`) con el **roll** de los botones. Entran escalonados.
+- Botón "Menu" del header (Bricolage Grotesque **600**, 2rem, **sin mayúsculas**; sin efecto de hover) con hamburguesa que pasa a una **X proporcionada** (las líneas de arriba y abajo giran al centro y se acortan a 0.7, la del medio se va; 0.35s).
+- Al abrir (referencia Boncho, pedido de Santiago 22 nov 2026): un **panel claro (`#eaeaea`, como la bottom section) se despliega de arriba hacia abajo** con `clip-path` (0.4s; al cerrar se recoge hacia arriba), arriba de la página y detrás del header, alto según el contenido con mínimo 32vh. Del navbar quedan solo el wordmark y "Menu" (pasan a tinta negra; los 3 links del centro se ocultan; sin blur). Velo negro al 50% sobre el resto de la página.
+- Contenido: links a la derecha, alineados con "Menu" (Work, Services, Process solo si `showProcess`, About, FAQ, Contact) y el correo a la izquierda, todos como títulos pequeños (`h4`) con el **roll** de los botones. Entran escalonados y rápido (bajan un poco mientras aparecen).
 - `src/scripts/menu.ts`: abre y cierra con el botón, se cierra con Escape (el foco vuelve al botón), clic en el velo o al elegir un link (Lenis hace el scroll al ancla). `aria-expanded` y `aria-label` del botón cambian; el panel queda `inert` cerrado; Lenis se detiene mientras está abierto. El panel va fuera del `<header>`: el `backdrop-filter` del header lo encerraría si fuera hijo.
 
 ## About

@@ -5,7 +5,7 @@
  * todos (space-between). Fijo arriba: transparente sobre el hero y, al hacer scroll,
  * solo blur y una hairline abajo.
  * Menu (ajustes de Santiago, 22 nov 2026, referencia Boncho): al abrir, un panel claro
- * aparece de abajo hacia arriba detrás del header; del navbar quedan solo el wordmark y
+ * se despliega de arriba hacia abajo detrás del header; del navbar quedan solo el wordmark y
  * "Menu", y la hamburguesa pasa a X. Links a la derecha (alineados con "Menu"), correo a
  * la izquierda, todos con el roll de los botones. Lógica en src/scripts/menu.ts.
  */
@@ -160,7 +160,6 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     color: inherit;
     font: var(--text-menu);
     letter-spacing: -0.02em;
-    text-transform: uppercase;
     cursor: pointer;
   }
 
@@ -170,17 +169,18 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     overflow: visible;
   }
 
-  /* Hamburguesa → X: las líneas de arriba y abajo giran hacia el centro; la del medio se va. */
+  /* Hamburguesa → X: las líneas de arriba y abajo giran hacia el centro y se acortan
+     (X de ~12px, cuadrada y proporcionada); la del medio se va. */
   .site-header__burger path {
     transform-box: view-box;
     transform-origin: 13px 8px;
     transition:
-      transform 0.45s cubic-bezier(0.65, 0, 0.35, 1),
-      opacity 0.25s ease;
+      transform 0.35s cubic-bezier(0.65, 0, 0.35, 1),
+      opacity 0.2s ease;
   }
 
   .site-header[data-menu-open='true'] .site-header__burger-top {
-    transform: translateY(6.5px) rotate(45deg);
+    transform: translateY(6.5px) rotate(45deg) scaleX(0.7);
   }
 
   .site-header[data-menu-open='true'] .site-header__burger-middle {
@@ -189,7 +189,7 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
   }
 
   .site-header[data-menu-open='true'] .site-header__burger-bottom {
-    transform: translateY(-6.5px) rotate(-45deg);
+    transform: translateY(-6.5px) rotate(-45deg) scaleX(0.7);
   }
 
   /* Menú abierto: sobre el panel claro, el header pasa a tinta oscura, sin blur ni línea,
@@ -224,20 +224,21 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     opacity: 0;
     visibility: hidden;
     transition:
-      opacity 0.5s ease,
-      visibility 0s 0.5s;
+      opacity 0.3s ease,
+      visibility 0s 0.3s;
   }
 
   :global(html[data-menu-open='true']) .menu-backdrop {
     opacity: 1;
     visibility: visible;
     transition:
-      opacity 0.5s ease,
+      opacity 0.3s ease,
       visibility 0s;
   }
 
-  /* Panel: ancho completo arriba, alto según su contenido (mínimo ~32vh). Aparece de abajo
-     hacia arriba con clip-path. Fondo claro, el mismo de la bottom section. */
+  /* Panel: ancho completo arriba, alto según su contenido (mínimo ~32vh). Se despliega de
+     arriba hacia abajo con clip-path (0.4s) y al cerrar se recoge hacia arriba. Fondo
+     claro, el mismo de la bottom section. */
   .menu {
     --surface-base: #eaeaea;
 
@@ -251,18 +252,18 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     padding-bottom: var(--space-8);
     background-color: var(--surface-base);
     color: var(--ink);
-    clip-path: inset(100% 0 0 0);
+    clip-path: inset(0 0 100% 0);
     visibility: hidden;
     transition:
-      clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1),
-      visibility 0s 0.6s;
+      clip-path 0.4s cubic-bezier(0.65, 0, 0.35, 1),
+      visibility 0s 0.4s;
   }
 
   :global(html[data-menu-open='true']) .menu {
     clip-path: inset(0 0 0 0);
     visibility: visible;
     transition:
-      clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+      clip-path 0.4s cubic-bezier(0.65, 0, 0.35, 1),
       visibility 0s;
   }
 
@@ -288,10 +289,10 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     font: var(--text-h4);
     letter-spacing: -0.015em;
     opacity: 0;
-    transform: translateY(var(--space-4));
+    transform: translateY(calc(var(--space-4) * -1));
     transition:
-      opacity 0.3s ease,
-      transform 0.3s ease;
+      opacity 0.2s ease,
+      transform 0.2s ease;
   }
 
   /* Entrada escalonada al abrir. */
@@ -299,8 +300,8 @@ const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
     opacity: 1;
     transform: none;
     transition:
-      opacity 0.5s ease calc(0.25s + var(--i) * 0.05s),
-      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) calc(0.25s + var(--i) * 0.05s);
+      opacity 0.35s ease calc(0.12s + var(--i) * 0.03s),
+      transform 0.35s cubic-bezier(0.22, 1, 0.36, 1) calc(0.12s + var(--i) * 0.03s);
   }
 
   .menu__link:focus-visible {

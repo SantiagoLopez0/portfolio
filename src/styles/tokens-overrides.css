@@ -14,9 +14,8 @@
      Se usa con text-transform: uppercase (clase .label en global.css). */
   --text-label: 700 0.75rem/1 var(--font-body);
 
-  /* 22 nov 2026 — Menu del header: mayúsculas, peso ligero, 2rem.
-     Pedido: peso 100. Bricolage Grotesque llega como mínimo a 200, así que se usa 200. */
-  --text-menu: 200 2rem/1 var(--font-display);
+  /* 22 nov 2026 — Menu del header: 2rem, peso 600, sin mayúsculas (antes 200 en mayúsculas). */
+  --text-menu: 600 2rem/1 var(--font-display);
 
   /* 22 nov 2026 — Velo del hero: negro puro al 60% sobre la imagen en escala de grises
      (primero 45%, luego +15 puntos; el design system usaba --overlay, #02070A al 45%). */
