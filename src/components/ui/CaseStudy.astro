@@ -36,7 +36,7 @@ const sizes = '(min-width: 1440px) 72rem, calc(100vw - 6rem)';
   <div class="case__panel">
     <div class="case__bar">
       <span class="label case__eyebrow">Case study</span>
-      <button type="button" class="case__close label hover-fade" data-case-close>
+      <button type="button" class="case__close label link-line" data-case-close>
         Close
         <svg
           aria-hidden="true"
@@ -125,7 +125,7 @@ const sizes = '(min-width: 1440px) 72rem, calc(100vw - 6rem)';
       ) : null}
 
       {item.liveUrl && (
-        <a class="case__live label hover-fade" href={item.liveUrl} target="_blank" rel="noopener">
+        <a class="case__live label link-line" href={item.liveUrl} target="_blank" rel="noopener">
           Visit live site
           <svg
             aria-hidden="true"

@@ -60,7 +60,7 @@ const bookingHref = contact.secondaryCta.href || '#contact';
           <ul role="list">
             {footer.nav.map((link) => (
               <li>
-                <a class="label hover-fade" href={link.href}>
+                <a class="label link-line" href={link.href}>
                   {link.label}
                 </a>
               </li>
@@ -72,7 +72,7 @@ const bookingHref = contact.secondaryCta.href || '#contact';
           {footer.socials.map((social) => (
             <li>
               {social.href ? (
-                <a class="label hover-fade" href={social.href} target="_blank" rel="noopener">
+                <a class="label link-line" href={social.href} target="_blank" rel="noopener">
                   {social.label}
                 </a>
               ) : (
@@ -90,7 +90,7 @@ const bookingHref = contact.secondaryCta.href || '#contact';
         <span class="label">
           {footer.timeLabel} <time data-local-time={footer.timeZone}>--:--</time>
         </span>
-        <a class="footer__top-link label hover-fade" href={footer.backToTop.href}>
+        <a class="footer__top-link label link-line" href={footer.backToTop.href}>
           {footer.backToTop.label}
           <svg
             aria-hidden="true"

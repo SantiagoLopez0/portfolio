@@ -4,7 +4,8 @@
  * - filled: fondo accent, texto white, 19px/700, con flecha → (un solo relleno por pantalla).
  * - outline: borde 1px ink, 18px/400, con flecha ↗ (CTAs que llevan a otro sitio).
  * - outline-bold: borde 1.5px ink, 18px/700, sin icono.
- * Hover: opacidad (ajuste de Santiago: nada de cambios de color en hover).
+ * Hover (ajuste de Santiago, 22 nov 2026): el contenido (texto + flecha) sube y sale por
+ * arriba y vuelve a entrar desde abajo. Sin cambio de opacidad ni de color.
  * Padding de 0.45em en todos los lados y en todas las variantes (ajuste de Santiago).
  * Medidas en em sobre --em-base (14px a 1440), como en el design system.
  */
@@ -20,33 +21,35 @@ const { href, variant = 'filled', class: className, ...attrs } = Astro.props;
 
 <span class="button-root">
   <a class:list={['button', `button--${variant}`, className]} href={href} {...attrs}>
-    <slot />
-    {variant === 'filled' && (
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M5 12h14M13 6l6 6-6 6"></path>
-      </svg>
-    )}
-    {variant === 'outline' && (
-      <svg
-        aria-hidden="true"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        stroke-width="2.2"
-        stroke-linecap="round"
-        stroke-linejoin="round"
-      >
-        <path d="M7 17L17 7M8 7h9v9"></path>
-      </svg>
-    )}
+    <span class="button__content">
+      <slot />
+      {variant === 'filled' && (
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M5 12h14M13 6l6 6-6 6"></path>
+        </svg>
+      )}
+      {variant === 'outline' && (
+        <svg
+          aria-hidden="true"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7 17L17 7M8 7h9v9"></path>
+        </svg>
+      )}
+    </span>
   </a>
 </span>
 
@@ -60,7 +63,8 @@ const { href, variant = 'filled', class: className, ...attrs } = Astro.props;
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    gap: 0.45em;
+    /* El pill recorta el contenido mientras sale y entra en el hover. */
+    overflow: hidden;
     padding: 0.45em;
     border: 1px solid var(--ink);
     border-radius: 8.33em;
@@ -73,11 +77,36 @@ const { href, variant = 'filled', class: className, ...attrs } = Astro.props;
     letter-spacing: -0.02em;
     text-align: center;
     text-transform: uppercase;
-    transition: opacity 0.2s;
   }
 
-  .button:hover {
-    opacity: var(--hover-opacity);
+  .button__content {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+  }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    .button:hover .button__content {
+      animation: button-roll 0.6s both;
+    }
+  }
+
+  /* Sale por arriba (acelerando), salta abajo sin verse y entra frenando. */
+  @keyframes button-roll {
+    0% {
+      transform: translateY(0);
+      animation-timing-function: cubic-bezier(0.55, 0, 1, 0.45);
+    }
+    45% {
+      transform: translateY(-160%);
+    }
+    45.01% {
+      transform: translateY(160%);
+      animation-timing-function: cubic-bezier(0, 0.55, 0.45, 1);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
 
   .button svg {

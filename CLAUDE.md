@@ -121,12 +121,18 @@ Componentes ya especificados: Button, Tag, Header, WorkCard, ServiceList, FaqIte
 Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-overrides.css` (cargado después de `tokens.css`, que queda como copia fiel).
 
 - **Fondo principal negro puro** (22 nov 2026): `--surface-base` del tema oscuro es `#000` (en `tokens-overrides.css`), no `#02070A`. `surface-raised` (`#0d1317`: popup, placeholders, Process) sigue igual. Santiago no quiere grises oscuros como fondo de contraste.
-- **Hover**: nada de color de acento. Todo elemento interactivo baja a `opacity: var(--hover-opacity)` (0.8) con la clase `.hover-fade`. El foco con teclado sigue con anillo `--accent`.
+- **Hover**: nada de color de acento. Tres comportamientos (22 nov 2026):
+  - **Links con estilo de nav option** (`.label`: header, cue de Scroll, links y "Back to top" del footer, Close y "Visit live site" del popup): clase global **`.link-line`** — subrayado de 1px que crece de izquierda a derecha al entrar y se recoge también hacia la derecha al salir (`::after` con `scaleX` y `transform-origin` que cambia de lado). Sin cambio de opacidad.
+  - **Botones** (`ui/Button.astro`): el contenido (texto + flecha) sube y sale por arriba, salta abajo sin verse y entra frenando (keyframes `button-roll`, 0.6s; el pill recorta con `overflow: hidden`). Sin opacidad ni color. Solo con mouse y sin reduced motion.
+  - El resto (wordmark, Menu, nombre y correo del footer, preguntas del FAQ, cards): `opacity: var(--hover-opacity)` (0.8), con `.hover-fade` o en su componente.
+  - El foco con teclado sigue con anillo `--accent` (y en `.link-line` también muestra el subrayado).
 - **Textos de body**: siempre peso 500 e interlineado 1.3 (`--text-body*`). Tamaño máximo 1.5rem (24px a 1440).
 - **Label** (`.label`, `--text-label`): mayúsculas, 700, 0.75rem, Inter. Links del header y cue de Scroll.
 - **Header**: wordmark, cada link y el Menu repartidos con `space-between` (mismo espacio entre todos); `padding-block: .5rem`, `min-height: 0`, gutter lateral el de `.container`. Menu: hamburguesa a la izquierda y la palabra a la derecha, gap `--space-2`, mayúsculas, 2rem, peso 200 (pidió 100; Bricolage no baja de 200). Wordmark a 1.55rem. Al hacer scroll: **sin fondo**, solo `backdrop-filter: blur(20px)` y la línea inferior.
 - **Hero**: línea de apoyo en `--text-body` con `--ink` al 90%. Sin azul en los tags.
 - **Tags iguales en todo el sitio**: el estilo por defecto del Tag es vidrio (`--tag-glass-bg`, blanco al 10%, y `backdrop-filter: blur(--tag-glass-blur)` de 20px) en lugar del `#333` del design system. Ya no hay variante `glass`; quedan `accent` y `alt` sin uso.
+- **Degradado del hero** (22 nov 2026): sobre el velo, `--hero-gradient` (negro `#000` arriba y abajo, transparente del 28% al 72%).
+- **H1 del hero con `will-change: transform`**: Santiago lo veía más delgado al hacer scroll. En Chrome headless no se reproduce (el texto es idéntico en reposo y apenas ~3% más claro en pleno scroll); la hipótesis es el cambio de suavizado de Windows (ClearType ↔ escala de grises) con posiciones de scroll fraccionarias de Lenis. En su propia capa se rasteriza una vez y no cambia. Si sigue pasando, la alternativa que aceptó Santiago es pasar el H1 a Inter.
 - **Fondo del hero**: foto panorámica de Bogotá (`src/assets/hero/hero-1.jpg`, 1584×672, original "Hero 1.jpeg" fuera del repo) con `filter: grayscale(1)` y velo `--hero-overlay` (negro puro al 60%: primero 45% y luego +15 puntos; no el `--overlay` del sistema). Astro la sirve en WebP a 640/960/1280/1584px (53–250 KB), `loading="eager"` y `fetchpriority="high"` por ser el LCP. A más de 1584px de ancho se amplía: si aparece una versión más grande, reemplazar el archivo.
 - **Tags del hero: drag and drop libre** (`src/scripts/hero-tags.ts`, GSAP Draggable + InertiaPlugin). **Sin animación en hover y sin regreso a la posición inicial** (decisión de Santiago, 22 nov 2026; antes hubo hover con empujón y regreso, se descartó). Los tags se arrastran, se lanzan con inercia corta (máx. 0.35s) y se quedan donde caen, dentro del escenario del H1 (`[data-hero-stage]`: bajo el header, sobre la línea de apoyo, dentro de los márgenes). El último arrastrado queda encima. Al recargar vuelven a su sitio. Solo con mouse (`hover: hover` y `pointer: fine`) y sin `prefers-reduced-motion`; en touch quedan quietos. Probado con Chrome por DevTools Protocol.
 
@@ -175,7 +181,7 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 ## Button
 
-- `ui/Button.astro` (design system): `filled` (accent, 19px/700, flecha →), `outline` (borde 1px, 18px/400, flecha ↗) y `outline-bold` (borde 1.5px, 18px/700, sin icono). Mayúsculas, pill, fuente display, medidas en em sobre `--em-base`. Hover por opacidad (regla de Santiago), no relleno de color. **Padding de 0.45em** en todos los lados y en todas las variantes (ajuste de Santiago, en lugar de los 13 × 26px del design system).
+- `ui/Button.astro` (design system): `filled` (accent, 19px/700, flecha →), `outline` (borde 1px, 18px/400, flecha ↗) y `outline-bold` (borde 1.5px, 18px/700, sin icono). Mayúsculas, pill, fuente display, medidas en em sobre `--em-base`. Hover: el contenido sube y vuelve a entrar desde abajo (ver "Hover"). **Padding de 0.45em** en todos los lados y en todas las variantes (ajuste de Santiago, en lugar de los 13 × 26px del design system).
 
 ## Bottom section (Contact + Footer)
 
