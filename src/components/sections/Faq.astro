@@ -237,4 +237,15 @@ const id = (index: number, part: 'question' | 'answer') => `faq-${part}-${index 
       padding-bottom: 1.25rem;
     }
   }
+
+  /* Tablet (769–1024px): columnas más angostas para que la de la derecha tenga aire. */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .faq__inner {
+      gap: var(--space-16);
+    }
+
+    .faq__intro {
+      flex-basis: 17rem;
+    }
+  }
 </style>

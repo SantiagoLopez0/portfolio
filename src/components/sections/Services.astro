@@ -253,4 +253,15 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
       color: var(--ink-muted);
     }
   }
+
+  /* Tablet (769–1024px): columnas más angostas para que la de la derecha tenga aire. */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .services__inner {
+      gap: var(--space-16);
+    }
+
+    .services__detail {
+      flex-basis: 17rem;
+    }
+  }
 </style>

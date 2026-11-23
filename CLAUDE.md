@@ -204,7 +204,7 @@ Santiago la llama **"bottom section"**.
 
 Hecho el 22 nov 2026 con Santiago. Un solo breakpoint, `@media (max-width: 768px)`, al final del `<style>` de cada componente.
 
-- **Base**: `html { font-size: 16px }` (la escala fluida bajaría a 10px). En `tokens-overrides.css` se compactan `--space-12` (también el gutter: 20px), `--space-16/24/30` y los títulos (`display-xl` 2.75rem, `h2` 2.25rem, `h3` 1.5rem, `h4` 1.25rem, `body-lg` 1.125rem, Menu 1.5rem).
+- **Base**: `html { font-size: 16px }`. En `tokens-overrides.css` se compactan `--space-12` (también el gutter: 20px), `--space-16/24/30` y los títulos (`display-xl` 2.75rem, `h2` 2.25rem, `h3` 1.5rem, `h4` 1.25rem, `body-lg` 1.125rem, Menu 1.5rem).
 - **Header**: solo wordmark (1.25rem) y Menu. Sobre la bottom section (si queda debajo del header) pasa a tinta negra (`data-on-light`, calculado en el scroll del header; aplica en todos los tamaños).
 - **Menú**: links a la derecha y el correo debajo, a la izquierda.
 - **Hero**: H1 a `19.5vw` ("Developer" ocupa el ancho), tags reubicados fuera de la franja del H1 y quietos (el arrastre solo existe con mouse), línea de apoyo y Scroll en columna.
@@ -216,7 +216,14 @@ Hecho el 22 nov 2026 con Santiago. Un solo breakpoint, `@media (max-width: 768px
 - **FAQ**: título, intro y botón arriba; preguntas abajo; filas más bajas.
 - **Process** (oculta): una columna.
 - **Bottom section**: radio 1.25rem, botones uno debajo del otro; footer en columna (nombre, links, redes; luego ©, hora y Back to top).
-- Probado a 390×844 con touch (sin scroll horizontal) y regresión a 1440. **Tablet (769–1100px) sin ajustar**: usa el layout de escritorio con la escala fluida (rem de ~10–12px).
+- Probado a 390×844 con touch (sin scroll horizontal) y regresión a 1440.
+
+## Tablet (769–1024px)
+
+- Usa el layout de escritorio. **La base del `html` tiene un mínimo de 14px** (`clamp(14px, 1.111vw, 22px)`): de 769px a ~1260px queda en 14px y desde ahí sigue la escala fluida sin saltos (antes el mínimo era 10px y en tablet todo quedaba diminuto).
+- **H1 del hero**: `font-size: min(15rem, (100vw - 2 × gutter) / 4.45)`, así "Developer" nunca se sale del ancho (en escritorio grande sigue en 15rem; en mobile, 19.5vw).
+- `@media (min-width: 769px) and (max-width: 1024px)`: What I do y FAQ con la columna izquierda de 17rem y separación `space-16`; About con la foto al 40% (mín. 36rem de alto), dato grande a 10rem y bloques con menos separación.
+- Probado a 820×1180, 1024×768 y 1180×820: sin scroll horizontal.
 
 ## Sanity: modelo de contenido
 

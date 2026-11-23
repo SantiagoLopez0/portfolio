@@ -133,6 +133,8 @@ const { media } = hero;
 
   .hero__title {
     font: var(--text-display-hero);
+    /* 15rem en escritorio; en pantallas más angostas baja para que "Developer" quepa. */
+    font-size: min(15rem, (100vw - var(--space-12) * 2) / 4.45);
     letter-spacing: -0.06em;
     text-wrap: nowrap;
     /* El H1 se veía más delgado al hacer scroll: en Windows, Chrome cambia el suavizado del

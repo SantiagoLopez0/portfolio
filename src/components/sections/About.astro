@@ -212,4 +212,24 @@ import { about } from '@/data/about';
       gap: var(--space-3);
     }
   }
+
+  /* Tablet (769–1024px): columnas más angostas para que la de la derecha tenga aire. */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .about__inner {
+      gap: var(--space-8);
+    }
+
+    .about__photo {
+      flex-basis: 40%;
+      min-height: 36rem;
+    }
+
+    .about__stat-value {
+      font-size: 10rem;
+    }
+
+    .about__blocks {
+      gap: var(--space-8) var(--space-6);
+    }
+  }
 </style>
