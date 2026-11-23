@@ -3,13 +3,29 @@
  * Header (docs/design-system/components/Header). Forma parte del hero.
  * Wordmark, los tres links y el botón Menu repartidos con el mismo espacio entre
  * todos (space-between). Fijo arriba: transparente sobre el hero y, al hacer scroll,
- * fondo surface-base translúcido con blur y una hairline abajo.
- * TODO: el botón Menu abrirá el overlay con todos los links (se diseña al final).
+ * solo blur y una hairline abajo.
+ * Menu (ajustes de Santiago, 22 nov 2026, referencia Boncho): al abrir, un panel claro
+ * aparece de abajo hacia arriba detrás del header; del navbar quedan solo el wordmark y
+ * "Menu", y la hamburguesa pasa a X. Links a la derecha (alineados con "Menu"), correo a
+ * la izquierda, todos con el roll de los botones. Lógica en src/scripts/menu.ts.
  */
+import RollText from '@/components/ui/RollText.astro';
 import { site } from '@/data/site';
+import { contact } from '@/data/contact';
+import { showProcess } from '@/data/process';
+
+const menuLinks = [
+  { label: 'Work', href: '#work' },
+  { label: 'Services', href: '#services' },
+  ...(showProcess ? [{ label: 'Process', href: '#process' }] : []),
+  { label: 'About', href: '#about' },
+  { label: 'FAQ', href: '#faq' },
+  { label: 'Contact', href: '#contact' },
+];
+const emailHref = contact.email ? `mailto:${contact.email}` : '#contact';
 ---
 
-<header class="site-header" data-theme="dark" data-scrolled="false">
+<header class="site-header" data-theme="dark" data-scrolled="false" data-menu-open="false">
   <nav class="container site-header__inner" aria-label="Main">
     <a class="site-header__wordmark hover-fade" href="#hero">
       {site.name}
@@ -22,12 +38,15 @@ import { site } from '@/data/site';
     ))}
 
     <button
-      class="site-header__menu hover-fade"
+      class="site-header__menu"
       type="button"
       aria-label="Open menu"
       aria-expanded="false"
+      aria-controls="site-menu"
+      data-menu-toggle
     >
       <svg
+        class="site-header__burger"
         aria-hidden="true"
         width="26"
         height="16"
@@ -37,14 +56,41 @@ import { site } from '@/data/site';
         stroke-width="2"
         stroke-linecap="round"
       >
-        <path d="M1 1.5h24M1 8h24M1 14.5h24"></path>
+        <path class="site-header__burger-top" d="M1 1.5h24"></path>
+        <path class="site-header__burger-middle" d="M1 8h24"></path>
+        <path class="site-header__burger-bottom" d="M1 14.5h24"></path>
       </svg>
       <span aria-hidden="true">Menu</span>
     </button>
   </nav>
 </header>
 
+<div class="menu-backdrop" data-menu-backdrop aria-hidden="true"></div>
+
+<div id="site-menu" class="menu" data-theme="light" data-menu inert>
+  <div class="container menu__inner">
+    <a class="menu__link menu__email roll-host" href={emailHref} style="--i: 0">
+      <RollText>{contact.email || contact.emailPlaceholder}</RollText>
+    </a>
+    <nav aria-label="Menu">
+      <ul class="menu__list" role="list">
+        {menuLinks.map((link, index) => (
+          <li>
+            <a class="menu__link roll-host" href={link.href} style={`--i: ${index + 1}`}>
+              <RollText>{link.label}</RollText>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </nav>
+  </div>
+</div>
+
 <script>
+  import { initMenu } from '@/scripts/menu';
+
+  initMenu();
+
   // Estado "scrolled": se activa en cuanto la página deja el tope.
   const header = document.querySelector<HTMLElement>('.site-header');
   if (header) {
@@ -108,14 +154,158 @@ import { site } from '@/data/site';
     display: inline-flex;
     align-items: center;
     gap: var(--space-2);
+    padding: 0;
+    border: 0;
+    background: none;
+    color: inherit;
     font: var(--text-menu);
     letter-spacing: -0.02em;
     text-transform: uppercase;
+    cursor: pointer;
   }
 
   .site-header__menu svg {
     width: 1.625rem;
     height: auto;
+    overflow: visible;
+  }
+
+  /* Hamburguesa → X: las líneas de arriba y abajo giran hacia el centro; la del medio se va. */
+  .site-header__burger path {
+    transform-box: view-box;
+    transform-origin: 13px 8px;
+    transition:
+      transform 0.45s cubic-bezier(0.65, 0, 0.35, 1),
+      opacity 0.25s ease;
+  }
+
+  .site-header[data-menu-open='true'] .site-header__burger-top {
+    transform: translateY(6.5px) rotate(45deg);
+  }
+
+  .site-header[data-menu-open='true'] .site-header__burger-middle {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .site-header[data-menu-open='true'] .site-header__burger-bottom {
+    transform: translateY(-6.5px) rotate(-45deg);
+  }
+
+  /* Menú abierto: sobre el panel claro, el header pasa a tinta oscura, sin blur ni línea,
+     y los links del centro se ocultan (quedan el wordmark y "Menu"). */
+  .site-header[data-menu-open='true'] {
+    --ink: #000;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom-color: transparent;
+  }
+
+  .site-header__link {
+    transition:
+      opacity 0.3s ease,
+      visibility 0s 0s;
+  }
+
+  .site-header[data-menu-open='true'] .site-header__link {
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.3s ease,
+      visibility 0s 0.3s;
+  }
+
+  /* Velo sobre la página mientras el menú está abierto (clic = cerrar). */
+  .menu-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    background-color: rgb(0 0 0 / 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition:
+      opacity 0.5s ease,
+      visibility 0s 0.5s;
+  }
+
+  :global(html[data-menu-open='true']) .menu-backdrop {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.5s ease,
+      visibility 0s;
+  }
+
+  /* Panel: ancho completo arriba, alto según su contenido (mínimo ~32vh). Aparece de abajo
+     hacia arriba con clip-path. Fondo claro, el mismo de la bottom section. */
+  .menu {
+    --surface-base: #eaeaea;
+
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 45;
+    display: flex;
+    align-items: flex-end;
+    min-height: 32vh;
+    padding-top: calc(var(--header-height) + var(--space-8));
+    padding-bottom: var(--space-8);
+    background-color: var(--surface-base);
+    color: var(--ink);
+    clip-path: inset(100% 0 0 0);
+    visibility: hidden;
+    transition:
+      clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+      visibility 0s 0.6s;
+  }
+
+  :global(html[data-menu-open='true']) .menu {
+    clip-path: inset(0 0 0 0);
+    visibility: visible;
+    transition:
+      clip-path 0.6s cubic-bezier(0.65, 0, 0.35, 1),
+      visibility 0s;
+  }
+
+  .menu__inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: var(--space-8);
+    width: 100%;
+  }
+
+  /* Links: títulos pequeños alineados a la derecha (con "Menu"), con el roll de los botones. */
+  .menu__list {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-1);
+    margin: 0;
+  }
+
+  .menu__link {
+    display: inline-block;
+    font: var(--text-h4);
+    letter-spacing: -0.015em;
+    opacity: 0;
+    transform: translateY(var(--space-4));
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+  }
+
+  /* Entrada escalonada al abrir. */
+  :global(html[data-menu-open='true']) .menu__link {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.5s ease calc(0.25s + var(--i) * 0.05s),
+      transform 0.5s cubic-bezier(0.22, 1, 0.36, 1) calc(0.25s + var(--i) * 0.05s);
+  }
+
+  .menu__link:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 0.25rem;
   }
 
   .site-header a:focus-visible,
@@ -125,8 +315,13 @@ import { site } from '@/data/site';
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .site-header {
-      transition: none;
+    .site-header,
+    .site-header__burger path,
+    .site-header__link,
+    .menu,
+    .menu-backdrop,
+    .menu__link {
+      transition: none !important;
     }
   }
 </style>

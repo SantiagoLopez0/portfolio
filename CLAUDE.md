@@ -123,8 +123,8 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 - **Fondo principal negro puro** (22 nov 2026): `--surface-base` del tema oscuro es `#000` (en `tokens-overrides.css`), no `#02070A`. `surface-raised` (`#0d1317`: popup, placeholders, Process) sigue igual. Santiago no quiere grises oscuros como fondo de contraste.
 - **Hover**: nada de color de acento. Tres comportamientos (22 nov 2026):
   - **Links con estilo de nav option** (`.label`: header, cue de Scroll, links y "Back to top" del footer, Close y "Visit live site" del popup): clase global **`.link-line`** — subrayado de 1px que crece de izquierda a derecha al entrar y se recoge también hacia la derecha al salir (`::after` con `scaleX` y `transform-origin` que cambia de lado). Sin cambio de opacidad.
-  - **Botones** (`ui/Button.astro`): el contenido (texto + flecha) sube y sale por arriba, salta abajo sin verse y entra frenando (keyframes `button-roll`, 0.6s; el pill recorta con `overflow: hidden`). Sin opacidad ni color. Solo con mouse y sin reduced motion.
-  - El resto (wordmark, Menu, nombre y correo del footer, preguntas del FAQ, cards): `opacity: var(--hover-opacity)` (0.8), con `.hover-fade` o en su componente.
+  - **Botones y links del menú**: **roll** (`ui/RollText.astro` + clase `.roll-host` en el elemento con hover; estilos en `global.css`): el contenido sube y sale por arriba mientras una copia (`aria-hidden`) entra desde abajo; al salir del hover **retrocede** (transición de 0.55s, no keyframes). Sin opacidad ni color. Solo con mouse y sin reduced motion; también con foco de teclado.
+  - El botón Menu no tiene efecto de hover. El resto (wordmark, nombre y correo del footer, preguntas del FAQ, cards): `opacity: var(--hover-opacity)` (0.8), con `.hover-fade` o en su componente.
   - El foco con teclado sigue con anillo `--accent` (y en `.link-line` también muestra el subrayado).
 - **Textos de body**: siempre peso 500 e interlineado 1.3 (`--text-body*`). Tamaño máximo 1.5rem (24px a 1440).
 - **Label** (`.label`, `--text-label`): mayúsculas, 700, 0.75rem, Inter. Links del header y cue de Scroll.
@@ -165,6 +165,13 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 - `Process.astro` (`#process`): versión básica del wireframe. H2 a la izquierda y 4 tarjetas en fila (`surface-base` con borde `--line` y `radius-lg` sobre la sección en `surface-raised`): índice, título (`h4`) y texto abajo. Textos placeholder en `src/data/process.ts`.
 - **Oculta** (decisión de Santiago, 22 nov 2026): no tiene contenido y puede trabajarla después del lanzamiento. `showProcess = false` en `src/data/process.ts` hace que `index.astro` no la renderice (no sale en el HTML). Para mostrarla: `true`, y añadir "Process" al overlay del menú (que no debe enlazar a `#process` mientras esté oculta).
+
+## Menú
+
+- Botón "Menu" del header (Bricolage Grotesque 200, 2rem, mayúsculas; sin efecto de hover) con hamburguesa que pasa a **X** (las líneas de arriba y abajo giran al centro, la del medio se va; 0.45s).
+- Al abrir (referencia Boncho, pedido de Santiago 22 nov 2026): un **panel claro (, como la bottom section) aparece de abajo hacia arriba** con  (0.6s), arriba de la página y detrás del header, alto según el contenido con mínimo 32vh. Del navbar quedan solo el wordmark y "Menu" (pasan a tinta negra; los 3 links del centro se ocultan; sin blur). Velo negro al 50% sobre el resto de la página.
+- Contenido: links a la derecha, alineados con "Menu" (Work, Services, Process solo si , About, FAQ, Contact) y el correo a la izquierda, todos como títulos pequeños () con el **roll** de los botones. Entran escalonados.
+- : abre y cierra con el botón, se cierra con Escape (el foco vuelve al botón), clic en el velo o al elegir un link (Lenis hace el scroll al ancla).  y  del botón cambian; el panel queda  cerrado; Lenis se detiene mientras está abierto. El panel va fuera del : el  del header lo encerraría si fuera hijo.
 
 ## About
 

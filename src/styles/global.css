@@ -130,6 +130,49 @@ p {
   opacity: var(--hover-opacity);
 }
 
+/* Roll (RollText.astro): el contenido sube y sale mientras su copia entra desde abajo;
+   al salir del hover retrocede. Botones y links del menú (ajuste de Santiago, 22 nov 2026). */
+.roll {
+  display: inline-grid;
+  overflow: hidden;
+  vertical-align: top;
+}
+
+.roll__item {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.55s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.roll__item--clone {
+  transform: translateY(110%);
+}
+
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .roll-host:hover .roll__item {
+    transform: translateY(-110%);
+  }
+
+  .roll-host:hover .roll__item--clone {
+    transform: translateY(0);
+  }
+}
+
+.roll-host:focus-visible .roll__item {
+  transform: translateY(-110%);
+}
+
+.roll-host:focus-visible .roll__item--clone {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .roll__item {
+    transition: none;
+  }
+}
+
 /* Links con estilo de nav option (.label): subrayado animado en lugar de opacidad
    (ajuste de Santiago, 22 nov 2026). Al entrar, la línea crece de izquierda a derecha;
    al salir, se recoge también de izquierda a derecha (sale por la derecha). */

@@ -1,0 +1,15 @@
+---
+/**
+ * Texto con "roll" en hover (ajuste de Santiago, 22 nov 2026): el contenido sube y sale
+ * por arriba mientras una copia entra desde abajo; al salir del hover, la animación
+ * retrocede (es una transición, no un keyframe). Lo usan los botones y los links del menú.
+ * El elemento que recibe el hover lleva la clase `.roll-host` (estilos en global.css).
+ * La copia es `aria-hidden` para que los lectores de pantalla lean el texto una sola vez.
+ */
+const html = await Astro.slots.render('default');
+---
+
+<span class="roll">
+  <span class="roll__item" set:html={html} />
+  <span class="roll__item roll__item--clone" aria-hidden="true" set:html={html} />
+</span>
