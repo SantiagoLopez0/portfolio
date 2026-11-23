@@ -2,9 +2,9 @@
  * Menú (panel de links). Abre y cierra con el botón "Menu" del header, se cierra con
  * Escape, con clic en el velo y al elegir un link (Lenis hace el scroll al ancla).
  * Estado: `data-menu-open` en <html> (panel y velo) y en el header (X, links ocultos).
- * Mientras está abierto, Lenis se detiene; cerrado, el panel queda `inert`.
+ * La página sigue haciendo scroll con el menú abierto (pedido de Santiago, 22 nov 2026).
+ * Cerrado, el panel queda `inert`.
  */
-import { lenis } from '@/scripts/smooth-scroll';
 
 export function initMenu() {
   const header = document.querySelector<HTMLElement>('.site-header');
@@ -24,8 +24,6 @@ export function initMenu() {
     toggle.setAttribute('aria-expanded', String(open));
     toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
     panel.inert = !open;
-    if (open) lenis?.stop();
-    else lenis?.start();
   };
 
   toggle.addEventListener('click', () => set(!open));

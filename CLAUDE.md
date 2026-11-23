@@ -168,10 +168,10 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 
 ## Menú
 
-- Botón "Menu" del header (Bricolage Grotesque **600**, 2rem, **sin mayúsculas**; sin efecto de hover) con hamburguesa que pasa a una **X proporcionada** (las líneas de arriba y abajo giran al centro y se acortan a 0.7, la del medio se va; 0.35s).
+- Botón "Menu" del header (Bricolage Grotesque **600**, 2rem, **sin mayúsculas**; sin efecto de hover) con hamburguesa que pasa a una **X proporcionada** (las líneas de arriba y abajo giran al centro y se acortan a 0.92: X cuadrada del mismo alto que la hamburguesa, 16px; trazo 2.4; la del medio se va; 0.35s).
 - Al abrir (referencia Boncho, pedido de Santiago 22 nov 2026): un **panel claro (`#eaeaea`, como la bottom section) se despliega de arriba hacia abajo** con `clip-path` (0.4s; al cerrar se recoge hacia arriba), arriba de la página y detrás del header, alto según el contenido con mínimo 32vh. Del navbar quedan solo el wordmark y "Menu" (pasan a tinta negra; los 3 links del centro se ocultan; sin blur). Velo negro al 50% sobre el resto de la página.
 - Contenido: links a la derecha, alineados con "Menu" (Work, Services, Process solo si `showProcess`, About, FAQ, Contact) y el correo a la izquierda, todos como títulos pequeños (`h4`) con el **roll** de los botones. Entran escalonados y rápido (bajan un poco mientras aparecen).
-- `src/scripts/menu.ts`: abre y cierra con el botón, se cierra con Escape (el foco vuelve al botón), clic en el velo o al elegir un link (Lenis hace el scroll al ancla). `aria-expanded` y `aria-label` del botón cambian; el panel queda `inert` cerrado; Lenis se detiene mientras está abierto. El panel va fuera del `<header>`: el `backdrop-filter` del header lo encerraría si fuera hijo.
+- `src/scripts/menu.ts`: abre y cierra con el botón, se cierra con Escape (el foco vuelve al botón), clic en el velo o al elegir un link (Lenis hace el scroll al ancla). `aria-expanded` y `aria-label` del botón cambian; el panel queda `inert` cerrado. **La página sigue haciendo scroll con el menú abierto** (pedido de Santiago). El panel va fuera del `<header>`: el `backdrop-filter` del header lo encerraría si fuera hijo.
 
 ## About
 
