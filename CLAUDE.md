@@ -169,9 +169,9 @@ Mandan sobre `docs/design-system`. Los de tokens viven en `src/styles/tokens-ove
 ## Menú
 
 - Botón "Menu" del header (Bricolage Grotesque 200, 2rem, mayúsculas; sin efecto de hover) con hamburguesa que pasa a **X** (las líneas de arriba y abajo giran al centro, la del medio se va; 0.45s).
-- Al abrir (referencia Boncho, pedido de Santiago 22 nov 2026): un **panel claro (, como la bottom section) aparece de abajo hacia arriba** con  (0.6s), arriba de la página y detrás del header, alto según el contenido con mínimo 32vh. Del navbar quedan solo el wordmark y "Menu" (pasan a tinta negra; los 3 links del centro se ocultan; sin blur). Velo negro al 50% sobre el resto de la página.
-- Contenido: links a la derecha, alineados con "Menu" (Work, Services, Process solo si , About, FAQ, Contact) y el correo a la izquierda, todos como títulos pequeños () con el **roll** de los botones. Entran escalonados.
-- : abre y cierra con el botón, se cierra con Escape (el foco vuelve al botón), clic en el velo o al elegir un link (Lenis hace el scroll al ancla).  y  del botón cambian; el panel queda  cerrado; Lenis se detiene mientras está abierto. El panel va fuera del : el  del header lo encerraría si fuera hijo.
+- Al abrir (referencia Boncho, pedido de Santiago 22 nov 2026): un **panel claro (`#eaeaea`, como la bottom section) aparece de abajo hacia arriba** con `clip-path` (0.6s), arriba de la página y detrás del header, alto según el contenido con mínimo 32vh. Del navbar quedan solo el wordmark y "Menu" (pasan a tinta negra; los 3 links del centro se ocultan; sin blur). Velo negro al 50% sobre el resto de la página.
+- Contenido: links a la derecha, alineados con "Menu" (Work, Services, Process solo si `showProcess`, About, FAQ, Contact) y el correo a la izquierda, todos como títulos pequeños (`h4`) con el **roll** de los botones. Entran escalonados.
+- `src/scripts/menu.ts`: abre y cierra con el botón, se cierra con Escape (el foco vuelve al botón), clic en el velo o al elegir un link (Lenis hace el scroll al ancla). `aria-expanded` y `aria-label` del botón cambian; el panel queda `inert` cerrado; Lenis se detiene mientras está abierto. El panel va fuera del `<header>`: el `backdrop-filter` del header lo encerraría si fuera hijo.
 
 ## About
 
