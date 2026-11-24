@@ -1,5 +1,6 @@
 ---
 import { Font } from 'astro:assets';
+import Preloader from '@/components/Preloader.astro';
 import 'lenis/dist/lenis.css';
 import '@/styles/global.css';
 
@@ -24,11 +25,16 @@ const { title, description } = Astro.props;
     <Font cssVariable="--font-display-face" preload />
     <Font cssVariable="--font-inter" preload />
     <Font cssVariable="--font-night-watch" />
+    <Font cssVariable="--font-preloader" preload />
   </head>
   <body>
+    <Preloader />
     <slot />
     <script>
       import '@/scripts/smooth-scroll';
+      import { initReveals } from '@/scripts/reveal';
+
+      initReveals();
     </script>
   </body>
 </html>

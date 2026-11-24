@@ -14,13 +14,13 @@ import Tag from '@/components/ui/Tag.astro';
 import { about } from '@/data/about';
 ---
 
-<section id="about" class="about" aria-labelledby="about-title">
+<section id="about" class="about" aria-labelledby="about-title" data-reveal>
   <h2 id="about-title" class="visually-hidden">
     {about.title}
   </h2>
 
   <div class="container about__inner">
-    <div class="about__photo">
+    <div class="about__photo" data-reveal-item="slide">
       {about.photo ? (
         <Image
           src={about.photo.src}
@@ -36,8 +36,10 @@ import { about } from '@/data/about';
 
     <div class="about__content">
       <div class="about__stat">
-        <p class="about__stat-label">{about.stat.label}</p>
-        <p class="about__stat-value">
+        <p class="about__stat-label" data-reveal-item="text">
+          {about.stat.label}
+        </p>
+        <p class="about__stat-value" data-reveal-item="slide">
           {/* El HTML trae el valor final (sin JS o con reduced motion se queda así). */}
           <span aria-hidden="true" data-count-up={about.stat.value}>
             {about.stat.value}
@@ -47,14 +49,18 @@ import { about } from '@/data/about';
       </div>
 
       <div class="about__info">
-        <h3 class="about__info-title">{about.infoTitle}</h3>
+        <h3 class="about__info-title" data-reveal-item="text">
+          {about.infoTitle}
+        </h3>
         <dl class="about__blocks">
           {about.blocks.map((block) => (
             <div class="about__block">
-              <dt class="about__block-label">
+              <dt class="about__block-label" data-reveal-item="slide">
                 <Tag>{block.label}</Tag>
               </dt>
-              <dd class="about__block-text">{block.text}</dd>
+              <dd class="about__block-text" data-reveal-item="text">
+                {block.text}
+              </dd>
             </div>
           ))}
         </dl>

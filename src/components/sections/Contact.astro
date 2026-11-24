@@ -21,19 +21,22 @@ const bookingHref = contact.secondaryCta.href || '#contact';
 ---
 
 <div class="closing" data-theme="light" data-closing>
-  <section id="contact" class="contact" aria-labelledby="contact-title">
+  <section id="contact" class="contact" aria-labelledby="contact-title" data-reveal>
     <div class="container contact__inner">
-      <p class="contact__availability label">
+      <p class="contact__availability label" data-reveal-item="text">
         <span class="contact__dot" aria-hidden="true"></span>
         {contact.availability}
       </p>
-      <h2 id="contact-title" class="contact__title">
+      <h2 id="contact-title" class="contact__title" data-reveal-item="text">
         {contact.title}
       </h2>
-      <a class="contact__email hover-fade" href={emailHref}>
-        {contact.email || contact.emailPlaceholder}
-      </a>
-      <div class="contact__actions">
+      {/* La entrada va en un envoltorio: la transición de opacidad del hover chocaba con ella. */}
+      <div data-reveal-item="slide">
+        <a class="contact__email hover-fade" href={emailHref}>
+          {contact.email || contact.emailPlaceholder}
+        </a>
+      </div>
+      <div class="contact__actions" data-reveal-item="group">
         <Button href={emailHref}>{contact.primaryCta.label}</Button>
         <Button
           href={bookingHref}
@@ -150,11 +153,14 @@ const bookingHref = contact.secondaryCta.href || '#contact';
   .contact__availability {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
     margin: 0;
   }
 
+  /* inline-block: al dividir el texto en líneas (animación de entrada) deja de ser ítem flex. */
   .contact__dot {
+    display: inline-block;
+    margin-right: var(--space-2);
+    vertical-align: 0.1em;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 50%;

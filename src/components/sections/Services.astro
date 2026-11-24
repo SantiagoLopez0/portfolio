@@ -15,7 +15,7 @@ const id = (index: number, part: 'tab' | 'panel') => `service-${part}-${index + 
 const number = (index: number) => String(index + 1).padStart(2, '0');
 ---
 
-<section id="services" class="services" aria-labelledby="services-title">
+<section id="services" class="services" aria-labelledby="services-title" data-reveal>
   <div class="container services__inner" data-services>
     <h2 id="services-title" class="visually-hidden">
       {servicesTitle}
@@ -31,8 +31,12 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
           hidden={index !== 0}
           data-service-panel
         >
-          <p class="services__name label">{service.name}</p>
-          <p class="services__description">{service.description}</p>
+          <p class="services__name label" data-reveal-item={index === 0 ? 'text' : undefined}>
+            {service.name}
+          </p>
+          <p class="services__description" data-reveal-item={index === 0 ? 'text' : undefined}>
+            {service.description}
+          </p>
         </div>
       ))}
     </div>
@@ -54,7 +58,9 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
           tabindex={index === 0 ? 0 : -1}
           data-service-tab
         >
-          <span class="services__label">{service.name}</span>
+          <span class="services__label" data-reveal-item="text">
+            {service.name}
+          </span>
           <span class="services__index" aria-hidden="true">
             ( {number(index)} )
           </span>
@@ -66,13 +72,15 @@ const number = (index: number) => String(index + 1).padStart(2, '0');
     <ul class="services__mobile" role="list">
       {services.map((service, index) => (
         <li class="services__mobile-item">
-          <h3 class="services__mobile-name">
+          <h3 class="services__mobile-name" data-reveal-item="text">
             {service.name}
             <span class="services__index" aria-hidden="true">
               ( {number(index)} )
             </span>
           </h3>
-          <p class="services__mobile-description">{service.description}</p>
+          <p class="services__mobile-description" data-reveal-item="text">
+            {service.description}
+          </p>
         </li>
       ))}
     </ul>

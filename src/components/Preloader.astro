@@ -1,0 +1,153 @@
+---
+/**
+ * Preloader (implementado tal cual desde "preloader/Preloader SL.html", 24 nov 2026):
+ * fondo negro con grano; "Santiago / López" entra letra por letra; las demás letras se
+ * desvanecen y la S y la L se deslizan en diagonal hacia el centro; al final el fondo se
+ * parte en dos (arriba sube, abajo baja) y deja ver el sitio.
+ * Diferencias con el HTML original, necesarias en el sitio:
+ * - Corre una sola vez (sin loop ni repetición con clic) y al terminar se quita del DOM.
+ * - Mientras está, el scroll se bloquea; al terminar avisa con `preloader:done` (las
+ *   animaciones de scroll esperan ese evento).
+ * - La fuente es la Bricolage del sitio en 700 con tamaño óptico 96 (--font-preloader).
+ * - Con "reducir movimiento" o sin JavaScript no se muestra.
+ * Lógica en src/scripts/preloader.ts.
+ */
+---
+
+<div class="preloader" id="preloader" role="img" aria-label="Santiago López" data-preloader>
+  <div class="half top">
+    <div class="grain"></div>
+    <div class="layer" data-logo></div>
+  </div>
+  <div class="half bottom">
+    <div class="grain"></div>
+    <div class="layer" data-logo></div>
+  </div>
+</div>
+
+<noscript>
+  <style>
+    [data-preloader] {
+      display: none !important;
+    }
+  </style>
+</noscript>
+
+<script>
+  import { runPreloader } from '@/scripts/preloader';
+
+  runPreloader();
+</script>
+
+<style>
+  .preloader {
+    --h: 100vh; /* lo fija el JS con la altura real */
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    overflow: hidden;
+  }
+
+  /* Mitades */
+  .half {
+    position: absolute;
+    left: 0;
+    right: 0;
+    overflow: hidden;
+    background: #000;
+    will-change: transform;
+  }
+
+  .half.top {
+    top: 0;
+    height: calc(var(--h) / 2 + 1px); /* +1px tapa la costura */
+  }
+
+  .half.bottom {
+    bottom: 0;
+    height: calc(var(--h) / 2);
+  }
+
+  /* Capa a pantalla completa: cada mitad muestra su parte */
+  .layer {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: var(--h);
+    display: grid;
+    place-items: center;
+  }
+
+  .top .layer {
+    top: 0;
+  }
+
+  .bottom .layer {
+    top: calc(var(--h) / -2);
+  }
+
+  /* Grano (estático) */
+  .grain {
+    position: absolute;
+    left: -50%;
+    width: 200%;
+    height: calc(var(--h) * 2);
+    pointer-events: none;
+    opacity: 0.16;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='n' x='0' y='0' width='100%' height='100%'><feTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  1.4 0 0 0 -.15'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+    background-size: 260px 260px;
+  }
+
+  .top .grain {
+    top: calc(var(--h) / -2);
+  }
+
+  .bottom .grain {
+    top: calc(var(--h) * -1);
+  }
+
+  /* Logo (las letras se generan en el script) */
+  .preloader :global(.logo) {
+    position: relative;
+    font-family: var(--font-preloader);
+    font-variation-settings: 'opsz' 96;
+    font-weight: 700;
+    font-size: clamp(52px, 11vw, 170px);
+    line-height: 0.9;
+    letter-spacing: -0.04em;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .preloader :global(.row) {
+    display: flex;
+    white-space: nowrap;
+  }
+
+  /* Máscara por letra: el span interno sube desde abajo */
+  .preloader :global(.c) {
+    display: inline-block;
+    overflow: hidden;
+    padding: 0.22em 0.02em 0.18em;
+    margin: -0.22em 0 -0.18em; /* espacio extra arriba para la tilde de ó */
+  }
+
+  .preloader :global(.in) {
+    display: block;
+    transform: translateY(115%);
+  }
+
+  .preloader :global(.bl) {
+    display: inline-block;
+    width: 0;
+    height: 0;
+  } /* sonda de línea base (medición) */
+
+  @media (prefers-reduced-motion: reduce) {
+    .preloader {
+      display: none;
+    }
+  }
+</style>

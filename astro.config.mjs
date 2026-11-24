@@ -45,6 +45,18 @@ export default defineConfig({
       subsets: ['latin'],
       fallbacks: ['sans-serif'],
     },
+    // Logo del preloader: la misma Bricolage en 700 con tamaño óptico 96 (como el HTML original
+    // del preloader). Archivo aparte para no cambiar cómo se ve la display en el resto del sitio.
+    {
+      provider: fontProviders.google(),
+      name: 'Bricolage Grotesque',
+      cssVariable: '--font-preloader',
+      weights: ['700'],
+      styles: ['normal'],
+      subsets: ['latin'],
+      fallbacks: ['sans-serif'],
+      options: { experimental: { variableAxis: { opsz: [96] } } },
+    },
     // body
     {
       provider: fontProviders.fontsource(),

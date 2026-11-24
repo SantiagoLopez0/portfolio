@@ -225,6 +225,24 @@ Hecho el 22 nov 2026 con Santiago. Un solo breakpoint, `@media (max-width: 768px
 - `@media (min-width: 769px) and (max-width: 1024px)`: What I do y FAQ con la columna izquierda de 17rem y separación `space-16`; About con la foto al 40% (mín. 36rem de alto), dato grande a 10rem y bloques con menos separación.
 - Probado a 820×1180, 1024×768 y 1180×820: sin scroll horizontal.
 
+## Preloader
+
+- `src/components/Preloader.astro` + `src/scripts/preloader.ts`, incluido al inicio del `<body>` en `BaseLayout`. **Implementado tal cual** desde `preloader/Preloader SL.html` (en la carpeta de trabajo, fuera del repo; 24 nov 2026): fondo negro con grano, "Santiago / López" entra letra por letra, las demás letras se desvanecen con blur y la S y la L se deslizan en diagonal; al final el fondo **se parte en dos** (arriba sube, abajo baja) y se ve el sitio. Mismos tiempos y curvas que el original (~5.5s).
+- Diferencias necesarias: corre una vez (sin loop ni repetición con clic) y se quita del DOM; bloquea el scroll mientras está (`overflow: hidden` + `lenis.stop()`) y siempre empieza arriba (`history.scrollRestoration = 'manual'`); al terminar pone `data-preloaded="true"` en `<html>` y dispara `preloader:done` (`whenPreloaderDone()`). Con reduced motion o sin JS no aparece.
+- Fuente: Bricolage 700 con **tamaño óptico 96** en un archivo aparte (`--font-preloader`, segunda entrada de Bricolage en `astro.config.mjs` con `options.experimental.variableAxis.opsz: [96]`). La Bricolage del resto del sitio sigue sin eje opsz para no cambiar cómo se ve (con el eje, `font-optical-sizing` o el valor por defecto 96 cambiaban los títulos).
+
+## Animaciones de entrada con el scroll
+
+- `src/scripts/reveal.ts` (GSAP ScrollTrigger + **SplitText**), iniciado en `BaseLayout`. Pedido de Santiago (24 nov 2026). **El hero no se anima.**
+- Marcado en los componentes: `data-reveal` en la sección (dispara con su borde superior al 85% del viewport, una vez); dentro, `data-reveal-item`:
+  - `text`: SplitText por líneas con máscara; cada línea sube (`yPercent` 110 → 0, 1s, `power3.out`, 0.08s entre líneas). **autoSplit**: las líneas se recalculan según el ancho de pantalla y el progreso se conserva.
+  - `slide`: el elemento sube suave (60px + opacidad, 1.1s, `power3.out`).
+  - `group`: los hijos suben juntos en una sola animación.
+- Orden: items en orden del DOM con 0.1s de escalón, contando solo los visibles (las listas de mobile/escritorio ocultas quedan en su estado final). Los estados iniciales se aplican al cargar (bajo el preloader) y los disparadores se crean al terminar el preloader.
+- Qué se anima: **Logos** (toda la sección, slide); **Selected work** (título por líneas, luego todas las cards en una sola animación); **What I do** (izquierda: nombre y descripción del panel activo; luego la lista; en mobile, la lista abierta); **About** (foto, luego etiqueta, dato, "Info", tags y textos); **FAQ** (título, intro y botón; luego las preguntas); **bottom section** solo el CTA (disponibilidad, título, correo y botones). **El footer no se anima.**
+- Con reduced motion no hay animaciones (se decide una vez al cargar; con `gsap.matchMedia` las entradas quedaban a medias ante eventos de cambio del media query).
+- Cuidado al marcar: un elemento con `transition` de opacidad en CSS (p. ej. `.hover-fade`) no puede ser item `slide` (la entrada termina en opacidad 0): animar un envoltorio. Al dividir en líneas, los hijos inline con tamaño (el punto de disponibilidad) necesitan `display: inline-block`.
+
 ## Sanity: modelo de contenido
 
 Todo el contenido editable sale de Sanity; nada de textos de contenido hardcodeados en componentes (las etiquetas de UI sí pueden ir en código).

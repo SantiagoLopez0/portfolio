@@ -14,13 +14,13 @@ const { items } = await getSelectedWork();
 const dialogId = (slug: string) => `case-${slug}`;
 ---
 
-<section id="work" class="work" aria-labelledby="work-title">
+<section id="work" class="work" aria-labelledby="work-title" data-reveal>
   <div class="container">
-    <h2 id="work-title" class="work__title">
+    <h2 id="work-title" class="work__title" data-reveal-item="text">
       Selected work
     </h2>
 
-    <div class="work__list" data-work-stack>
+    <div class="work__list" data-work-stack data-reveal-item="group">
       {items.map((item, index) => (
         <WorkCard item={item} index={index} dialogId={dialogId(item.slug)} />
       ))}
