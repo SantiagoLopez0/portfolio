@@ -15,7 +15,7 @@ const id = (index: number, part: 'tab' | 'panel') => `service-${part}-${index + 
 const number = (index: number) => String(index + 1).padStart(2, '0');
 ---
 
-<section id="services" class="services" aria-labelledby="services-title" data-reveal>
+<section id="services" class="services" aria-labelledby="services-title">
   <div class="container services__inner" data-services>
     <h2 id="services-title" class="visually-hidden">
       {servicesTitle}

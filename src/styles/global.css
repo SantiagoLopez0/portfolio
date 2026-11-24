@@ -21,6 +21,14 @@ html {
   text-size-adjust: 100%;
 }
 
+/* Animaciones de entrada (src/scripts/reveal.ts): ocultos desde el primer pintado, solo con JS
+   (clase .js en <html>, ver BaseLayout) y sin "reducir movimiento". El script los muestra al animar. */
+@media (prefers-reduced-motion: no-preference) {
+  html.js [data-reveal-item] {
+    visibility: hidden;
+  }
+}
+
 /* Scroll suave nativo solo si Lenis no está activo (Lenis agrega la clase .lenis al html). */
 html:not(.lenis) {
   scroll-behavior: smooth;

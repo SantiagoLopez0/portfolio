@@ -1,6 +1,7 @@
 /**
- * Preloader: la animación es la del HTML original ("preloader/Preloader SL.html") sin
- * cambios de tiempos ni curvas. Al terminar de partirse en dos, se quita del DOM, se
+ * Preloader: la animación es la del HTML original ("preloader/Preloader SL.html"). La entrada
+ * del nombre conserva sus tiempos; lo que sigue va más rápido (ajuste de Santiago, 24 nov
+ * 2026: máximo ~500ms para quedar en "SL" y ~500ms para partirse en dos). Al terminar de partirse en dos, se quita del DOM, se
  * desbloquea el scroll y se avisa con el evento `preloader:done` (y `data-preloaded` en
  * <html>). Con "reducir movimiento" se salta y avisa de inmediato.
  */
@@ -100,7 +101,7 @@ export function runPreloader() {
         ),
       ),
     );
-    await sleep(550);
+    await sleep(300);
 
     // Medición (sin layout animado: todo se mueve solo con transform, sin vibración)
     const L0 = logos[0];
@@ -121,9 +122,10 @@ export function runPreloader() {
     const t2 = { x: cx + dx - (rL.left + rL.width / 2), y: cy + gap - lTop }; // L → abajo-derecha
 
     // 2 · Las demás letras se desvanecen en su sitio; S y L se deslizan juntas
-    const FADE = 650;
-    const MOVE = 1300;
-    const MOVE_DELAY = 250;
+    // Original: FADE 650, MOVE 1300, MOVE_DELAY 250, stagger 25ms (~1.55s). Ahora ~500ms.
+    const FADE = 300;
+    const MOVE = 500;
+    const MOVE_DELAY = 0;
     const tasks: Promise<Animation>[] = [];
     logos.forEach((l) => {
       l.others.forEach((c, i) => {
@@ -134,7 +136,7 @@ export function runPreloader() {
               { opacity: 1, filter: 'blur(0px)' },
               { opacity: 0, filter: 'blur(6px)' },
             ],
-            { duration: FADE, delay: i * 25, easing: 'ease-in' },
+            { duration: FADE, delay: i * 15, easing: 'ease-in' },
           ),
         );
       });
@@ -149,16 +151,16 @@ export function runPreloader() {
       });
     });
     await Promise.all(tasks);
-    await sleep(900);
+    await sleep(250);
 
     // 3 · Salida: el fondo se parte en dos, arriba sube y abajo baja, y se ve el sitio
     await Promise.all([
       A(halfTop, [{ transform: 'translateY(0)' }, { transform: 'translateY(-100%)' }], {
-        duration: 1000,
+        duration: 500,
         easing: EASE_IN_OUT,
       }),
       A(halfBottom, [{ transform: 'translateY(0)' }, { transform: 'translateY(100%)' }], {
-        duration: 1000,
+        duration: 500,
         easing: EASE_IN_OUT,
       }),
     ]);
